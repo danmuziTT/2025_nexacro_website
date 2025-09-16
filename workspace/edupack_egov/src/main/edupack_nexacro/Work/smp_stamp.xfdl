@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="smp_stamp" width="600" height="400" titletext="New Form">
+    <Layouts>
+      <Layout height="400" width="600" stepcount="3">
+        <Static id="sta00" taborder="0" text="sta00" left="0" top="0" width="600" height="400" background="yellow"/>
+        <Static id="sta01" taborder="1" text="sta01" left="50" top="25" width="500" height="350" positionstep="1" background="pink"/>
+        <Static id="sta02" taborder="2" text="sta02" left="50" top="0" width="500" height="400" positionstep="2" background="green"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

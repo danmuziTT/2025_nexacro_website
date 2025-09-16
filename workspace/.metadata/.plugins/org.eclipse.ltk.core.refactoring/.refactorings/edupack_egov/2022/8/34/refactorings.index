@@ -1,0 +1,45 @@
+1660624913235	Copy package
+1660624930099	Copy package
+1660624955678	Rename package 'com.edupack.tep.mbr.web'
+1660624981398	Rename type 'TepMbMemberController'
+1660624996324	Copy package
+1660625110810	Rename type 'TepMbMemberService'
+1660625125793	Copy package
+1660625138144	Copy package
+1660625159280	Rename type 'TepMbMemberServiceImpl'
+1660625167960	Rename type 'TepMbMemberMapper'
+1660625204528	Copy folder
+1660625211985	Rename resource 'Tep_Mb_Member_Mapper.xml'
+1660630633748	Delete element
+1660630635895	Delete element
+1660630648662	Rename type 'TepCmMailController'
+1660630652958	Delete element
+1660630667825	Rename type 'TepCmMailService'
+1660630687290	Delete element
+1660630692698	Delete element
+1660630701131	Rename type 'TepCmMailServiceImpl'
+1660630721453	Delete element
+1660630767068	Copy package
+1660630778966	Copy package
+1660630798139	Copy package
+1660630810271	Copy package
+1660630821693	Delete element
+1660630824660	Delete element
+1660631089491	Delete element
+1660631092678	Delete element
+1660704362037	Delete elements
+1660719257167	Copy compilation unit
+1660719269250	Move compilation unit
+1660719298114	Rename type 'TepCmFileController'
+1660719562202	Move compilation unit
+1660719701360	Rename type 'TepCommonFileImageController'
+1660789252840	Copy folder
+1660789274882	Rename resource 'Tep_Member_Mapper.xml'
+1660789285117	Copy compilation unit
+1660789295536	Rename type 'TepMemberController'
+1660789304551	Copy compilation unit
+1660789316894	Rename type 'TepMemberServiceImpl'
+1660789321743	Copy compilation unit
+1660789331963	Rename type 'TepMemberService'
+1660789340636	Copy compilation unit
+1660789350620	Rename type 'TepMemberMapper'

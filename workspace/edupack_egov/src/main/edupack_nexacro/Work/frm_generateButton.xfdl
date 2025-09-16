@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_generateButton" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Button id="btn00" taborder="0" text="create" left="55" top="15" width="110" height="40" onclick="btn00_onclick"/>
+        <Div id="div00" taborder="1" left="180" top="15" width="1024" height="150" background="pink"/>
+        <Button id="btn01" taborder="2" text="filter_B" left="55" top="115" width="110" height="40" onclick="btn01_onclick"/>
+        <Button id="btn02" taborder="3" text="delete" left="55" top="165" width="110" height="40" onclick="btn02_onclick"/>
+        <Button id="btn01_00" taborder="4" text="filter_A" left="55" top="65" width="110" height="40" onclick="btn01_00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds00">
+        <ColumnInfo>
+          <Column id="ID" type="STRING" size="256"/>
+          <Column id="TEXT" type="STRING" size="256"/>
+          <Column id="FN_NAME" type="STRING" size="256"/>
+          <Column id="GUBUN" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ID">btn1</Col>
+            <Col id="TEXT">메일</Col>
+            <Col id="FN_NAME">fn_goToMail</Col>
+            <Col id="GUBUN">A</Col>
+          </Row>
+          <Row>
+            <Col id="ID">btn2</Col>
+            <Col id="TEXT">카페</Col>
+            <Col id="FN_NAME">fn_goToCafe</Col>
+            <Col id="GUBUN">B</Col>
+          </Row>
+          <Row>
+            <Col id="ID">btn3</Col>
+            <Col id="TEXT">블로그</Col>
+            <Col id="FN_NAME">fn_goToBlog</Col>
+            <Col id="GUBUN">B</Col>
+          </Row>
+          <Row>
+            <Col id="ID">btn4</Col>
+            <Col id="TEXT">스토어</Col>
+            <Col id="FN_NAME">fn_goToStore</Col>
+            <Col id="GUBUN">A</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_CreateButton();
+};
+
+this.fn_CreateButton = function ()
+{
+	var sName = "";
+	var sfnText = "";
+	var sfnName = ""
+	var vLeft = 10;
+	var vTop = 5;
+	var vWidth = 200;
+	var vHeight = 50;
+	
+	for(var i = 0 ; i < this.ds00.rowcount; i ++)
+	{
+		sName = this.ds00.getColumn(i, "ID"); //데이터셋의 i 번째에 있는 ID 값 가져오기 
+		sfnText = this.ds00.getColumn(i, "TEXT");
+		sfnName = this.ds00.getColumn(i, "FN_NAME");
+		
+		//오브젝트 생성하기
+		var objButton = new Button(sName, vLeft, vTop, vWidth, vHeight);
+		this.div00.addChild(sName, objButton);
+		objButton.set_text(sfnText);
+		objButton.show();
+		
+		vLeft += vWidth + 20;
+		
+		
+		//objButton.addEventHandler("onclick", this[sfnName], this.div00.form);
+		objButton.addEventHandler("onclick", this.fn_click, this.div00.form);
+	}
+};
+
+
+this.fn_click = function()
+{
+	//this.alert("CLICK");
+	
+};
+
+this.fn_goToCafe = function()
+{	
+	this.alert("goto cafe");
+};
+this.fn_goToMail = function()
+{	
+	this.alert("goto Mail");
+};
+
+this.fn_goToBlog = function()
+{	
+	this.alert("goto Blog");
+};
+
+this.fn_goToStore = function()
+{	
+	this.alert("goto Store");
+};
+
+
+
+
+this.btn01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){
+	this.ds00.filter("GUBUN == 'B'"); //특정 데이터를 필터링하기
+}
+
+this.btn02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.btn01_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds00.filter("GUBUN == 'A'"); //특정 데이터를 필터링하기
+};
+]]></Script>
+  </Form>
+</FDL>

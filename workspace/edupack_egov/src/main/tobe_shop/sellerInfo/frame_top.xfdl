@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frame_top" width="1280" height="50" titletext="New Form" onload="frame_top_onload" background="#6bd177">
+    <Layouts>
+      <Layout height="50" width="1280">
+        <Static id="Static00" taborder="0" left="0" top="3" width="210" height="45" background="url('theme::blue/images/sellerLogo.png') no-repeat center center /contain"/>
+        <Div id="Div00" taborder="1" text="Div00" left="230" top="8" height="32" right="170"/>
+        <Button id="btn00" taborder="2" text="스토어로" top="8" width="129" height="32" onclick="btn00_onclick" right="12"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.frame_top_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+	{
+		var objApp = nexacro.getApplication();
+		objApp.gdsSellerMenu.filter("MENU_LEVEL =='0'"); //어플리케이션 내에 있는 데이터를 사용하기 위해 쓰는 코드 
+		
+		this.dsMenu.copyData(objApp.gdsSellerMenu, true);
+		trace(this.dsMenu);
+		objApp.gdsSellerMenu.filter("");
+		
+		this.fnCreateMenu();
+};
+
+
+	this.fnCreateMenu = function()
+	{
+		var sName = "";
+		var sId = "";
+		var nTop = 0 ;
+		var nLeft = 0;
+		var nWidth = 120;
+		var nHeight = '100%';
+		trace(this.dsMenu.rowcount);
+		for(var a = 0; a<this.dsMenu.rowcount; a++)
+		{
+			sName = this.dsMenu.getColumn(a, "MENU_NAME");
+			sId = this.dsMenu.getColumn(a, "MENU_ID");
+			nWidth = nexacro.getTextSize(sName, "bold 15px 'Verdana'").nx; //텍스트 크기를 계산해 리턴값이 object로 나옴 (가로, 세로길이 계산 가능)
+			
+			var objBtn = new Button("btnMenu"+a, nLeft, nTop, nWidth, nHeight);
+			this.Div00.addChild(objBtn.name, objBtn);
+			
+			objBtn.uMenuId = sId;
+			objBtn.set_text(sName);
+			objBtn.set_cssclass("btn_TF_Menu");
+			
+			objBtn.addEventHandler("onclick",this.fnMenuClick, this) 
+			objBtn.show();
+			
+			nLeft += nWidth +140;
+		}
+	}
+
+	this.fnMenuClick = function(obj,e){
+		//alert(obj.name + " : " +obj.text + " : " + obj.uMenuId);
+		var objApp = nexacro.getApplication();
+		objApp.gdsSellerMenu.filter("MENU_ID.substring(0,2) =='" +obj.uMenuId + "'");
+	}
+
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //팝업창 나타나게
+{
+	var CF = new ChildFrame();
+   var strName = "chf";
+   var nLeft = 0;
+   var nTop = 0;
+   var nWidth = 450;
+   var nHeight = 250;
+   var nRight = null;
+   var nBottom = null;
+   var strUrl = "sellerForm::seller_logoutPopup.xfdl"; // 복사한 경우에는 Generate 필수
+   CF.set_showtitlebar(false);
+   
+   CF.init(strName, nLeft, nTop, nWidth, nHeight, nRight, nBottom, strUrl);
+   CF.set_openalign("center middle");
+   CF.showModal(this.getOwnerFrame(),"", this, ""); 
+   
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsMenu">
+        <ColumnInfo>
+          <Column id="MENU_ID" type="STRING" size="256"/>
+          <Column id="MENU_NAME" type="STRING" size="256"/>
+          <Column id="MENU_LEVEL" type="STRING" size="256"/>
+          <Column id="FORM_URL" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

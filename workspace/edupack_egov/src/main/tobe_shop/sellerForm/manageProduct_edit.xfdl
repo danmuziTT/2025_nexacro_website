@@ -1,0 +1,581 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="newProduct" width="1000" height="740" titletext="데이터 수정하기" onload="newProduct_onload" onclose="edtProduct_onclose">
+    <Layouts>
+      <Layout height="740" width="1000">
+        <Static id="sta00" taborder="0" text="데이터를 수정할 수 있습니다" left="9" top="2" width="310" height="49" onclick="sta00_onclick"/>
+        <Static id="sta01" taborder="1" text="상품명" left="15" top="51" width="120" height="50"/>
+        <Static id="sta01_00" taborder="2" text="상품명 (영문)" left="15" top="101" width="120" height="50" onclick="sta01_00_onclick"/>
+        <Static id="sta02" taborder="3" left="0" top="255" width="1000" height="10" background="gray" onclick="sta02_onclick"/>
+        <Radio id="Radio00" taborder="4" left="560" top="200" width="100" height="50" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" onitemchanged="Radio00_onitemchanged">
+          <Dataset id="innerdataset">
+            <ColumnInfo>
+              <Column id="codecolumn" size="256"/>
+              <Column id="datacolumn" size="256"/>
+            </ColumnInfo>
+            <Rows>
+              <Row>
+                <Col id="codecolumn">0</Col>
+                <Col id="datacolumn">할인적용</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">1</Col>
+                <Col id="datacolumn">할인없음</Col>
+              </Row>
+            </Rows>
+          </Dataset>
+        </Radio>
+        <Edit id="edt00" taborder="5" left="670" top="208" width="280" height="35" enable="false"/>
+        <Static id="sta03" taborder="6" text="%" left="910" top="208" width="40" height="35"/>
+        <Static id="sta01_00_00" taborder="7" text="판매가" left="15" top="200" width="120" height="50" onclick="sta01_00_onclick"/>
+        <Static id="sta04" taborder="8" text="옵션" left="1" top="260" width="110" height="60"/>
+        <Static id="sta05" taborder="9" text="총 판매 가능 개수 0 개" left="80" top="260" width="150" height="60"/>
+        <Grid id="Grid00" taborder="10" left="9" top="310" width="570" height="173" binddataset="dsProOp" oncellposchanged="Grid00_oncellposchanged">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="120"/>
+                <Column size="240"/>
+                <Column size="100"/>
+                <Column size="100"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="옵션코드"/>
+                <Cell col="1" text="옵션명"/>
+                <Cell col="2" text="옵션별 수량"/>
+                <Cell col="3" text="옵션가"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:PRO_OPTION"/>
+                <Cell col="1" text="bind:OPTION_NAME"/>
+                <Cell col="2" text="bind:OPTION_NUMBER"/>
+                <Cell col="3" text="bind:OPTION_ADD_PRICE" displaytype="number" textAlign="right" maskeditformat="###,###"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="sta01_00_01" taborder="11" text="상품 카테고리" left="15" top="151" width="120" height="50" onclick="sta01_00_onclick"/>
+        <Combo id="cmb00" taborder="12" text="cmb00" left="129" top="159" width="380" height="35" onitemchanged="cmb00_onitemchanged" innerdataset="dsCategory" codecolumn="CATEGORY_ID" datacolumn="CATEGORY_NAME"/>
+        <Edit id="edt01" taborder="13" left="129" top="208" width="380" height="35"/>
+        <Edit id="edt02" taborder="14" left="129" top="59" width="515" height="35"/>
+        <Edit id="edt02_00" taborder="15" left="129" top="109" width="515" height="35"/>
+        <Edit id="edt03" taborder="16" left="584" top="335" width="392" height="30"/>
+        <Static id="sta06" taborder="17" text="옵션명" left="585" top="307" width="120" height="30"/>
+        <Static id="sta07" taborder="18" text="옵션별 판매수량" left="584" top="365" width="120" height="30"/>
+        <Edit id="edt04" taborder="19" left="583" top="395" width="237" height="30"/>
+        <Static id="sta07_00" taborder="20" text="옵션별 추가금" left="585" top="425" width="120" height="30"/>
+        <Edit id="edt04_00" taborder="21" left="584" top="455" width="236" height="30"/>
+        <Button id="btn00" taborder="22" text="옵션추가" left="840" top="383" width="120" height="45" onclick="btn00_onclick"/>
+        <Button id="btn00_00" taborder="23" text="옵션삭제" left="840" top="438" width="120" height="45" onclick="btn00_00_onclick"/>
+        <ImageViewer id="ImageViewer00" taborder="24" left="670" top="20" width="278" height="141" stretch="fixaspectratio" tabstop="true"/>
+        <Button id="btn01" taborder="25" text="이미지 업로드" left="673" top="168" width="115" height="25" onclick="btn01_onclick" font="14px/normal &quot;verdana&quot;"/>
+        <Button id="btn02" taborder="26" text="이미지 삭제" left="830" top="168" width="115" height="25" onclick="btn02_onclick" font="14px/normal &quot;verdana&quot;"/>
+        <Button id="btn03" taborder="27" text="데이터 수정하기" left="200" top="674" width="253" height="46" onclick="btn03_onclick"/>
+        <WebView id="webEditor" taborder="28" left="15" top="500" width="970" height="160" onloadcompleted="webEditor_onloadcompleted"/>
+        <Button id="btn03_00" taborder="29" text="창 닫기" top="674" width="253" height="46" onclick="btn03_00_onclick" right="200"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[	/**************************************************************************
+	* include 영역
+	**************************************************************************/
+
+	/**************************************************************************
+	* FORM 변수 선언 영역 (fv)
+	**************************************************************************/
+
+	/**************************************************************************
+	* FORM EVENT 영역(onload, onbeforeclose)
+	**************************************************************************/
+
+	var i = 0;
+	var paramCode = 0;
+	this.fvDocWeb = "";
+	this.objApp = nexacro.getApplication();
+
+this.newProduct_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+
+	this.dsCategory.copyData(this.objApp.gdsProCategory);
+	for(var i = this.dsCategory.rowcount-1; i >= 0 ; i --)
+	{
+		if(this.dsCategory.getColumn(i, "LEVEL") == 0){
+			this.dsCategory.deleteRow(i);
+		}
+		else if(this.dsCategory.getColumn(i, "CATEGORY_NAME") == "ALL"){
+			this.dsCategory.deleteRow(i);
+		}
+	}
+
+	var sUrl = this.gfnGetServerUrl() + "smartEditor/SmartEditor2.html";
+	this.webEditor.set_url(sUrl);
+	
+	var sContents = this.dsProDetail.getColumn(0,"DETAIL_INFO");
+	if(this.gfnIsNull(sContents)) sContents = "";
+	
+	this.webEditor.callScript("document.getElementById('ir1').value = '" + sContents + "'");
+	//this.webEditor.callScript("document.getElementById('editorSetBtn').click()");
+	
+	     
+	this.paramCode = this.parent.param1;
+	this.dsProInfo.copyData(this.objApp.gdsProInfo);
+	this.dsProInfo.filter("PRO_CODE == '" + this.paramCode + "'");
+		
+	this.dsProDetail.copyData(this.objApp.gdsProDetailInfo);
+	this.dsProDetail.filter("PRO_CODE == '" + this.paramCode + "'");
+		
+	this.dsProOp.copyData(this.objApp.gdsProOption);
+	this.dsProOp.filter("PRO_CODE == '" + this.paramCode + "'");
+		
+	var sale = this.dsProInfo.getColumn(0,"SALE_PERCENT");
+	
+	if(sale == 0){
+		this.Radio00.set_value(1);
+		this.edt00.set_enable(false)
+	}
+	else{
+		this.Radio00.set_value(0);
+		this.edt00.set_enable(true)
+	}
+		
+// 	this.edt02.set_value(this.dsProInfo.getColumn(0,"PRO_NAME"))
+// 	this.edt02_00.set_value(this.dsProInfo.getColumn(0,"PRO_NAME_EN"))
+// 	this.cmb00.set_value(this.dsProInfo.getColumn(0,"PRO_KIND"))
+// 	this.edt01.set_value(this.dsProInfo.getColumn(0,"HOW_MUCH"))
+// 	this.edt00.set_value(this.dsProInfo.getColumn(0,"SALE_PERCENT"))
+	this.ImageViewer00.set_image(this.dsProInfo.getColumn(0,"SERVER_IMG"))
+	
+	this.dsProInfo.set_rowposition(0); 
+
+	
+	var sum = 0;
+	for(var a = 0; a < this.dsProOp.rowcount; a++){
+		var k = this.dsProOp.getColumn(a, "OPTION_NUMBER");
+		k = (k && typeof k === "string") ? k.trim() : k;  // 앞뒤 공백 제거
+		sum += Number(k) || 0;
+	}
+		
+	if(sum == 0){
+		this.sta05.set_text("총 판매 가능 개수 0 개");
+	}
+	else{
+		this.sta05.set_text("총 판매 가능 개수 " + sum + " 개");
+	}
+		
+};
+
+	/**************************************************************************
+	* CRUD 및 TRANSACTION 서비스 호출 처리
+	**************************************************************************/
+
+	/**************************************************************************
+	* CALLBACK 콜백 처리부분(Transaction, Popup)
+	**************************************************************************/
+
+this.fnEditorCallback = function(sType)
+{
+	switch (sType)
+	{
+		case "onload" :
+			var sContents = "";
+			this.fvDocWeb.getProperty("ir1").setProperty("value",sContents);
+			this.fvDocWeb.getProperty("editorSetBtn").callMethod("click");	
+			break;	
+	}
+};
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+// 
+this.fnUploadImage = function()
+{
+	this.FileUpTransfer00.setPostData("profile", "profile");
+	this.FileUpTransfer00.setPostData("userPath", "nexa_edu\\profile_image");
+	this.FileUpTransfer00.upload("SvcUrl::edu/uploadFile.do");
+}
+
+
+this.fn_callback = function(id, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode <0) {
+		this.alert("error" + sErrorMsg);
+		return;
+	}
+		
+	if(id == "saveEdtData"){
+		this.edtGds(0);
+		this.tran_saveEdtOp();
+		}
+		
+	if(id == "saveEdtOption"){
+		this.edtGds(2);
+		this.tran_saveEdtDe();
+	}
+		
+	if(id == "saveEdtDetail"){
+		this.addGds(1)
+		}
+};
+
+	
+this.edtGds = function(iK) { // 수정
+    var dsPC = this.dsProInfo.getColumn(0, "PRO_CODE");
+
+    // 최적화된 처리
+    if (iK == 0) { // 수정
+        this.removeRows(this.objApp.gdsProInfo, dsPC, this.dsProInfo);
+    } else if (iK == 1) { // 삭제
+        this.removeRows(this.objApp.gdsProDetailInfo, dsPC, this.dsProDetail);
+    } else if (iK == 2) { // 옵션 처리
+        this.removeOptionRows(dsPC);
+    }
+};
+
+this.removeRows = function(targetDataSet, dsPC, sourceDataSet) {
+    for (var i = targetDataSet.rowcount - 1; i >= 0; i--) {
+        if (dsPC == targetDataSet.getColumn(i, "PRO_CODE")) {
+            targetDataSet.deleteRow(i);
+        }
+    }
+    targetDataSet.copyData(sourceDataSet);
+};
+
+this.removeOptionRows = function(dsPC) {
+    // gdsProOption에서 PRO_CODE 및 PRO_OPTION을 기준으로 중복된 데이터를 삭제
+    for (var i = this.objApp.gdsProOption.rowcount - 1; i >= 0; i--) {
+        var gProC = this.objApp.gdsProOption.getColumn(i, "PRO_CODE");
+        var gProO = this.objApp.gdsProOption.getColumn(i, "PRO_OPTION");
+        
+        for (var j = 0; j < this.dsProOp.rowcount; j++) {
+            if (gProC == dsPC && gProO == this.dsProOp.getColumn(j, "PRO_OPTION")) {
+                this.objApp.gdsProOption.deleteRow(i);
+                trace(i); // 디버깅용
+                break; // 중복 처리가 완료되면 반복문 종료
+            }
+        }
+    }
+    this.objApp.gdsProOption.copyData(this.dsProOp);
+};
+
+this.isEmptyFields = function()
+	{
+	this.gfnClearValidation(this.dsProInfo);
+	this.gfnSetValidation(this.dsProInfo, "PRO_CODE", "물품코드", "required");
+	this.gfnSetValidation(this.dsProInfo, "PRO_NAME", "물품이름", "required");	
+	this.gfnSetValidation(this.dsProInfo, "PRO_KIND", "물품카테고리", "required");
+	this.gfnSetValidation(this.dsProInfo, "PRO_NAME_EN", "물품영어이름", "required");	
+	this.gfnSetValidation(this.dsProInfo, "SALE_PERCENT", "할인율", "required");
+	this.gfnSetValidation(this.dsProInfo, "HOW_MUCH", "가격", "required");
+	this.gfnSetValidation(this.dsProInfo, "LIKE_NUMBER", "좋아요개수", "required");
+		
+	this.gfnClearValidation(this.dsProOp);
+	this.gfnSetValidation(this.dsProOp, "PRO_CODE", "물품코드", "required");
+	this.gfnSetValidation(this.dsProOp, "PRO_OPTION", "물품옵션", "required");
+	this.gfnSetValidation(this.dsProOp, "OPTION_NAME", "옵션명", "required");
+	this.gfnSetValidation(this.dsProOp, "OPTION_NUMBER", "옵션별 수량", "required");
+	this.gfnSetValidation(this.dsProOp, "OPTION_ADD_PRICE", "옵션별 추가금", "required");
+		
+	// 수정된 Row만 Validation check   
+	if (this.gfnValidation(this.dsProOp, "A") == false || this.gfnValidation(this.dsProInfo, "A") == false) return false;
+};
+
+this.fnResize = function(nWidth, nHeight)
+{
+	var sValue = nWidth+","+nHeight;
+
+	//this.fvDocWeb.getProperty("resize").setProperty("value",sValue);
+	//this.fvDocWeb.getProperty("btnResize").callMethod("click");
+};
+
+
+// /**************************************************************************
+// * 각 COMPONENT 별 EVENT 영역
+// **************************************************************************/
+//
+
+this.Radio00_onitemchanged = function(obj:nexacro.Radio,e:nexacro.ItemChangeEventInfo)
+{
+	if(this.Radio00.value == 0){
+		this.edt00.set_enable(true);
+	}
+	else{
+		this.edt00.set_enable(false);
+		this.edt00.set_value("0");
+	}
+};
+
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var k = this.dsProOp.rowcount 
+	this.dsProOp.addRow();
+	this.dsProOp.setColumn(k, "PRO_CODE", this.dsProInfo.getColumn(0, "PRO_CODE"));
+	this.dsProOp.setColumn(k , "PRO_OPTION", k+1);
+	this.dsProOp.setColumn(k, "OPTION_NUMBER", 0);
+	this.dsProOp.setColumn(k, "OPTION_ADD_PRICE", 0);
+};
+
+this.btn00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //옵션 데이터 삭제
+{
+	this.dsProOp.deleteRow(this.dsProOp.rowposition);
+};
+
+	 
+this.btn03_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //데이터 무결성 테스트 후 트랜젝션
+{	 
+
+	this.webEditor.callScript("document.getElementById('editorGetBtn').click()");	
+	var sEditorData = this.webEditor.callScript("document.getElementById('ir1').value");
+	this.dsProDetail.setColumn(0, "DETAIL_INFO", sEditorData) //html 데이터로 받을 거 (수정 해야됨)
+	
+	if(this.FileUpTransfer00.filelist.length > 0){ //이미지가 데이터에 있다면
+		this.fnUploadImage();
+	}
+		
+	if(this.isEmptyFields() == false){
+		return ;
+	} 	
+	this.tran_saveEdt();
+};
+
+this.btn01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //이미지 업로드
+{
+	this.FileDialog00.open("이미지 선택", FileDialog.LOAD, "%MYDOCUMENT%");
+};
+
+this.edtProduct_onclose = function(obj:nexacro.Form,e:nexacro.CloseEventInfo) //이미지 선택 후d onclose 시 나오는 이벤트
+{
+	this.FileUpTransfer00.clearFileList();
+	var sProfile = e.virtualfiles[0].filename;
+	this.FileUpTransfer00.addFile(sProfile, e.virtualfiles[0]);
+	
+	if(nexacro._Browser=="Runtime"){
+		this.ImageViewer00.set_image("URL('file://"+e.virtualfiles[0].fullpath+"')");
+		this.ImageViewer00.set_text("");
+		
+	}
+	else{
+		if( /\.(jpe?g|png|gif)$/i.test(e.virtualfiles[0].filename) ){
+			var reader = new FileReader();
+			reader.targetForm = this;
+			reader.addEventListener("load", function () {
+				this.targetForm.ImageViewer00.set_image(this.result);
+				this.ImageViewer00.set_text("");
+										}, false);
+			reader.readAsDataURL(e.virtualfiles[0]._handle);
+		}  
+	}
+};
+
+this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventInfo)
+{   
+	var sImg = e.datasets[0].getColumn(0, "file_id");
+	
+	//this.dsProInfo.setColumn(0, "PRO_IMG", sImg);
+	
+	for(var iK = 0; iK < this.objApp.gdsProInfo.rowcount; iK ++){
+		if(this.objApp.gdsProInfo.getColumn(iK, "PRO_CODE")== this.paramCode){
+			this.objApp.gdsProInfo.setColumn(iK, "PRO_IMG", e.datasets[0].getColumn(0, "file_id"));
+		}
+}	
+	this.fn_saveEmpEdt();
+};
+
+this.btn02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //업로드 한 이미지 삭제
+{
+	this.ImageViewer00.set_image("");
+	this.ImageViewer00.set_text("");
+	this.dsProInfo.setColumn(0,"PRO_IMG","");
+	this.dsProInfo.setColumn(0,"SERVER_IMG","");
+};
+
+this.fn_saveEmpEdt = function() //
+{
+	var serverUrl = this.gfnGetServerUrl();
+	var sImageUrl = serverUrl + "upload_file/nexa_edu/profile_image/"; 
+		
+	sImageUrl = sImageUrl + this.dsProInfo.getColumn(0, "PRO_IMG");
+	this.dsProInfo.setColumn(0, "SERVER_IMG", sImageUrl);
+		
+				
+	for(var iK = 0; iK < this.objApp.gdsProInfo.rowcount; iK ++){
+		if(this.objApp.gdsProInfo.getColumn(iK, "PRO_CODE")== this.paramCode){
+			this.objApp.gdsProInfo.setColumn(iK, "SERVER_IMG", sImageUrl);
+		}
+	}
+	this.tran_saveEdt();		
+};
+	
+this.tran_saveEdt = function ()
+{
+	if(this.gfnDsIsUpdated(this.dsProInfo)){
+		var strSvcUrl = "edu/saveEdtData.do"; 
+		var inData    = "in_emp=dsProInfo:U";
+		var outData   = "";
+		var strArg    = "";
+		this.gfnTransaction("saveEdtData", strSvcUrl, inData, outData, strArg, "fn_callback", true);
+	}
+	else{
+		this.tran_saveEdtOp();
+	}
+}
+
+this.tran_saveEdtOp = function (){
+	if(this.gfnDsIsUpdated(this.dsProOp)){
+		var strSvcUrl = "edu/saveEdtOption.do";  
+		var inData    = "in_emp=dsProOp:U";
+		var outData   = "";
+		var strArg    = "";	
+		this.gfnTransaction("saveEdtOption", strSvcUrl, inData, outData, strArg, "fn_callback", true);
+	}
+	else{
+	this.tran_saveEdtDe();
+	}
+}
+
+this.tran_saveEdtDe = function (){
+	if(this.gfnDsIsUpdated(this.dsProDetail)){
+		var strSvcUrl = "edu/saveEdtDetail.do"; 
+		var inData    = "in_emp=dsProDetail:U";
+		var outData   = "";
+		var strArg    = "";
+		this.gfnTransaction("saveEdtDetail", strSvcUrl, inData, outData, strArg, "fn_callback", true);
+	}
+	else{
+		alert("수정완료되었습니다");
+//		this.close();	 
+	}
+};
+
+this.Grid00_oncellposchanged = function(obj:nexacro.Grid,e:nexacro.GridSelectEventInfo)
+{
+	var sum = 0;
+	for(var a = 0; a < this.dsProOp.rowcount; a++){
+		var k = this.dsProOp.getColumn(a, "OPTION_NUMBER");
+		k = (k && typeof k === "string") ? k.trim() : k;  // 앞뒤 공백 제거
+		sum += Number(k) || 0;
+	}
+		
+	if(sum == 0){
+		this.sta05.set_text("총 판매 가능 개수 0 개");
+	}
+	else{
+		this.sta05.set_text("총 판매 가능 개수 " + sum + " 개");
+	}
+};
+
+
+this.webEditor_onloadcompleted = function(obj:nexacro.WebView,e:nexacro.WebLoadCompEventInfo)
+{
+	var sContents = this.dsProDetail.getColumn(0,"DETAIL_INFO");
+	if(this.gfnIsNull(sContents)) sContents = "";
+	
+	this.webEditor.callScript("document.getElementById('ir1').value = '" + sContents + "'");
+	this.webEditor.callScript("document.getElementById('editorSetBtn').click()");
+};
+
+this.webEditor_onusernotify = function(obj:nexacro.WebView,e:nexacro.WebUserNotifyEventInfo)
+{
+	trace(e.userdata);
+
+	try
+	{
+		// parent의 최상의 Form에 이벤트 발생시킴
+		var oForm = this;
+		if (oForm && oForm.fnEditorCallback)
+		{
+			if (e.userdata == "onload")
+			{
+				var initHeight = this.webEditor.getOffsetHeight();
+				this.fnResize(obj.getOffsetWidth(), initHeight-this.fvRtnHeight);
+			}
+			
+			oForm.fnEditorCallback(e.userdata);
+		}
+	}
+	catch(e){
+		trace("SampleNaverEditor.xfdl :: webEditor_onusernotify() => " + e.message);
+	}
+};
+ 
+
+this.btn04_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.alert(this.Dataset00.saveXML());
+};
+
+this.btn03_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsCategory">
+        <ColumnInfo>
+          <Column id="CATEGORY_ID" type="STRING" size="256"/>
+          <Column id="CATEGORY_NAME" type="STRING" size="256"/>
+          <Column id="LEVEL" type="STRING" size="256"/>
+          <Column id="CATEGORY_SUM" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <FileDialog id="FileDialog00" onclose="edtProduct_onclose"/>
+      <FileUpTransfer id="FileUpTransfer00" onsuccess="FileUpTransfer00_onsuccess"/>
+      <Dataset id="dsFile">
+        <ColumnInfo>
+          <Column id="FILE_ID" type="STRING" size="256"/>
+          <Column id="FILE_NAME" type="STRING" size="256"/>
+          <Column id="FILE_TYPE" type="STRING" size="256"/>
+          <Column id="FILE_SIZE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsProInfo">
+        <ColumnInfo>
+          <Column id="PRO_CODE" type="STRING" size="256"/>
+          <Column id="PRO_NAME" type="STRING" size="256"/>
+          <Column id="PRO_KIND" type="STRING" size="256"/>
+          <Column id="PRO_NAME_EN" type="STRING" size="256"/>
+          <Column id="PRO_IMG" type="STRING" size="256"/>
+          <Column id="SERVER_IMG" type="STRING" size="256"/>
+          <Column id="SALE_PERCENT" type="STRING" size="256"/>
+          <Column id="HOW_MUCH" type="STRING" size="256"/>
+          <Column id="LIKE_NUMBER" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsProDetail">
+        <ColumnInfo>
+          <Column id="PRO_CODE" type="STRING" size="256"/>
+          <Column id="DETAIL_INFO" type="STRING" size="256"/>
+          <Column id="UPLOAD_DATE" type="STRING" size="256"/>
+          <Column id="UPDATE_DATE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsProOp">
+        <ColumnInfo>
+          <Column id="PRO_CODE" type="STRING" size="256"/>
+          <Column id="PRO_OPTION" type="STRING" size="256"/>
+          <Column id="OPTION_NAME" type="STRING" size="256"/>
+          <Column id="OPTION_NUMBER" type="STRING" size="256"/>
+          <Column id="OPTION_ADD_PRICE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="Dataset00">
+        <ColumnInfo>
+          <Column id="Column0" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item5" compid="edt03" propid="value" datasetid="dsProOp" columnid="OPTION_NAME"/>
+      <BindItem id="item6" compid="edt04" propid="value" datasetid="dsProOp" columnid="OPTION_NUMBER"/>
+      <BindItem id="item7" compid="edt04_00" propid="value" datasetid="dsProOp" columnid="OPTION_ADD_PRICE"/>
+      <BindItem id="item0" compid="edt02" propid="value" datasetid="dsProInfo" columnid="PRO_NAME"/>
+      <BindItem id="item1" compid="edt02_00" propid="value" datasetid="dsProInfo" columnid="PRO_NAME_EN"/>
+      <BindItem id="item2" compid="cmb00" propid="value" datasetid="dsProInfo" columnid="PRO_KIND"/>
+      <BindItem id="item3" compid="edt01" propid="value" datasetid="dsProInfo" columnid="HOW_MUCH"/>
+      <BindItem id="item4" compid="edt00" propid="value" datasetid="dsProInfo" columnid="SALE_PERCENT"/>
+    </Bind>
+  </Form>
+</FDL>

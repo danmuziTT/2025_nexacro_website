@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="manage_frame" width="1280" height="570" titletext="판매자 관리프레임">
+    <Layouts>
+      <Layout height="570" width="1280">
+        <Div id="Div01" taborder="1" left="0" top="0" width="1280" background="red" bottom="0" url="sellerInfo::seller_main.xfdl"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

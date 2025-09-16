@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_register" width="1280" height="780" titletext="회원가입하기" onload="Form_register_onload">
+    <Layouts>
+      <Layout height="780" width="1280">
+        <Static id="sta02" taborder="3" text="sta02" left="0" top="0" width="50%" height="50%" visible="false"/>
+        <Static id="sta01" taborder="2" text="보다 더 많은 즐거움을 위한 회원가입을 해주세요!" left="sta02:-270" top="80" width="541" height="28" cssclass="WF_loginText" onclick="sta01_onclick"/>
+        <Div id="Div00" taborder="0" left="sta02:-600" text="" bottom="0" formscrollbartype="none none" right="3.13%" height="657">
+          <Layouts>
+            <Layout>
+              <Static id="sta00" taborder="0" text="아이디" left="30" top="10" width="200" height="60" cssclass="WF_loginText"/>
+              <Static id="sta02" taborder="2" text="이메일" left="30" top="sta00:0" width="200" height="60" cssclass="WF_loginText"/>
+              <Static id="sta01" taborder="1" text="비밀번호" left="30" top="sta02:0" width="200" cssclass="WF_loginText" height="60"/>
+              <Static id="sta03" taborder="3" text="비밀번호 확인" left="30" top="sta01:0" width="200" height="60" cssclass="WF_loginText"/>
+              <Static id="sta04" taborder="4" text="이름" left="30" top="sta03:5" width="200" height="60" cssclass="WF_loginText"/>
+              <Static id="sta05" taborder="5" text="전화번호" left="30" top="sta04:0" width="200" height="60" cssclass="WF_loginText"/>
+              <Static id="sta06" taborder="6" text="주소" left="30" top="sta05:0" width="200" height="60" cssclass="WF_loginText"/>
+              <Edit id="edtHomeAdd2" taborder="17" left="199" top="435" width="900" height="50" cssclass="register_Edt"/>
+              <Button id="btn00" taborder="7" text="회원가입하기" left="359" width="482" onclick="Div00_btn00_onclick" cssclass="WF_register_Btn" top="edtHomeAdd2:72" bottom="43"/>
+              <Edit id="edtId" taborder="8" left="199" top="15" width="700" height="50" cssclass="register_Edt" canchange="Div00_edtId_canchange"/>
+              <Edit id="edtEmail" taborder="9" left="199" top="75" width="401" height="50" cssclass="register_Edt"/>
+              <Edit id="edtPsw" taborder="10" left="199" top="135" width="900" height="50" password="true" cssclass="register_Edt"/>
+              <Edit id="edtPswCheck" taborder="11" left="199" top="195" width="900" height="50" password="true" cssclass="register_Edt"/>
+              <Edit id="edtName" taborder="12" left="199" top="259" width="900" height="50" cssclass="register_Edt"/>
+              <MaskEdit id="mEdtPhone" taborder="13" left="199" top="320" width="900" height="50" type="string" format="###-####-####" cssclass="register_Edt"/>
+              <Edit id="edtZipcode" taborder="14" left="199" top="380" width="140" height="50" cssclass="register_Edt" enable="false" onchanged="Div00_edtZipcode_onchanged"/>
+              <Edit id="edtHomeAdd1" taborder="15" left="389" top="380" width="710" height="50" cssclass="register_Edt" enable="false"/>
+              <Button id="btn01" taborder="16" left="339" top="380" width="50" height="50" cssclass="WF_register_addr" background="url('theme::blue/images/searchLogo.png') no-repeat center center /contain" onclick="Div00_btn01_onclick"/>
+              <Static id="sta06_00" taborder="18" text="상세주소" left="30" top="sta06:-5" width="200" height="60" cssclass="WF_loginText"/>
+              <Combo id="cmb00" taborder="19" text="cmb00" left="648" top="75" width="251" height="50" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">@naver.com</Col>
+                      <Col id="datacolumn">naver.com</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">@nate.com</Col>
+                      <Col id="datacolumn">nate.com</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">@kakao.com</Col>
+                      <Col id="datacolumn">kakao.com</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">@daum.com</Col>
+                      <Col id="datacolumn">daum.com</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Combo>
+              <Static id="sta07" taborder="20" text="@" left="610" top="86" width="24" height="28" cssclass="WF_loginText"/>
+              <Button id="btn02" taborder="21" text="아이디 중복확인" left="907" top="15" width="188" height="50" cssclass="WF_register_Btn" onclick="Div00_btn02_onclick"/>
+              <WebBrowser id="webPost" taborder="22" left="1119" top="405" width="60" height="80" visible="false" onusernotify="webPost_onusernotify"/>
+              <Button id="btn02_00" taborder="23" text="이메일 적용하기" left="906" top="75" width="188" height="50" cssclass="WF_register_Btn" onclick="Div00_btn02_00_onclick"/>
+              <Radio id="Radio00" taborder="24" left="199" top="493" width="900" height="47" onitemchanged="Div00_Radio00_onitemchanged" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" font="20px &quot;Verdana&quot;">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">0</Col>
+                      <Col id="datacolumn">판매자</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">1</Col>
+                      <Col id="datacolumn">구매자</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Radio>
+              <Static id="sta06_00_00" taborder="25" text="역할" left="20" top="sta06_00:3" width="169" height="60" cssclass="WF_loginText"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="sta00" taborder="1" text="환영합니다" left="sta02:-118" top="10" width="240" height="55" cssclass="WF_loginTitle" onclick="Div00_sta00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+
+var duplicateCertivicate = 0;
+this.Form_register_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo) //alert 안 걸림
+{
+	/*this.gfnFormOnLoad(this);
+	this.objApp = nexacro.getApplication();
+
+	var objFrame = this.parent.parent.frames[1];
+	//var nHeight = this.getLayoutInfo(this.getCurrentLayoutID(), "height");
+ 	this.objFrame.form.fnMainPageOnLoad(nHeight); */
+
+	var nHeight = this.getLayoutInfo(this.getCurrentLayoutID(), "height");
+ 	this.parent.parent.fnMainPageOnLoad(nHeight);
+	
+	this.dsRegister.addRow(); //데이터 로컬에 저장
+	this.duplicateCertivicate = 0;
+};
+
+//우편번호 나오고 받는 코드
+this.webPost_onusernotify = function(obj:nexacro.WebBrowser,e:nexacro.WebUserNotifyEventInfo)
+{
+	var strPost = e.userdata;
+	trace("strPost ==> " + strPost);
+	// e.userdata==>OK!!!:::서울특별시 송파구 백제고분로36가길 9, 101 (석촌동, 스카이타워):::서울특별시 송파구 백제고분로36가길 9:::(석촌동, 스카이타워):::9, Baekjegobun-ro 36ga-gil, Songpa-gu, Seoul:::서울특별시 송파구 석촌동 58-33 스카이타워:::05614:::101
+	if (strPost.indexOf("OK!!!:::") == 0) 
+	{
+		/*
+		 //e.userdata ==>(식별자 ::: 구우편번호 앞 3자리 ::: 구우편번호 뒷 3자리 :::  신규우편번호 ::: 도로명주소 ::: 지번 주소 ::: 조합형 주소여부에 따른 주소)
+		 */
+		var aAddr = strPost.split(":::");
+		
+		/* trace("onusernotify -------------------------------------------");
+		trace("array[1]=>구우편번호 앞 3자리          ==> " +	aAddr[1] );
+		trace("array[2]=>구우편번호 뒷 3자리          ==> " +	aAddr[2] );
+		trace("array[3]=>신규우편번호                  ==> " + aAddr[3] );
+		trace("array[4]=>도로명주소                    ==> " +	aAddr[4] );
+		trace("array[5]=>지번주소                      ==> " +	aAddr[5] );
+		trace("array[6]=>조합형 주소여부에 따른 주소	==> " +	aAddr[6] );
+		trace("-------------------------------------------------------"); */
+
+		this.Div00.form.edtZipcode.set_value(aAddr[3]);	// 신규 우편번호
+		this.Div00.form.edtHomeAdd1.set_value(aAddr[4]);	// 도로명주소
+	}			
+};
+
+
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+this.fn_callback = function(id, errCd, errMsg){
+	if(errCd <0){
+		alert("에러 : " + errMsg);
+		return;
+	}
+	if(id == "saveUser"){
+		alert("회원가입이 완료되었습니다!");
+	
+		//url 변경
+		this.dsRegister.clear();
+		var divUrl = "form::Form_registerOK.xfdl";
+		this.parent.parent.fv_setUrl(divUrl);	
+		//this.objApp.mainframe.VFrameSet00.UserFrame.form.fv_setUrl(divUrl);	
+	}
+}
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+//공백확인영역
+this.isEmptyFields = function()
+{
+	this.gfnClearValidation(this.dsRegister);
+	this.gfnSetValidation(this.dsRegister, "USER_ID", "필수(아이디)", "required");
+	this.gfnSetValidation(this.dsRegister, "USER_PW", "비밀번호", "required");	
+	this.gfnSetValidation(this.dsRegister, "USER_PW_CHK", "비밀번호 중복확인", "required");
+	this.gfnSetValidation(this.dsRegister, "USER_NAME", "이름", "required");	
+	this.gfnSetValidation(this.dsRegister, "USER_EMAIL", "이메일", "required");
+	this.gfnSetValidation(this.dsRegister, "USER_PHONE", "전화번호", "required");
+	this.gfnSetValidation(this.dsRegister, "ADDR_MAIN", "주소 메인", "required");
+	this.gfnSetValidation(this.dsRegister, "ADDR_DETAIL", "세부 주소", "required");
+	this.gfnSetValidation(this.dsRegister, "ADDR_POST", "우편 번호", "required");
+	this.gfnSetValidation(this.dsRegister, "ROLE", "역할", "required");
+	// 수정된 Row만 Validation check
+ 	if (this.gfnValidation(this.dsRegister, "A") == false) return false;
+};
+
+
+this.fn_Duplicate = function (id, nErrorCode, sErrorMsg)
+{
+	trace(this.out_cnt);
+	if(nErrorCode < 0){ //오류가 난 경우
+		this.alert("ERROR "+ sErrorMsg);
+	}
+	if(this.out_cnt > 0){ //아이디가 중복될 경우 
+		alert("사용할 수 없는 아이디 입니다");
+	}
+	else{
+		alert("사용할 수 있는 아이디 입니다");
+		this.duplicateCertivicate = 1;
+	}
+};
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+this.Div00_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	if(this.duplicateCertivicate == 0) //아이디가 중복이라면
+	{
+		alert("아이디 중복체크를 해야합니다!");
+		return ;
+	}
+	
+	if(this.isEmptyFields() == false){
+		return ;
+	}
+	
+	//저장 매커니즘 
+	if(this.Div00.form.edtPsw.value != this.Div00.form.edtPswCheck.value){
+		alert("비밀번호가 일치하지 않습니다!");
+		return ;
+	}
+	
+// 	if(this.isEmptyFields() == false){ // 트랜젝션이 돌지 않아야 함 
+// 		alert("모든 칸에 빈칸이 없어야 합니다!");
+// 		return ; 
+// 	}
+	
+	
+	//트랜젝션
+	var strSvcUrl = "edu/saveUser.do";
+	var inData    = "saveUserData=dsRegister:U";
+	var outData   = "";
+	var strArg    = "";
+	this.gfnTransaction("saveUser", strSvcUrl, inData, outData, strArg, "fn_callback", true);
+
+	
+	//this.objApp.mainframe.VFrameSet00.UserFrame.form.fv_setUrl(divUrl);	
+	
+};
+
+this.Div00_btn01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	this.gfnPostSearchDaum(this.Div00.form.webPost);
+};
+
+//이메일 저장 매커니즘
+this.Div00_btn02_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sEmail = this.Div00.form.edtEmail.value + this.Div00.form.cmb00.value;
+	this.dsRegister.setColumn(this.dsRegister.rowposition, "USER_EMAIL", sEmail);
+	alert("적용되었습니다");
+};
+
+
+this.out_cnt = 0;
+this.Div00_btn02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //중복체크
+{
+	if(this.Div00.form.edtId.value == null){
+	alert("아이디 칸을 비워둘 수 없습니다! ");
+	return;
+	}
+	
+	var strSvcUrl = "edu/getIdChk.do";
+	var inData    = "";
+	var outData   = "";
+	var strArg    = "idRegister="+this.Div00.form.edtId.value;
+	
+	this.gfnTransaction("getIdChk", strSvcUrl, inData, outData, strArg, "fn_Duplicate", true);
+};
+
+
+
+this.Div00_edtId_canchange = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	this.duplicateCertivicate = 0; // 아이디 변경이 있습니다 
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsRegister">
+        <ColumnInfo>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="USER_PW" type="STRING" size="256"/>
+          <Column id="USER_NAME" type="STRING" size="256"/>
+          <Column id="USER_EMAIL" type="STRING" size="256"/>
+          <Column id="USER_PHONE" type="STRING" size="256"/>
+          <Column id="ADDR_MAIN" type="STRING" size="256"/>
+          <Column id="ADDR_DETAIL" type="STRING" size="256"/>
+          <Column id="ADDR_POST" type="STRING" size="256"/>
+          <Column id="REG_DT" type="STRING" size="256"/>
+          <Column id="ROLE" type="INT" size="256"/>
+          <Column id="USER_PW_CHK" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="Div00.form.Radio00" propid="value" datasetid="dsRegister" columnid="ROLE"/>
+      <BindItem id="item1" compid="Div00.form.edtId" propid="value" datasetid="dsRegister" columnid="USER_ID"/>
+      <BindItem id="item2" compid="Div00.form.edtPsw" propid="value" datasetid="dsRegister" columnid="USER_PW"/>
+      <BindItem id="item3" compid="Div00.form.edtName" propid="value" datasetid="dsRegister" columnid="USER_NAME"/>
+      <BindItem id="item4" compid="Div00.form.mEdtPhone" propid="value" datasetid="dsRegister" columnid="USER_PHONE"/>
+      <BindItem id="item5" compid="Div00.form.edtZipcode" propid="value" datasetid="dsRegister" columnid="ADDR_POST"/>
+      <BindItem id="item6" compid="Div00.form.edtHomeAdd2" propid="value" datasetid="dsRegister" columnid="ADDR_DETAIL"/>
+      <BindItem id="item8" compid="Div00.form.Radio00" propid="acceptvaluetype" datasetid="dsRegister" columnid="ROLE"/>
+      <BindItem id="item9" compid="Div00.form.edtPswCheck" propid="value" datasetid="dsRegister" columnid="USER_PW_CHK"/>
+      <BindItem id="item10" compid="Div00.form.edtHomeAdd1" propid="value" datasetid="dsRegister" columnid="ADDR_MAIN"/>
+    </Bind>
+  </Form>
+</FDL>

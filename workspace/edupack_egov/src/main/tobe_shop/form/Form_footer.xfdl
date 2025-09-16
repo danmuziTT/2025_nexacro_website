@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_footer" width="1280" height="100" titletext="하단 설명" onload="Form_footer_onload">
+    <Layouts>
+      <Layout height="100" width="1280">
+        <Static id="sta01" taborder="1" text="sta01" left="0" top="0" width="50%" height="50%" visible="false"/>
+        <Static id="sta00" taborder="0" text="사업자등록번호 220-81-62517 | (주) 쿠루쿠루쇼핑&#13;&#10;경기도 고양시 일산서구 중앙로 1413, 107호 | 대표이사: 이채영 | 문의전화: 02)760-8088&#13;&#10;COPYRIGHT ⓒ KRKRshop ALL RIGHTS RESERVED." left="sta01:-245" top="14" width="490" height="72" onclick="sta00_onclick" textAlign="center"/>
+        <Static id="sta02" taborder="2" left="300" top="16" height="70" background="url('imagerc::JZpE7Z3On_y4XBm1Ur_Q35qJTuhxmk0YNcbwaFlj9ag4MBpH9y_YM6s2V49vVxPppoGT53wnzrH-Hi43QVX9JQ.png') no-repeat center center /contain" right="sta00:0"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.Form_footer_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+	this.objApp = nexacro.getApplication(); 
+	
+	var nHeight = this.getLayoutInfo(this.getCurrentLayoutID(), "height");
+	this.parent.parent.fnMainPageOnLoad1(nHeight);
+};
+
+]]></Script>
+  </Form>
+</FDL>

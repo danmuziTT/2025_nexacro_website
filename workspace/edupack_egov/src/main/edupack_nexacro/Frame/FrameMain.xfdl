@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frameMain" width="1058" height="688" titletext="frameMain" onload="form_onload" onactivate="form_onactivate" onclose="form_onclose" onsize="form_onsize" background="#f3f5f6">
+    <Layouts>
+      <Layout height="688" mobileorientation="landscape" width="1058">
+        <Static id="sta00" taborder="0" left="0" top="0" right="10" bottom="10" cssclass="sta_MF_Bg" visible="true"/>
+        <Static id="st_center" taborder="3" text="sta02" left="0" top="0" width="50%" height="50%" visible="false"/>
+        <Static id="sta01" taborder="1" left="st_center:-399" top="st_center:-280" width="805" height="240" cssclass="sta_MF_Center" visible="true"/>
+        <Div id="divNotice" taborder="2" width="300" height="120" right="10" bottom="10" formscrollbartype="none" cssclass="div_MF_Notice">
+          <Layouts>
+            <Layout>
+              <Static id="staNotice" taborder="0" left="65" top="30" right="10" bottom="10" textAlign="left" verticalAlign="top" text="공지사항 입니다.&#13;&#10;&#13;&#10;열심히 합시다" onclick="divNotice_staNotice_onclick"/>
+              <Button id="btnClose" taborder="1" top="7" width="15" height="15" onclick="divNotice_btnClose_onclick" cssclass="btn_MF_Close" right="10"/>
+              <Static id="sta00" taborder="2" left="10" top="20" width="48" height="48" cssclass="sta_MF_Notice"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd00" taborder="4" left="160" top="318" width="678" height="129" binddataset="gdsXpushManage">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="TOPIC_ID"/>
+                <Cell col="1" text="TOPIC_TYPE"/>
+                <Cell col="2" text="CODE"/>
+                <Cell col="3" text="MSG"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:TOPIC_ID"/>
+                <Cell col="1" text="bind:TOPIC_TYPE"/>
+                <Cell col="2" text="bind:CODE"/>
+                <Cell col="3" text="bind:MSG"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  Nexacro Professional Training Couse
+*  @MenuPath    Frame > FrameMain 
+*  @FileName 	FrameMain.xfdl 
+*  @Creator 	TOBESOFT Education
+*  @CreateDate 	2022/12/22
+*  @Desction    메인 화면
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2022/12/22      		 TOBESOFT Education	 	  	최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.fvObjApp = this.gfnGetApplication();
+this.objArgs;
+
+/***********************************************************************************************
+* FORM EVENT 영역(onload)
+/***********************************************************************************************/
+/**
+ * @description form onload 함수
+ */
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.form_onsize();
+	
+	// 알림창 숨기기
+	this.divNotice.set_height(0);
+};
+
+/**
+ * @description workFrame_onclose event
+ */
+this.form_onclose = function(obj:Form, e:nexacro.CloseEventInfo)
+{	
+}
+
+/**
+ * @description onsize event
+ */
+this.form_onsize = function(obj:Form, e:nexacro.SizeEventInfo)
+{	
+	this.resetScroll();
+}
+
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+
+this.divNotice_btnClose_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 알림창 동기화
+	this.fvObjApp.avTopFrame.form.fnSetNoticeShow(this, false, true);	
+};
+
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="divNotice.form.staNotice" propid="text" datasetid="gdsXpushManage" columnid="MSG"/>
+    </Bind>
+  </Form>
+</FDL>

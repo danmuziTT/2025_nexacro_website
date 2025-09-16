@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="deliveryManage" width="1000" height="650" titletext="베송관리" onload="deliveryManage_onload">
+    <Layouts>
+      <Layout height="650" width="1000">
+        <Static id="sta00" taborder="0" text="구매자가 구매한 물품들을 확인하고 관리할 수 있습니다. 또한 결제 상태를 확인, 변경할 수 있습니다." left="9" top="2" width="543" height="49" onclick="sta00_onclick"/>
+        <Edit id="edt00" taborder="1" left="120" top="61" width="660" height="35"/>
+        <Button id="btn01" taborder="2" left="776" top="61" width="54" height="35" borderRadius="0px" onclick="btn01_onclick" cssclass="TF_miniBtn" background="url('theme::blue/images/btn_WF_Grdexpand.png') no-repeat center center /50% 70%"/>
+        <Static id="sta01" taborder="3" text="주문번호" left="9" top="125" width="120" height="30"/>
+        <Edit id="edt01" taborder="4" left="139" top="125" width="140" height="30" enable="false"/>
+        <Static id="sta01_00" taborder="5" text="수취인명" left="9" top="155" width="120" height="30"/>
+        <Edit id="edt01_00" taborder="6" left="139" top="155" width="140" height="30" enable="false"/>
+        <Static id="sta01_01" taborder="7" text="주문자명" left="319" top="125" width="120" height="30"/>
+        <Edit id="edt01_01" taborder="8" left="449" top="125" width="140" height="30" enable="false"/>
+        <Static id="sta01_02" taborder="9" text="수취인 전화번호" left="319" top="155" width="120" height="30" onclick="sta01_02_onclick"/>
+        <Edit id="edt01_02" taborder="10" left="449" top="155" width="140" height="30" enable="false"/>
+        <Static id="sta01_03" taborder="11" text="배송주소" left="610" top="125" width="120" height="30"/>
+        <Edit id="edt01_03" taborder="12" left="679" top="125" width="311" height="80" enable="false"/>
+        <Static id="sta01_03_00" taborder="13" text="배송상태" left="9" top="240" width="120" height="30"/>
+        <Radio id="Radio00" taborder="14" left="79" top="230" width="280" height="50" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" onitemchanged="Radio00_onitemchanged">
+          <Dataset id="innerdataset">
+            <ColumnInfo>
+              <Column id="codecolumn" size="256"/>
+              <Column id="datacolumn" size="256"/>
+            </ColumnInfo>
+            <Rows>
+              <Row>
+                <Col id="codecolumn">0</Col>
+                <Col id="datacolumn">배송준비</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">1</Col>
+                <Col id="datacolumn">배송접수 완료</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">2</Col>
+                <Col id="datacolumn">배송중</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">3</Col>
+                <Col id="datacolumn">배송완료</Col>
+              </Row>
+            </Rows>
+          </Dataset>
+        </Radio>
+        <Grid id="Grid01" taborder="15" left="0" top="290" width="570" height="360" binddataset="dsSellDetail" oncellclick="Grid01_oncellclick" onclick="Grid01_onclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="102"/>
+                <Column size="225"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="주문번호"/>
+                <Cell col="1" text="구매자명"/>
+                <Cell col="2" text="수취인명"/>
+                <Cell col="3" text="수취인 전화번호"/>
+                <Cell col="4" text="배송지"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ORDER_NO"/>
+                <Cell col="1" text="bind:BUYER_NAME"/>
+                <Cell col="2" text="bind:RECEIVE_NAME"/>
+                <Cell col="3" text="bind:RECEIVE_PHONE"/>
+                <Cell col="4" text="bind:RECEIVE_ADDR"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btn00" taborder="16" text="변경사항 저장" left="840" top="56" width="151" height="40" onclick="btn00_onclick"/>
+        <Static id="sta01_02_00" taborder="17" text="배송완료예상날짜" left="410" top="240" width="120" height="30" onclick="sta01_02_onclick"/>
+        <Grid id="Grid01_00" taborder="18" left="570" top="290" width="429" height="360" binddataset="dsDelivery">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="57"/>
+                <Column size="91"/>
+                <Column size="95"/>
+                <Column size="86"/>
+                <Column size="97"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="주문번호"/>
+                <Cell col="1" text="배송회사"/>
+                <Cell col="2" text="송장번호"/>
+                <Cell col="3" text="배송상태"/>
+                <Cell col="4" text="예상날짜"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ORDER_NO"/>
+                <Cell col="1" text="bind:DELIVERY_COMPANY"/>
+                <Cell col="2" text="bind:DELIVERY_NUMBER" displaytype="normal" maskeditformat="####-####"/>
+                <Cell col="3" text="bind:DELIVERY_STATUS"/>
+                <Cell col="4" text="bind:EXPEXT_DATE" maskeditformat="####/##/##" displaytype="date"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="sta01_00_00" taborder="19" text="배송회사" left="10" top="190" width="120" height="30"/>
+        <Edit id="edt01_00_00" taborder="20" left="140" top="190" width="140" height="30" enable="true"/>
+        <Static id="sta01_00_01" taborder="21" text="송장번호" left="319" top="190" width="120" height="30"/>
+        <Edit id="edt01_00_01" taborder="22" left="450" top="190" width="140" height="30" enable="true"/>
+        <Calendar id="Calendar00" taborder="23" left="540" top="240" width="140" height="30" onchanged="Calendar00_onchanged"/>
+        <Static id="sta02" taborder="24" text="주문번호로 검색" left="19" top="62" width="120" height="32"/>
+        <Button id="btn02" taborder="25" text="모두보기" left="790" top="250" width="181" height="32" onclick="btn02_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsDelivery">
+        <ColumnInfo>
+          <Column id="ORDER_NO" type="STRING" size="256"/>
+          <Column id="DELIVERY_COMPANY" type="STRING" size="256"/>
+          <Column id="DELIVERY_NUMBER" type="STRING" size="256"/>
+          <Column id="DELIVERY_STATUS" type="STRING" size="256"/>
+          <Column id="EXPEXT_DATE" type="DATE" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSellDetail">
+        <ColumnInfo>
+          <Column id="ORDER_NO" type="STRING" size="256"/>
+          <Column id="BUYER_NAME" type="STRING" size="256"/>
+          <Column id="RECEIVE_NAME" type="STRING" size="256"/>
+          <Column id="RECEIVE_PHONE" type="STRING" size="256"/>
+          <Column id="RECEIVE_ADDR" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+
+this.deliveryManage_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var strSvcUrl = "edu/getSellDetail.do"; //s_order_detail
+	var inData    = "";
+	var outData   = "dsSellDetail=out_emp";
+	var strArg    = "";
+	this.gfnTransaction("getSellDetail", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+
+};
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+this.fnCallback = function(id, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode < 0){ //오류가 난 경우
+		this.alert("ERROR"+ sErrorMsg);
+		return ;
+	}
+	if(id == "getSellDetail"){
+		var strSvcUrl = "edu/getDeliveryData.do"; //s_order_detail
+		var inData    = "";
+		var outData   = "dsDelivery=out_emp";
+		var strArg    = "";
+		this.gfnTransaction("getDeliveryData", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+	}
+	
+if(id == "getDeliveryData"){
+    var sellRowCount = this.dsSellDetail.rowcount;
+    var deliveryRowCount = this.dsDelivery.rowcount;
+    var inDelData = sellRowCount - deliveryRowCount;
+
+    // 부족한 개수만큼 dsDelivery에 행 추가
+    while (inDelData-- > 0) {
+        this.dsDelivery.addRow();
+    }
+
+    var orderCount = {};
+    // sellRowCount 만큼 순회하며 주문번호 카운트
+    for (var i = 0; i < sellRowCount; i++) {
+        var orderNo = this.dsSellDetail.getColumn(i, "ORDER_NO");
+        orderCount[orderNo] = (orderCount[orderNo] || 0) + 1;
+    }
+
+    var existingCount = {};
+    // 기존 dsDelivery에서 이미 배정된 주문번호 카운트
+    for (var k = 0; k < this.dsDelivery.rowcount; k++) {
+        var existingOrderNo = this.dsDelivery.getColumn(k, "ORDER_NO");
+        if (existingOrderNo) {
+            existingCount[existingOrderNo] = (existingCount[existingOrderNo] || 0) + 1;
+        }
+    }
+
+    var sellIndex = 0;
+    // dsDelivery에 주문번호를 배정하면서 중복을 방지
+    for (var k = 0; k < this.dsDelivery.rowcount; k++) {
+        if (!this.dsDelivery.getColumn(k, "ORDER_NO")) { // 주문번호가 비어있을 경우에만 처리
+            while (sellIndex < sellRowCount) {
+                var orderNoToSet = this.dsSellDetail.getColumn(sellIndex++, "ORDER_NO");
+                // 기존에 배정된 수가, 해당 주문번호의 총 수보다 적을 경우에만 배정
+                if ((existingCount[orderNoToSet] || 0) < 1) {
+                    // 주문번호가 기존에 이미 배정된 개수보다 적으면 배정 (중복 방지)
+                    this.dsDelivery.setColumn(k, "ORDER_NO", orderNoToSet);
+                    existingCount[orderNoToSet] = 1;  // 해당 주문번호는 이제 배정되었으므로 1로 설정
+                    break;
+                }
+            }
+        }
+    }
+	for (var k = this.dsDelivery.rowcount - 1; k >= 0; k--) {
+        if (!this.dsDelivery.getColumn(k, "ORDER_NO")) { // 주문번호가 비어있다면
+            this.dsDelivery.deleteRow(k); // 해당 행 삭제
+        }
+    }
+}
+
+	
+	if(id == "saveDeliveryData"){
+		alert("데이터가 저장되었습니다");
+	}
+};
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //저장데이터 트랜젝션
+{
+for (var i = this.dsDelivery.rowcount - 1; i >= 0; i--) {
+    // 각 열이 비어있는지 체크
+    if ( 
+        !this.dsDelivery.getColumn(i, "DELIVERY_COMPANY") || 
+        !this.dsDelivery.getColumn(i, "DELIVERY_NUMBER") || 
+        !this.dsDelivery.getColumn(i, "DELIVERY_STATUS") ||
+        !this.dsDelivery.getColumn(i, "EXPEXT_DATE") 
+    ) {
+        // 비어있는 열 삭제
+        this.dsDelivery.deleteRow(i);
+    }
+}
+	 
+	var strSvcUrl = "edu/saveDeliveryData.do"; //s_order_detail
+	var inData    = "in_data = dsDelivery:U";
+	var outData   = "";
+	var strArg    = "";
+	this.gfnTransaction("saveDeliveryData", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+	
+};
+
+// this.Calendar00_onchanged = function(obj:nexacro.Calendar,e:nexacro.ChangeEventInfo)
+// {
+// 	trace(this.Calendar00.value);
+// 	var row = this.dsSellDetail.rowposition;
+// 	var row2 = this.dsDelivery.rowposition;
+// 	this.dsDelivery.setColumn(row2,"ORDER_NO",this.dsSellDetail.getColumn(row,"ORDER_NO"))
+// 	
+// 	this.dsDelivery.setColumn(row2,"EXPEXT_DATE",this.Calendar00.value)
+// };
+
+this.btn01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var search_data = this.edt00.value;
+	if (search_data === "") 
+	{
+		this.dsSellDetail.filter(""); 
+		this.dsDelivery.filter(""); 
+	}
+	else {
+		this.dsSellDetail.filter("ORDER_NO.indexOf('" + search_data + "') !== -1");
+		this.dsDelivery.filter("ORDER_NO.indexOf('" + search_data + "') !== -1");
+	}
+};
+
+
+this.Grid01_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var orderN = this.dsSellDetail.getColumn(e.row, "ORDER_NO");
+// 	for(var k = 0; k < this.dsDelivery.rowcount; k++){
+// 		if(this.dsDelivery.getColumn(k, "ORDER_NO") == orderN){
+// 			this.dsDelivery.set_rowposition(k);
+// 			return;
+// 		}
+// 	}
+	
+   this.dsDelivery.filter("ORDER_NO =='" + orderN + "'");
+   this.dsSellDetail.filter("ORDER_NO =='" + orderN + "'");
+};
+
+
+this.btn02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	 this.dsSellDetail.filter("")
+	 this.dsDelivery.filter("")
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="edt01" propid="value" datasetid="dsSellDetail" columnid="ORDER_NO"/>
+      <BindItem id="item1" compid="edt01_00" propid="value" datasetid="dsSellDetail" columnid="RECEIVE_NAME"/>
+      <BindItem id="item2" compid="edt01_01" propid="value" datasetid="dsSellDetail" columnid="BUYER_NAME"/>
+      <BindItem id="item3" compid="edt01_02" propid="value" datasetid="dsSellDetail" columnid="RECEIVE_PHONE"/>
+      <BindItem id="item4" compid="edt01_03" propid="value" datasetid="dsSellDetail" columnid="RECEIVE_ADDR"/>
+      <BindItem id="item5" compid="edt01_00_00" propid="value" datasetid="dsDelivery" columnid="DELIVERY_COMPANY"/>
+      <BindItem id="item6" compid="edt01_00_01" propid="value" datasetid="dsDelivery" columnid="DELIVERY_NUMBER"/>
+      <BindItem id="item7" compid="Radio00" propid="value" datasetid="dsDelivery" columnid="DELIVERY_STATUS"/>
+      <BindItem id="item8" compid="Calendar00" propid="value" datasetid="dsDelivery" columnid="EXPEXT_DATE"/>
+    </Bind>
+  </Form>
+</FDL>

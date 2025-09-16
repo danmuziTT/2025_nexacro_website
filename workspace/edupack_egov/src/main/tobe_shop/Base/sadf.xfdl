@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_ImageProfile" width="1280" height="720" titletext="New Form" onload="frm_ImageProfile_onload">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Button id="btnImage" taborder="0" text="사진선택" left="57" top="309" width="231" height="50" onclick="btnImage_onclick"/>
+        <Div id="div00" taborder="1" text="div00" left="321" top="70" width="729" height="296">
+          <Layouts>
+            <Layout>
+              <Static id="sta00" taborder="0" text="성명" left="14" top="7" width="100" height="35"/>
+              <Edit id="edt00" taborder="1" left="147" top="7" width="180" height="35"/>
+              <Static id="sta01" taborder="2" text="사원번호" left="14" top="52" width="100" height="35"/>
+              <MaskEdit id="msk00" taborder="3" left="147" top="52" width="180" height="35" type="string" format="AA-###"/>
+              <Static id="sta02" taborder="4" text="부서" left="14" top="97" width="100" height="35"/>
+              <Combo id="cbo00" taborder="5" text="cbo00" left="147" top="97" width="180" height="35" innerdataset="ds_dept" codecolumn="DEPT_CD" datacolumn="DEPT_NAME"/>
+              <Static id="sta02_00" taborder="6" text="직급" left="14" top="142" width="100" height="35"/>
+              <ListBox id="lst00" taborder="7" left="147" top="142" width="180" height="87" innerdataset="ds_pos" codecolumn="POS_CD" datacolumn="POS_NAME"/>
+              <Radio id="rdo00" taborder="8" left="530" top="11" width="180" height="26" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="datacolumn">남</Col>
+                      <Col id="codecolumn">M</Col>
+                    </Row>
+                    <Row>
+                      <Col id="datacolumn">여</Col>
+                      <Col id="codecolumn">W</Col>
+                    </Row>
+                    <Row>
+                      <Col id="datacolumn">기타</Col>
+                      <Col id="codecolumn">9</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Radio>
+              <CheckBox id="chk00" taborder="9" text="chk00" left="530" top="47" width="180" height="26"/>
+              <Calendar id="cal00" taborder="10" left="530" top="83" width="180" height="26"/>
+              <MaskEdit id="msk01" taborder="11" left="530" top="119" width="180" height="26" format="#,#"/>
+              <TextArea id="txt00" taborder="12" left="530" top="155" width="180" height="120"/>
+              <Static id="sta03" taborder="13" text="성별" left="404" top="7" width="100" height="35"/>
+              <Static id="sta04" taborder="14" text="결혼여부" left="397" top="43" width="100" height="35"/>
+              <Static id="sta05" taborder="15" text="입사일" left="397" top="79" width="100" height="35"/>
+              <Static id="sta06" taborder="16" text="급여" left="397" top="115" width="100" height="35"/>
+              <Static id="sta07" taborder="17" text="비고사항" left="397" top="155" width="100" height="35"/>
+              <Calendar id="cal01" taborder="18" left="552" top="41" width="150" height="35" visible="true"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grd00" taborder="2" left="30" top="375" width="1010" height="270" binddataset="ds_emp">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="114"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="EMPL_ID"/>
+                <Cell col="1" text="FULL_NAME"/>
+                <Cell col="2" text="DEPT_CD"/>
+                <Cell col="3" text="POS_CD"/>
+                <Cell col="4" text="HIRE_DATE"/>
+                <Cell col="5" text="SALARY"/>
+                <Cell col="6" text="GENDER"/>
+                <Cell col="7" text="MARRIED"/>
+                <Cell col="8" text="MEMO"/>
+                <Cell col="9" text="COL_CHK"/>
+                <Cell col="10" text="profile_url"/>
+                <Cell col="11" text="profile"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:EMPL_ID"/>
+                <Cell col="1" text="bind:FULL_NAME"/>
+                <Cell col="2" text="bind:DEPT_CD"/>
+                <Cell col="3" text="bind:POS_CD"/>
+                <Cell col="4" text="bind:HIRE_DATE"/>
+                <Cell col="5" text="bind:SALARY"/>
+                <Cell col="6" text="bind:GENDER"/>
+                <Cell col="7" text="bind:MARRIED"/>
+                <Cell col="8" text="bind:MEMO"/>
+                <Cell col="9" text="bind:COL_CHK"/>
+                <Cell col="10" text="bind:profile_url"/>
+                <Cell col="11" text="bind:profile"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnDelete" taborder="3" text="삭제" left="917" top="23" width="59" height="27" onclick="btnDelete_onclick"/>
+        <Button id="btnSave" taborder="4" text="저장" left="981" top="23" width="59" height="27" onclick="btnSave_onclick"/>
+        <Button id="btnAdd" taborder="5" text="추가" left="853" top="23" width="59" height="27" onclick="btnAdd_onclick"/>
+        <Button id="btnSel" taborder="6" text="조회" left="789" top="23" width="59" height="27" onclick="btnSel_onclick"/>
+        <ImageViewer id="img00" taborder="7" text="img00" left="53" top="67" width="236" height="225"/>
+        <Grid id="grd01" taborder="8" left="23" top="560" width="447" height="181" binddataset="dsFile">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="file_id"/>
+                <Cell col="1" text="file_name"/>
+                <Cell col="2" text="file_type"/>
+                <Cell col="3" text="file_size"/>
+                <Cell col="4" text="chk"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:file_id"/>
+                <Cell col="1" text="bind:file_name"/>
+                <Cell col="2" text="bind:file_type"/>
+                <Cell col="3" text="bind:file_size"/>
+                <Cell col="4" text="bind:chk"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btn00" taborder="9" text="btn00" left="53" top="10" width="109" height="38" onclick="btn00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_pos">
+        <ColumnInfo>
+          <Column id="POS_CD" type="string" size="32"/>
+          <Column id="POS_NAME" type="string" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_dept">
+        <ColumnInfo>
+          <Column id="DEPT_CD" type="STRING" size="32"/>
+          <Column id="DEPT_NAME" type="STRING" size="32"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_emp" keystring="" cancolumnchange="ds_emp_cancolumnchange" onrowsetchanged="ds_emp_onrowsetchanged" onrowposchanged="ds_emp_onrowposchanged" oncolumnchanged="ds_emp_oncolumnchanged">
+        <ColumnInfo>
+          <Column id="EMPL_ID" type="STRING" size="256"/>
+          <Column id="FULL_NAME" type="STRING" size="50"/>
+          <Column id="DEPT_CD" type="STRING" size="10"/>
+          <Column id="POS_CD" type="STRING" size="10"/>
+          <Column id="HIRE_DATE" type="DATE" size="10"/>
+          <Column id="SALARY" type="INT" size="10"/>
+          <Column id="GENDER" type="STRING" size="10"/>
+          <Column id="MARRIED" type="STRING" size="10"/>
+          <Column id="MEMO" type="STRING" size="10"/>
+          <Column id="COL_CHK" type="STRING" size="1"/>
+          <Column id="profile_url" type="STRING" size="256"/>
+          <Column id="profile" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="COL_DEPT" type="STRING" size="256"/>
+          <Column id="COL_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <FileDialog id="FileDialog00" onclose="FileDialog00_onclose"/>
+      <FileUpTransfer id="FileUpTransfer00" onsuccess="FileUpTransfer00_onsuccess"/>
+      <FileDownTransfer id="FileDownTransfer00"/>
+      <Dataset id="dsFile" useclientlayout="true">
+        <ColumnInfo>
+          <Column id="file_id" type="STRING" size="256"/>
+          <Column id="file_name" type="STRING" size="256"/>
+          <Column id="file_type" type="STRING" size="256"/>
+          <Column id="file_size" type="STRING" size="256"/>
+          <Column id="chk" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <FileUpTransfer id="FileUpTransfer01"/>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="div00.form.edt00" propid="value" datasetid="ds_emp" columnid="FULL_NAME"/>
+      <BindItem id="item1" compid="div00.form.msk00" propid="value" datasetid="ds_emp" columnid="EMPL_ID"/>
+      <BindItem id="item2" compid="div00.form.cbo00" propid="value" datasetid="ds_emp" columnid="DEPT_CD"/>
+      <BindItem id="item3" compid="div00.form.chk00" propid="value" datasetid="ds_emp" columnid="MARRIED"/>
+      <BindItem id="item4" compid="div00.form.rdo00" propid="value" datasetid="ds_emp" columnid="GENDER"/>
+      <BindItem id="item5" compid="div00.form.cal00" propid="value" datasetid="ds_emp" columnid="HIRE_DATE"/>
+      <BindItem id="item6" compid="div00.form.msk01" propid="value" datasetid="ds_emp" columnid="SALARY"/>
+      <BindItem id="item7" compid="div00.form.txt00" propid="value" datasetid="ds_emp" columnid="MEMO"/>
+      <BindItem id="item8" compid="div00.form.cal01" propid="visible" datasetid="ds_emp" columnid="MARRIED"/>
+      <BindItem id="item9" compid="div00.form.txt00" propid="background" datasetid="ds_emp" columnid="MEMO"/>
+    </Bind>
+    <Script type="xscript5.1"><![CDATA[/**
+*	개발 표준화 작업
+*	@MenuPath C:\EduPack\workspace\edupack_egov\src\main\edupack_nexacro\WORK_KJY
+*	@FileName frm_ImageProfile.xfdl
+*	@Creator 김지영
+*	@CreateDate 2025/02/07
+*	@Desction 해당 폼 정보 설명
+******************소스 수정 이력**********************************************
+*	date		Modifier	Description
+********************************************************************************
+*	2025/02/07		김지영		최초 생성
+*	
+*
+*/
+/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+this.btnSel_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.transaction("getEmpList"
+				,"SvcUrl::edu/getEmpList.do"
+				,""
+				,"ds_emp=out_emp"
+				,""
+				,"fn_callback")
+};
+
+this.fn_callback = function(id, nCode, sMsg)
+{
+	if(nCode <0) {
+		this.alert("error" + sMsg);
+		return;
+	}
+	
+	if(!this.gfnIsNull(this.ds_emp.getColumn(0, "profile_url"))){
+		var serverUrl  = this.gfnGetServerUrl();	//http://localhost:8088/edupack_egov/
+		var sImageUrl  = serverUrl + "upload_file/nexa_edu/profile_image/"
+			sImageUrl += this.ds_emp.getColumn(0, "profile_url");
+			
+		this.img00.set_image(sImageUrl);	
+	}
+	
+	
+}
+this.btnAdd_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_emp.addRow();
+};
+
+this.btnDelete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_emp.deleteRow(this.ds_emp.rowposition);
+};
+
+this.btnSave_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{		
+ 	if(this.FileUpTransfer00.filelist.length > 0){
+ 		this.fnUploadImage();
+ 	}
+};
+
+this.fnUploadImage = function()
+{
+	this.FileUpTransfer00.setPostData("profile", "profile");
+	this.FileUpTransfer00.setPostData("userPath", "nexa_edu\\profile_image");
+	this.FileUpTransfer00.upload("SvcUrl::edu/uploadFile.do");
+}
+
+this.FileUpTransfer00_onsuccess = function(obj:nexacro.FileUpTransfer,e:nexacro.FileUpTransferEventInfo)
+{
+
+	this.ds_emp.setColumn(0, "profile_url", e.datasets[0].getColumn(0, "file_id"));
+	this.ds_emp.setColumn(0, "profile"    , e.datasets[0].getColumn(0, "file_image"));	
+	
+// 	this.dsFile.addRow();
+// 	this.dsFile.setColumn(0, "file_id", e.datasets[0].getColumn(0, "file_id"));
+// 	this.dsFile.setColumn(0, "file_name"    , e.datasets[0].getColumn(0, "file_name"));	
+// 	this.dsFile.setColumn(0, "file_type"    , e.datasets[0].getColumn(0, "file_type"));	
+// 	this.dsFile.setColumn(0, "file_size"    , e.datasets[0].getColumn(0, "file_size"));	
+	
+	this.fn_saveEmp();
+};
+
+this.fn_saveEmp = function()
+{
+	this.transaction("saveEmp"
+				,"SvcUrl::edu/saveEmp.do"
+				,"in_emp=ds_emp:u"
+				,""
+				,""
+				,"fn_callback");	
+};
+this.btnImage_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	// 이미지 파일 선택하기  - FileDialog00
+	this.FileDialog00.open("이미지 선택", FileDialog.LOAD, "%MYDOCUMENT%");
+	// --> FileDialog00_onclose 이벤트 발생
+};
+
+this.FileDialog00_onclose = function(obj:nexacro.FileDialog,e:nexacro.FileDialogEventInfo)
+{
+	this.FileUpTransfer00.clearFileList();
+	var sProfile = e.virtualfiles[0].filename;
+	this.FileUpTransfer00.addFile(sProfile, e.virtualfiles[0]);
+	
+	if(nexacro._Browser=="Runtime"){
+		this.img00.set_image("URL('file://"+e.virtualfiles[0].fullpath+"')");	
+		
+	}
+	else{
+		if( /\.(jpe?g|png|gif)$/i.test(e.virtualfiles[0].filename) ){
+			var reader = new FileReader();
+			reader.targetForm = this;
+			reader.addEventListener("load", function () {
+															this.img00.set_image(this.result);
+														}, false);
+			reader.readAsDataURL(e.virtualfiles[0]._handle);
+		}  
+	}
+};
+
+this.frm_ImageProfile_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	
+};
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(!this.gfnIsNull(this.ds_emp.getColumn(this.ds_emp.rowposition, "profile_url"))){
+		var serverUrl  = this.gfnGetServerUrl();	//http://localhost:8088/edupack_egov/
+		var sImageUrl  = serverUrl + "upload_file/nexa_edu/profile_image/"
+			sImageUrl += this.ds_emp.getColumn(this.ds_emp.rowposition, "profile_url");
+			
+		this.img00.set_image(sImageUrl);	
+	}
+};]]></Script>
+  </Form>
+</FDL>

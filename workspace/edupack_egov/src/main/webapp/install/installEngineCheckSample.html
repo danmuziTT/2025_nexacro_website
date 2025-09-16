@@ -1,0 +1,23 @@
+<head>
+<title>넥사크로17 설치</title>
+</head>
+<script type="text/javascript">
+var SetupRuntimeName = "./engine/";
+function oninit()
+{
+    var userAgent = navigator.userAgent;
+    if(userAgent.indexOf("WOW64") != -1 
+        || userAgent.indexOf("Win64") != -1)
+        SetupRuntimeName += "nexacro17_SetupRuntime_x64.exe";
+    else if(userAgent.indexOf("Windows NT 5.1") != -1 
+        || userAgent.indexOf("Windows XP") != -1)
+        SetupRuntimeName += "nexacro17_SetupRuntime_XP.exe";
+    else 
+        SetupRuntimeName += "nexacro17_SetupRuntime_x32.exe";
+            
+    document.getElementById("nexacro17").innerHTML = "<a href='"+SetupRuntimeName+"'>" + SetupRuntimeName + "</a>"
+}
+</script>    
+<body onload="oninit()">
+nexacro17 Runtime Download link -> <span id="nexacro17"></span>
+</body>

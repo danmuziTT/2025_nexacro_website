@@ -1,0 +1,120 @@
+package com.edupack.edu.service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.edupack.edu.vo.NexaEduVO;
+
+public interface NexaEduService {
+
+   List<Map<String, Object>> getEmpList();
+
+   List<Map<String, Object>> getEmpListParam1(String sDeptCd);
+
+   List<Map<String, Object>> getEmpListParam2(NexaEduVO serrchVO);
+
+   List<Map<String, Object>> getEmpListParamDs(Map<String, String> searchMap);
+
+List<Map<String, Object>> getDeptList();
+List<Map<String, Object>> getPosList();
+
+int chechId(String empId);
+
+void saveEmp(List<Map<String, Object>> saveList);
+
+void saveMember(List<Map<String, Object>> saveList);
+
+List<Map<String, Object>> getMemberList();
+
+void saveMemberAll(List<Map<String, Object>> saveData);
+
+
+
+int loginMember(List<Map<String, Object>> saveList);
+
+
+List<Map<String, Object>> loginId(List<Map<String, Object>> saveList);
+
+String getIdChk(String sIdresult);
+
+void saveUser(List<Map<String, Object>> saveUserData);
+
+List<Map<String, Object>> getShopData();
+List<Map<String, Object>> getShopDataDetail();
+List<Map<String, Object>> getShopDataOption();
+List<Map<String, Object>> getShopDataCategory();
+
+int changeLikeNum(List<Map<String, Object>> likeNum);
+
+
+List<Map<String, Object>> userInfoCart(String userId);
+List<Map<String, Object>> userInfoLike(String userId);
+
+void addLike(List<Map<String, Object>> likelist);
+
+void removeLike(List<Map<String, Object>> likelist);
+
+List<Map<String, Object>> updateUser(Map<String, String> upUser);
+
+List<Map<String, Object>> getBuyData();
+List<Map<String, Object>> getBuyDetail();
+List<Map<String, Object>> getPayData();
+
+List<Map<String, Object>> getSellDetail();
+List<Map<String, Object>> getDeliveryData();
+
+
+void saveNewData(List<Map<String, Object>> saveList);
+void saveNewOption(List<Map<String, Object>> saveList);
+void saveNewDetail(List<Map<String, Object>> saveList);
+
+void saveEdtData(List<Map<String, Object>> saveList);
+void saveEdtOption(List<Map<String, Object>> saveList);
+void saveEdtDetail(List<Map<String, Object>> saveList);
+
+void edtCartNum(List<Map<String, Object>> saveList);
+void deleteCart(List<Map<String, Object>> saveList);
+
+void addCartInfo(List<Map<String, Object>> saveList);
+
+void saveDeliveryData(List<Map<String, Object>> saveList);
+
+int getOrderNo();
+void getUserOrder(List<Map<String, Object>> saveList);
+void getUserOrderDetail(List<Map<String, Object>> saveList);
+
+void getUserOneOrderDetail(List<Map<String, Object>> saveList);
+
+List<Map<String, Object>> useUserOrder();
+List<Map<String, Object>> useUserOrderDetail();
+
+void SaveCancleData(List<Map<String, Object>> saveList);
+
+void SaveChangeData(List<Map<String, Object>> saveList);
+
+void savePayStatus(List<Map<String, Object>> saveList);
+void saveBuyStatus(List<Map<String, Object>> saveList);
+
+List<Map<String, Object>> getAlertData(String user_id);
+void saveAlertData(List<Map<String, Object>> saveList);
+
+List<Map<String, Object>> getAlertDataSite();
+
+List<Map<String, Object>> getUserMyOrder(String user_id);
+List<Map<String, Object>> getUserOrderMyDetail(String user_id);
+
+void changeBuyStatus(List<Map<String, Object>> saveList);
+
+String idFound(List<Map<String, Object>> saveList);
+
+String pswFound(List<Map<String, Object>> saveList);
+
+//List<Map<String, Object>> addLike(NexaEduVO addLikeVo);
+//List<Map<String, Object>> RemoveLikeVo(NexaEduVO removeLikeVo);
+
+
+
+
+
+
+}

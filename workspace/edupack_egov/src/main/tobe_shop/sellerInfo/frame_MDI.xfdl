@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frame_MDI" width="1030" height="40" titletext="New Form" onload="Frame_MDI_onload">
+    <Layouts>
+      <Layout height="40" width="1030">
+        <Tab id="tabMdi" taborder="0" tabindex="0" left="0" top="8" width="970" height="30" onchanged="tabMdi_onchanged" showextrabutton="true" onextrabuttonclick="tabMdi_onextrabuttonclick">
+          <Tabpages>
+            <Tabpage id="Tabpage1" text="Tabpage1"/>
+          </Tabpages>
+        </Tab>
+        <Button id="btnCloseAll" taborder="1" text="" top="11" width="30" height="17" cssclass="btn_MDI_Allx" right="10" onclick="fnArrange"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.fv_objApp = nexacro.getApplication();
+
+this.Frame_MDI_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.tabMdi.removeTabpage(0);
+};
+
+this.fnAddTabpage = function(objParam) {
+	this.tabMdi.insertTabpage(objParam.MENU_ID, -1, "", objParam.MENU_NAME);
+	// 텝 페이지 생성
+	
+}
+this.tabMdi_onchanged = function(obj:nexacro.Tab,e:nexacro.TabIndexChangeEventInfo) //에러
+{
+	var sMenuId = obj.tabpages[e.postindex].name;
+	this.fv_objApp.av_frameWork[sMenuId].form.setFocus();
+};
+
+this.tabMdi_onextrabuttonclick = function(obj:nexacro.Tab,e:nexacro.TabMouseEventInfo) //탭 닫을때 (에러)
+{
+	// e.index: tabpage의 index
+	var sMenuId = obj.tabpages[e.index].name;
+	this.fv_objApp.av_frameWork[sMenuId].form.close();
+	this.tabMdi.removeTabpage(e.index);	
+}; //this.fv_objApp.av_frameWork[sMenuId] 안잡힘 
+
+
+this.fnArrange = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sType = obj.id.replace("btn","");	// Cascade
+	sType = sType.toLowerCase();	// cascade
+	var objWork = this.fv_objApp.av_frameWork.frames;
+	
+	trace(sType);
+	if(sType == "closeall"){
+		for (var i = objWork.length-1 ; i >= 0; i--) { //objWork.length - 1: 인덱스 번호는 0부터 시작
+			objWork[i].form.close();
+			this.tabMdi.removeTabpage(i);
+		} 
+		return ;
+	}	
+	
+};
+
+this.fnTabFocus = function(sId)
+{
+	for(var i=0; i<this.tabMdi.getTabpageCount(); i++){
+		if(this.tabMdi.tabpages[i].name == sId){
+			this.tabMdi.set_tabindex(i);
+			return;
+		}	
+	}
+}
+
+]]></Script>
+  </Form>
+</FDL>

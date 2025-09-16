@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="FrameSDI" width="1300" height="790" titletext="FrameSDI" onload="form_onload" onkeydown="frameMainForSDI_onkeydown" background="#f3f5f6" oninit="FrameSDI_oninit">
+    <Layouts>
+      <Layout height="790" mobileorientation="landscape" width="1300">
+        <Div id="divFrameTop" taborder="0" left="0" top="0" height="80" right="0" url="SDIFrame::SDIFrameTop.xfdl"/>
+        <Div id="divFrameLeft" taborder="1" left="10" top="90" width="230" url="SDIFrame::SDIFrameLeft.xfdl" text="" background="#ffffff" bottom="10"/>
+        <Div id="divFrameWork" taborder="2" left="divFrameLeft:10" top="90" text="" background="#ffffff" border="1px solid #d3dce1" url="SDIFrame::SDIFrameMainForm.xfdl" async="false" right="10" bottom="10"/>
+        <Div id="divNotice" taborder="3" width="300" height="120" right="10" bottom="10" formscrollbartype="none" cssclass="div_MF_Notice">
+          <Layouts>
+            <Layout>
+              <Static id="staNotice" taborder="0" left="65" top="30" right="10" bottom="10" textAlign="left" verticalAlign="top" text="공지사항 입니다.&#13;&#10;&#13;&#10;열심히 합시다"/>
+              <Button id="btnClose" taborder="1" top="7" width="15" height="15" onclick="divNotice_btnClose_onclick" cssclass="btn_MF_Close" right="10"/>
+              <Static id="sta00" taborder="2" left="10" top="20" width="48" height="48" cssclass="sta_MF_Notice"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**
+*  Nexacro Professional Training Couse
+*  @MenuPath    SIDFrame > SDIFrameMain 
+*  @FileName 	SDIFrameMain.xfdl 
+*  @Creator 	TOBESOFT Education
+*  @CreateDate 	2022/12/22
+*  @Desction    SDI Main Form
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2022/12/22      		 TOBESOFT Education	 	  	최초 생성 
+*******************************************************************************
+*/
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.fvObjApp = nexacro.getApplication();
+this.fvTop  = this.divFrameTop;
+this.fvLeft = this.divFrameLeft;
+this.fvWork = this.divFrameWork;
+
+
+/************************************************************************************************
+ * FORM EVENT 영역(onload, onbeforeclose)
+ ************************************************************************************************/
+this.FrameSDI_oninit = function(obj:nexacro.Form,e:nexacro.EventInfo)
+{
+	this.divFrameLeft.set_width(0);
+	this.divFrameWork.set_left("divFrameLeft:-1");
+
+	// 알림창 숨기기
+	this.divNotice.set_height(0);
+	
+};
+
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.fvObjApp.avWorkFrame = this.fvObjApp.mainframe.WorkFrame.form.divFrameWork;
+	
+	// 다국어 처리 START
+	this.gfnInitLang(this.divFrameLeft.form);	
+	this.divFrameLeft.form.fnChangeLang();
+
+	// Top Frame Argument Setting	
+	this.divFrameTop.form.fnLoad();
+	this.divFrameTop.form.fnSetName();
+
+	// Left Frmae 메뉴 검색용 Dataset
+	this.divFrameLeft.form.fnGlobalMenuCopy();  
+	
+	if (system.navigatorname != "nexacro"){
+		var hash = MyHistory.getLocationHash();		
+		var data ;
+		trace("Main: " + hash + " : " + data);
+	
+ 		if(this.gfnIsNull(hash)){
+ 			var sHash 	= "MainPage";
+ 			var oData	= {};
+ 			MyHistory.setLocationHash(sHash, oData);
+ 		}
+		
+		if (hash){
+			data = MyHistory.getData(hash);
+		}
+
+		this.onChangeHistory(hash, data);
+	}
+};
+
+this.onChangeHistory = function(hash, data)
+{
+	trace("SDIFrameMain onChangeHistory >>>>>> " + hash + " : " + data);
+
+	// Hash Id 를 확인하여 필요한 처리를 진행한다.
+	var temp = hash.split(":");
+	var type = temp[0];
+	
+	if (type == "menu"){
+		this.fnSetDivSize("Form");
+		var sMenuId	= temp[1];
+		//var oArg	= data.objArg
+		var oArg	= data.oArg;
+		
+		if (this.gfnIsNull(sMenuId)) return;
+		if (this.gfnIsNull(oArg	  )) oArg = {};
+
+		var oObj = { 
+						sMenuId : temp[1],
+						oArgs 	 : oArg     
+				   };
+
+		//페이지 이동시 Left메뉴도 변경(마이메뉴는 제외)
+		this.divFrameLeft.form.fnCopyMenu(oArg.topmenuid);
+		var nRow = this.divFrameLeft.form.dsMenu.findRow("MENU_ID", sMenuId);
+		this.fnTreeStatus(this.divFrameLeft.form.divLeft.form.grdTree, nRow);	
+		
+		this.gfnCallSDI(oObj);		
+		
+	}
+}
+
+this.fnTreeStatus = function(objGrid, nRow)
+{
+	var objDs = objGrid.getBindDataset();
+    var nRoot = 0;
+	
+	objGrid.set_treeinitstatus("collapse,null");
+    for(var i=nRow; i>0; i--){
+        if(objGrid.isTreeRootRow(i, true)){
+            nRoot = i;
+        }
+		if(objDs.getColumn(i, "MENU_LEVEL") == "1")	break;
+    }
+  
+    for(var j=nRoot; j<=nRow; j++){
+		if(!objGrid.isTreeLeafRow(j)){
+			objGrid.setTreeStatus(objGrid.getTreeRow(j),true);
+		}
+    }
+	objDs.set_rowposition(nRow);
+
+}
+
+this.fnSetDivSize = function(sFlag)
+{
+	if(sFlag == "Main"){
+		if(this.divFrameLeft.width > 0){
+			this.divFrameLeft.set_width(0);
+			this.divFrameWork.set_left("divFrameLeft:-1");
+			this.divFrameWork.set_url("SDIFrame::SDIFrameMainForm.xfdl");
+			this.divFrameWork.setFocus();
+		}
+	}
+	else if(sFlag == "Form"){
+		if(this.divFrameLeft.width == 0){
+			this.divFrameLeft.set_width(230);
+			this.divFrameWork.set_left("divFrameLeft:10");
+		}
+	}
+}
+]]></Script>
+  </Form>
+</FDL>

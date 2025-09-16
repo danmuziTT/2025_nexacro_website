@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="form_loginPopup" width="250" height="150" titletext="로그인 성공" onload="form_loginPopup_onload">
+    <Layouts>
+      <Layout height="150" width="250">
+        <Static id="sta00" taborder="0" text="sta00" left="20" top="39" width="148" height="20" onclick="sta00_onclick" font="16px/normal &quot;Malgun Gothic&quot;"/>
+        <Static id="sta01" taborder="1" text="님" left="173" top="40" width="30" height="21" font="16px/normal &quot;Malgun Gothic&quot;"/>
+        <Static id="sta02" taborder="2" text="환영합니다" left="20" top="69" width="159" height="24" onclick="sta02_onclick" font="16px/normal &quot;Malgun Gothic&quot;"/>
+        <Button id="btn00" taborder="3" text="구매하러가기" left="48" top="95" width="155" height="30" onclick="btn00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+
+var sName = 0;
+this.form_loginPopup_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo) //텍스트 변경 안됨 수정해야됨
+{
+	this.objApp = nexacro.getApplication();
+	
+	this.sName = this.objApp.gdsUserInfo.getColumn(0, "USER_NAME")
+	this.sta00.set_text(this.sName);
+};
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+this.fnCallback = function(id, nErrorCode, sErrorMsg) //트랜젝션 콜백
+{
+	if(nErrorCode < 0){ //오류가 난 경우
+		this.alert("ERROR"+ sErrorMsg);
+		return ;
+	}
+
+	if(id=="userInfoCart") 
+	{
+		var strSvcUrl = "edu/userInfoLike.do";
+		var inData    = "";
+		var outData   = "gdsUserLike=out_emp";
+		var strArg    = "userId="+this.objApp.gdsUserInfo.getColumn(0, "USER_ID");
+		
+		this.gfnTransaction("userInfoLike", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+		
+	} else if (id=="userInfoLike") {
+		this.close();
+	}
+};
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.parent.parent.parent.frames[1].form.fv_setUrl("form::Form_shopMain.xfdl")
+	this.parent.parent.parent.frames[0].form.Div01_00.set_visible(true);
+	this.parent.parent.parent.frames[0].form.Div01.set_visible(false);
+	var memRole = this.objApp.gdsUserInfo.getColumn(0, "ROLE");
+	if(memRole == 0){
+		this.parent.parent.parent.frames[0].form.btn01.set_visible(true);
+	}
+	this.parent.parent.parent.frames[0].form.Div01_00.form.sta00.set_text(this.sName + " 님")
+	this.parent.parent.parent.frames[0].form.Div01_00.form.sta00.set_font("bold 15px Verdana");
+	
+	var strSvcUrl = "edu/userInfoCart.do";
+	var inData    = "";
+	var outData   = "gdsUserCart=out_emp";
+	var strArg    = "userId="+this.objApp.gdsUserInfo.getColumn(0, "USER_ID");
+	
+	this.gfnTransaction("userInfoCart", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+	
+	
+	
+};
+
+
+]]></Script>
+  </Form>
+</FDL>

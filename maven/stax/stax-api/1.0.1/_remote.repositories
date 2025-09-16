@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed May 04 13:31:50 KST 2022
+stax-api-1.0.1.jar>mvn2s=
+stax-api-1.0.1.jar>tobesoft=
+stax-api-1.0.1.pom>tobesoft=
+stax-api-1.0.1.pom>mvn2s=

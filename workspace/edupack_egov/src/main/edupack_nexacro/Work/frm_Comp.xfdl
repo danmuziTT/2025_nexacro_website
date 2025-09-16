@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frm_Comp" width="1030" height="730" titletext="New Form">
+    <Layouts>
+      <Layout height="730" mobileorientation="landscape" width="1030" stepcount="5" stepindex="3">
+        <Button id="btn01" taborder="0" text="btn01" left="128" top="73" width="120" height="26" positionstep="1"/>
+        <Static id="sta02" taborder="1" text="static" left="80" top="83" width="33" height="14"/>
+        <Static id="sta03" taborder="2" text="Nexacro" left="160" top="83" width="50" height="14" onclick="sta03_onclick"/>
+        <Static id="sta04" taborder="3" text="Btn" left="23" top="79" width="21" height="14" positionstep="1"/>
+        <Static id="sta05" taborder="4" text="Edit" positionstep="1" onclick="sta05_onclick" left="23" top="114" width="24" height="14"/>
+        <Edit id="edt00" taborder="5" positionstep="1" width="100" left="170" top="114" height="20"/>
+        <Static id="sta06" taborder="6" text="Maskedit (숫자만 들어옴)" positionstep="1" height="14" left="20" top="140" width="145"/>
+        <MaskEdit id="msk01" taborder="7" positionstep="1" format="" type="" onchanged="msk01_onchanged" width="100" left="181" top="137" height="20"/>
+        <Static id="sta07" taborder="8" text="MaskEdit &gt; format(######-#######)" positionstep="1" onclick="sta07_onclick" width="257" left="18" top="240" height="14"/>
+        <MaskEdit id="msk02" taborder="9" positionstep="1" type="string" height="20" left="289" top="234" width="100" format="######-#######"/>
+        <Static id="sta08" taborder="10" text="MaskEdit &gt; type(String)" positionstep="1" width="146" left="20" top="169" height="14"/>
+        <MaskEdit id="msk01_00" taborder="11" positionstep="1" format="" type="string" width="100" left="186" top="166" height="20"/>
+        <Static id="sta07_00" taborder="12" text="MaskEdit &gt; format(######-#{######}) " positionstep="1" onclick="sta07_onclick" width="276" left="23" top="271" height="14"/>
+        <MaskEdit id="msk02_00" taborder="13" positionstep="1" type="string" height="20" left="309" top="264" width="100" format="######-#{######}"/>
+        <Static id="sta08_00" taborder="14" text="MaskEdit &gt;format(#,###)" positionstep="1" width="163" left="24" top="203" height="14" onclick="sta08_00_onclick"/>
+        <MaskEdit id="msk01_00_00" taborder="15" positionstep="1" format="#,###" type="number" width="100" left="207" top="200" height="20"/>
+        <Static id="sta09" taborder="16" text="textArea 여러 줄 입력이 가능함 Ctrl + enter 로 입력이 가능함" left="23" top="310" width="349" height="14" positionstep="1" onclick="sta09_onclick"/>
+        <TextArea id="txt00" taborder="17" left="23" top="334" width="349" height="53" positionstep="1"/>
+        <Static id="sta10" taborder="18" text="Calender 날짜에 대한 입력이 가능" left="28" top="85" width="191" height="14" positionstep="2"/>
+        <Calendar id="cal00" taborder="19" left="230" top="76" width="140" height="29" positionstep="2"/>
+        <Calendar id="cal01" taborder="20" left="229" top="116" width="172" height="149" positionstep="2" type="monthonly"/>
+        <Static id="sta11" taborder="21" text="Calender &gt; type &gt; month only" left="30" top="135" width="185" height="14" positionstep="2"/>
+        <Static id="sta11_00" taborder="22" text="Calender &gt; type &gt; spin" left="20" top="290" width="185" height="14" positionstep="2"/>
+        <Calendar id="cal02" taborder="23" left="184" top="280" width="256" height="76" positionstep="2" type="spin"/>
+        <Static id="sta12" taborder="24" text="check box" left="20" top="373" width="61" height="14" positionstep="2"/>
+        <CheckBox id="chk00" taborder="25" text="당신은 인간입니까? " left="100" top="373" width="132" height="14" positionstep="2"/>
+        <CheckBox id="ckeckbox" taborder="26" text="예" left="242" top="356" width="164" height="48" positionstep="2" onchanged="editChk_onchanged" falsevalue="N" value="N" truevalue="Y"/>
+        <Edit id="editChk" taborder="27" left="300" top="361" width="142" height="26" positionstep="2"/>
+        <CheckBox id="editchk" taborder="28" text="그렇게 살지 마십쇼" left="240" top="397" width="126" height="14" positionstep="2"/>
+        <Static id="sta13" taborder="29" text="checkboxSet" left="20" top="430" width="77" height="14" positionstep="2" onclick="sta13_onclick"/>
+        <CheckBoxSet id="chks00" taborder="30" left="19" top="470" width="391" height="14" positionstep="2" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" readonlycolumn="readonlycolumn" onitemchanged="chks00_onitemchanged">
+          <Dataset id="innerdataset">
+            <ColumnInfo>
+              <Column id="codecolumn" size="256"/>
+              <Column id="datacolumn" size="256"/>
+              <Column id="readonlycolumn" size="256"/>
+            </ColumnInfo>
+            <Rows>
+              <Row>
+                <Col id="codecolumn">A</Col>
+                <Col id="datacolumn">사과</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">B</Col>
+                <Col id="datacolumn">바나나</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">O</Col>
+                <Col id="datacolumn">오렝지</Col>
+                <Col id="readonlycolumn">true</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">K</Col>
+                <Col id="datacolumn">키위</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">M</Col>
+                <Col id="datacolumn">망고</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">OK</Col>
+                <Col id="datacolumn">오렌지</Col>
+              </Row>
+            </Rows>
+          </Dataset>
+        </CheckBoxSet>
+        <Static id="sta14" taborder="31" text="innerdataset &gt; 데이터 수정이 가능, readonly 부분을 true 로 할 경우, 체크가 되지 않음" left="20" top="450" width="490" height="14" positionstep="2"/>
+        <TextArea id="txtChkBoxSet" taborder="32" left="20" top="494" width="412" height="116" positionstep="2"/>
+        <Static id="sta15" taborder="33" text="spin 일정한 값을 올리고 내릴 수 있는 컴포넌트" left="16" top="630" width="259" height="14" positionstep="2"/>
+        <Spin id="spn00" taborder="34" left="280" top="624" width="197" height="32" positionstep="2" increment="10"/>
+        <Static id="sta16" taborder="35" text="increasement &gt; 지정된 수만큼 누르면 숫자가 올라감" left="10" top="663" width="297" height="14" positionstep="2"/>
+        <Static id="sta17" taborder="36" text="imageViewer" left="40" top="122" width="120" height="26"/>
+        <ImageViewer id="img00" taborder="37" left="134" top="124" width="100" height="132" image="url('theme::edupack_nexacro/images/KakaoTalk_20241223_155152565_22.jpg')" imagealign="center middle" stretch="fixaspectratio"/>
+        <Static id="sta18" taborder="38" text="stretch : 이미지를 늘리거나 줄이는 용도로 사용." left="260" top="133" width="269" height="14"/>
+        <Static id="sta19" taborder="39" text="none: 이미지 사이즈를 원본으로 " left="261" top="157" width="184" height="14"/>
+        <Static id="sta20" taborder="40" text="fit : 이미지를 이미지 뷰어에 맞게 늘려줌 (비울 상관 X)" left="261" top="181" width="303" height="14"/>
+        <Static id="sta21" taborder="41" text="fixaspectratio : 이미지를 비율에 맞게 이미지 뷰어에 맞춰 늘려줌 (비율 상관 0)" left="260" top="205" width="440" height="14"/>
+        <ImageViewer id="img00_01" taborder="42" left="252" top="227" width="148" height="132" image="url('theme::edupack_nexacro/images/KakaoTalk_20241223_155152565_22.jpg')" imagealign="center middle" stretch="none"/>
+        <ImageViewer id="img00_01_00" taborder="43" left="410" top="227" width="148" height="132" image="url('theme::edupack_nexacro/images/KakaoTalk_20241223_155152565_22.jpg')" imagealign="center middle" stretch="fit"/>
+        <ImageViewer id="img00_01_01" taborder="44" left="574" top="227" width="148" height="132" image="url('theme::edupack_nexacro/images/KakaoTalk_20241223_155152565_22.jpg')" imagealign="center middle" stretch="fixaspectratio"/>
+        <Static id="sta22" taborder="45" text="none" left="305" top="370" width="30" height="14"/>
+        <Static id="sta23" taborder="46" text="fit" left="480" top="370" width="13" height="14"/>
+        <Static id="sta24" taborder="47" text="fixaspectratio " left="610" top="363" width="86" height="14"/>
+        <Static id="sta25" taborder="48" text="progressBar" left="110" top="411" width="120" height="26"/>
+        <ProgressBar id="pgb00" taborder="49" max="100" min="0" left="203" top="407" width="327" height="34" pos="60"/>
+        <Button id="btn00" taborder="50" text="10" left="205" top="454" width="70" height="30" onclick="btn00_onclick"/>
+        <Button id="btn02" taborder="51" text="30" left="331" top="454" width="70" height="30" onclick="btn00_onclick"/>
+        <Button id="btn03" taborder="52" text="70" left="457" top="454" width="70" height="30" onclick="btn00_onclick"/>
+        <Button id="btn00_00" taborder="53" text="10" left="205" top="495" width="70" height="30" onclick="btn001_onclick"/>
+        <Button id="btn02_00" taborder="54" text="30" left="331" top="495" width="70" height="30" onclick="btn001_onclick"/>
+        <Button id="btn03_00" taborder="55" text="70" left="457" top="495" width="70" height="30" onclick="btn001_onclick"/>
+        <Static id="sta26" taborder="56" text="넥사크로 목록형 컴포넌트" left="29" top="26" width="141" height="14" positionstep="3"/>
+        <Static id="sta27" taborder="57" text="Combo" left="30" top="66" width="43" height="14" positionstep="3"/>
+        <Combo id="cbo00" taborder="58" text="" left="82" top="55" width="198" height="30" positionstep="3" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" onitemchanged="cbo00_onitemchanged" type="dropdown">
+          <Dataset id="innerdataset">
+            <ColumnInfo>
+              <Column id="codecolumn" size="256"/>
+              <Column id="datacolumn" size="256"/>
+            </ColumnInfo>
+            <Rows>
+              <Row>
+                <Col id="codecolumn">SAL</Col>
+                <Col id="datacolumn">샐러디</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">SUB</Col>
+                <Col id="datacolumn">서브웨이</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">MAC</Col>
+                <Col id="datacolumn">맥도날드</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">LOT</Col>
+                <Col id="datacolumn">롯데리아</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">MOMS</Col>
+                <Col id="datacolumn">맘스터치</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">KF</Col>
+                <Col id="datacolumn">KFC</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">BK</Col>
+                <Col id="datacolumn">버거킹</Col>
+              </Row>
+            </Rows>
+          </Dataset>
+        </Combo>
+        <Edit id="edtCode" taborder="59" left="29" top="104" width="140" height="26" positionstep="3"/>
+        <Edit id="edtData" taborder="60" left="200" top="104" width="140" height="26" positionstep="3"/>
+        <Combo id="cbo01" taborder="61" left="310" top="55" width="220" height="28" positionstep="3" value="" index="-1" innerdataset="ds00" codecolumn="code" datacolumn="data" canitemchange="cbo00_onitemchanged"/>
+        <ListBox id="lst00" taborder="62" left="105" top="157" width="115" height="117" positionstep="3" innerdataset="ds00" codecolumn="code" datacolumn="data"/>
+        <Static id="sta00" taborder="63" text="ListBox" left="29" top="164" width="44" height="14" positionstep="3"/>
+        <Static id="sta01" taborder="64" text="combo &gt;type 에는 다양한 기능들이 있음 (filter, search 등)" left="353" top="93" width="335" height="14" positionstep="3"/>
+        <Static id="sta28" taborder="65" text="Listbox 에는 type 이 없음" left="250" top="160" width="146" height="14" positionstep="3"/>
+        <Static id="sta29" taborder="66" text="Radio" left="19" top="299" width="34" height="14" positionstep="3"/>
+        <Radio id="rdo00" taborder="67" left="65" top="289" width="104" height="115" positionstep="3" innerdataset="ds00" codecolumn="code" datacolumn="data"/>
+        <Static id="sta30" taborder="68" text="중복선택 안됨 (하나만 선택)" left="160" top="293" width="156" height="14" positionstep="3"/>
+        <Radio id="rdo00_00" taborder="69" left="320" top="286" width="231" height="42" positionstep="3" innerdataset="ds00" codecolumn="code" datacolumn="data" columncount="3"/>
+        <Radio id="rdo00_01" taborder="70" left="570" top="278" width="154" height="56" positionstep="3" innerdataset="ds00" codecolumn="code" datacolumn="data" rowcount="4"/>
+        <Static id="sta31" taborder="71" text="Columncount &gt; " left="340" top="343" width="120" height="26" positionstep="3" onclick="sta31_onclick"/>
+        <Static id="sta31_00" taborder="72" text="Rowcount &gt; " left="590" top="343" width="120" height="26" positionstep="3" onclick="sta31_onclick"/>
+        <Grid id="grd00" taborder="73" left="80" top="425" width="186" height="127" positionstep="3" binddataset="ds00">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="code"/>
+                <Cell col="1" text="data"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:code"/>
+                <Cell col="1" text="bind:data"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="sta32" taborder="74" text="Grid" left="36" top="437" width="26" height="14" positionstep="3"/>
+        <Static id="sta33" taborder="75" text="넥사크로 컨테이너 컴포넌트" left="27" top="26" width="153" height="14" positionstep="4"/>
+        <Div id="div00" taborder="76" left="27" top="56" width="303" height="212" positionstep="4" border="1px solid">
+          <Layouts>
+            <Layout>
+              <Button id="btn00" taborder="0" text="btn00" left="43" top="123" width="79" height="30"/>
+              <Edit id="edt00" taborder="1" left="22" top="19" width="116" height="32"/>
+              <MaskEdit id="msk00" taborder="2" left="128" top="64" width="144" height="41"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div01" taborder="77" left="410" top="60" width="368" height="208" positionstep="4" border="1px solid" url="Work::fn_div00Div.xfdl"/>
+        <Static id="sta34" taborder="78" text="div 컨테이너 (그룹박스처럼 내부에 있는 컴포넌트를 같이 데리고 다님)" left="20" top="276" width="387" height="14" positionstep="4"/>
+        <Static id="sta35" taborder="79" text="url &gt; 에서 링크를 지정해 컴포넌트를 가지고 올 수 있다" left="530" top="275" width="304" height="14" positionstep="4"/>
+        <Static id="sta36" taborder="80" text="div 내부에 있는 컴포넌트의 이름은 div00.form.edit 과 같이 나옴 (어디에 소속되어있는지 같은 느낌)" left="27" top="297" width="557" height="14" positionstep="4"/>
+        <Button id="btn04" taborder="81" text="btn04" left="30" top="328" width="132" height="36" positionstep="4" onclick="btn04_onclick"/>
+        <Edit id="edt02" taborder="82" left="193" top="324" width="247" height="42" positionstep="4"/>
+        <Tab id="tab00" taborder="83" tabindex="0" left="127" top="384" width="407" height="320" positionstep="4">
+          <Tabpages>
+            <Tabpage id="Tabpage1" text="Tabpage1">
+              <Layouts>
+                <Layout>
+                  <TextArea id="txt00" taborder="0" left="16" top="45" width="230" height="73"/>
+                  <Edit id="edt00" taborder="1" left="271" top="53" width="117" height="37"/>
+                  <Combo id="cbo00" taborder="2" text="cbo00" left="56" top="151" width="235" height="52"/>
+                  <Button id="btn00" taborder="3" text="btn00" left="320" top="140" width="57" height="67"/>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+            <Tabpage id="Tabpage2" text="Tabpage2" url="Work::fn_div00Div.xfdl"/>
+            <Tabpage id="Tabpage3" text="Tabpage3">
+              <Layouts>
+                <Layout>
+                  <CheckBox id="chk00" taborder="0" text="chk00" left="35" top="44" width="191" height="18"/>
+                  <CheckBox id="chk01" taborder="1" text="chk01" left="35" top="97" width="242" height="29"/>
+                  <CheckBox id="chk02" taborder="2" text="chk02" left="33" top="160" width="225" height="23"/>
+                </Layout>
+              </Layouts>
+            </Tabpage>
+          </Tabpages>
+        </Tab>
+        <Static id="sta37" taborder="84" text="tab page" left="30" top="411" width="53" height="14" positionstep="4"/>
+        <Static id="sta38" taborder="85" text="우클릭을 통해 탭페이지 생성 및 미리보기 변경이 가능함" left="451" top="356" width="306" height="14" positionstep="4"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.editChk_onchanged = function(obj:nexacro.CheckBox,e:nexacro.CheckBoxChangedEventInfo)
+{
+	this.editChk.set_value(e.postvalue);
+};
+
+
+this.chks00_onitemchanged = function(obj:nexacro.CheckBoxSet,e:nexacro.ItemChangeEventInfo)
+{
+	this.txtChkBoxSet.set_value(e.postindex + "\n" + e.postvalue +"\n" + e.posttext);
+	//postindex>순서값, postvalue>코드값(체크박스에 있는 코드값), posttext> 텍스트 값(보여지는 값)
+};
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.pgb00.set_pos(obj.text);
+};
+
+this.btn001_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var numb = parseInt(this.pgb00.pos) + parseInt(obj.text);
+	this.pgb00.set_pos(numb);
+};
+
+this.cbo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	this.edtCode.set_value(e.postvalue);
+	this.edtData.set_value(e.posttext);
+};
+
+this.btn04_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.edt02.set_value("AAA");
+	this.div00.form.edt00.set_value("KKKK");
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ds00">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="data" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">MAC</Col>
+            <Col id="data">빅맥</Col>
+          </Row>
+          <Row>
+            <Col id="data">새우버거</Col>
+            <Col id="code">LOT</Col>
+          </Row>
+          <Row>
+            <Col id="code">KF</Col>
+            <Col id="data">징거버거</Col>
+          </Row>
+          <Row>
+            <Col id="code">MOMS</Col>
+            <Col id="data">싸이버거</Col>
+          </Row>
+          <Row>
+            <Col id="code">BK</Col>
+            <Col id="data">빅와퍼</Col>
+          </Row>
+          <Row>
+            <Col id="code">LOT</Col>
+            <Col id="data">치즈스틱</Col>
+          </Row>
+          <Row>
+            <Col id="code">MAC</Col>
+            <Col id="data">감자튀김</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

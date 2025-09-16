@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_imgScroll" width="1280" height="140" titletext="New Form">
+    <Layouts>
+      <Layout height="140" width="1280" stepcount="5">
+        <Static id="sta00" taborder="0" left="0" top="0" height="140" background="url('imagerc::1.png') no-repeat center center" right="0"/>
+        <Static id="sta00_00" taborder="1" left="0" top="0" height="140" positionstep="1" background="url('imagerc::2.png') no-repeat center center" right="0"/>
+        <Static id="sta00_00_00" taborder="2" left="0" top="0" height="140" positionstep="4" background="url('imagerc::3.png') no-repeat center center" right="0"/>
+        <Static id="sta00_00_00_00" taborder="3" left="0" top="0" height="140" positionstep="2" background="url('imagerc::40.png') no-repeat center center" right="0"/>
+        <Static id="sta00_00_00_01" taborder="4" left="0" top="0" height="140" positionstep="3" background="url('imagerc::5.png') no-repeat center center" right="0"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>

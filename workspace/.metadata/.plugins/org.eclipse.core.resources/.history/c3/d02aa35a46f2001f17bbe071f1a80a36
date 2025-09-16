@@ -1,0 +1,140 @@
+package com.edupack.edu.service.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.edupack.edu.vo.NexaEduVO;
+
+import egovframework.rte.psl.dataaccess.mapper.Mapper;
+
+@Mapper
+public interface NexaEduMapper {
+
+   List<Map<String, Object>> getEmpList();
+
+   List<Map<String, Object>> getEmpListParam1(String sDeptCd);
+   
+   List<Map<String, Object>> getEmpListParam2(NexaEduVO serrchVO);
+
+   List<Map<String, Object>> getEmpListParamDs(Map<String, String> searchMap);
+
+List<Map<String, Object>> getDeptList();
+List<Map<String, Object>> getPosList();
+
+int chechId(String empId);
+
+	void insertEmp(Map<String, Object> rowData);
+
+	void updateEmp(Map<String, Object> rowData);
+
+	void deleteEmp(Map<String, Object> rowData);
+
+	void insertMember(Map<String, Object> rowData);
+
+	List<Map<String, Object>> getMemberList();
+
+	void deletDataU(Map<String, Object> rowData);
+	void insertDataU(Map<String, Object> rowData);
+	void updateDataU(Map<String, Object> rowData);
+
+	int loginMember(Map<String, Object> rowData);
+
+	List<Map<String, Object>> loginId(Map<String, Object> rowData);
+
+	String getIdChk(String sIdresult);
+
+	void saveUser(Map<String, Object> rowData);
+
+	//물건 데이터 받는 콜럼
+	List<Map<String, Object>> getShopData();
+	List<Map<String, Object>> getShopDataDetail();
+	List<Map<String, Object>> getShopDataOption();
+	void getShopDataCategorysum();
+	List<Map<String, Object>> getShopDataCategory();
+	
+	int updateLikeNum(Map<String, Object> rowData);
+
+	List<Map<String, Object>> userInfoLike(String userId);
+	List<Map<String, Object>> userInfoCart(String userId);
+
+	void likeAdd(Map<String, Object> rowData);
+
+	void likeRemove(Map<String, Object> rowData);
+
+	List<Map<String, Object>> updateUser();
+	void updateUserData(Map<String, String> upUser);
+
+	List<Map<String, Object>> updateUser(Map<String, String> upUser);
+
+	List<Map<String, Object>> getBuyData();
+	List<Map<String, Object>> getBuyDetail();
+	List<Map<String, Object>> getPayData();
+
+	List<Map<String, Object>> getSellDetail();
+	List<Map<String, Object>> getDeliveryData();
+
+	void saveNewData(Map<String, Object> rowData);
+	void saveNewOption(Map<String, Object> rowData);
+	void saveNewDetail(Map<String, Object> rowData);
+
+	void saveEdtData(Map<String, Object> rowData);
+	void saveEdtDetail(Map<String, Object> rowData);
+
+	void saveEdtOption(Map<String, Object> rowData);
+	void saveInsertOption(Map<String, Object> rowData);
+	void saveDeleteOption(Map<String, Object> rowData);
+
+	void edtCartNum(Map<String, Object> rowData);
+	void deleteCart(Map<String, Object> rowData);
+
+	void addCartInfo(Map<String, Object> rowData);
+
+	boolean checkIfOrderNoExists(String orderNo);
+	void updateDeliveryData(Map<String, Object> rowData);
+	void insertDeliveryData(Map<String, Object> rowData);
+
+	int getOrderNo();
+	void getUserOrder(Map<String, Object> rowData);
+	void getUserPay(Map<String, Object> rowData);
+	void getUserOrderDetail(Map<String, Object> rowData);
+	void updateOptionNumber(Map<String, Object> rowData);
+
+	List<Map<String, Object>> useUserOrder();
+	List<Map<String, Object>> useUserOrderDetail();
+
+	void SaveCancleData(Map<String, Object> rowData);
+	void updateProOpNumber(Map<String, Object> rowData);
+	String getExistingStatus(String orderNo);
+
+	void updateProOpNumberChange(Map<String, Object> rowData);
+
+	void savePayStatus(Map<String, Object> rowData);
+	void saveBuyStatus(Map<String, Object> rowData);
+
+	List<Map<String, Object>> getAlertData(String user_id);
+
+	void saveAlertData(Map<String, Object> rowData);
+
+	void insertAlert(Map<String, Object> rowData);
+	void updateAlert(Map<String, Object> rowData);
+	void deleteAlert(Map<String, Object> rowData);
+	int getAlertKey();
+
+	List<Map<String, Object>> getAlertDataSite();
+
+	List<Map<String, Object>> getUserMyOrder(String user_id);
+
+	List<Map<String, Object>> getUserOrderMyDetail(String user_id);
+	void getShopDataCategoryAllSum();
+
+	void changeBuyStatus(Map<String, Object> rowData);
+
+
+//	List<Map<String, Object>> likeAdd(NexaEduVO addLikeVo);
+//	List<Map<String, Object>> likeRemove(NexaEduVO removeLikeVo);
+
+
+
+}

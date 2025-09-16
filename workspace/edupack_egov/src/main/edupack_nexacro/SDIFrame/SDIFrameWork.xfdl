@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frameWork" left="0" top="0" width="1038" height="687" onclose="form_onclose" onsize="form_onsize" onactivate="form_onactivate" onload="form_onload" onkeydown="form_onkeydown" titletext="frameWork" background="#ffffff">
+    <Layouts>
+      <Layout>
+        <Div id="divWork" taborder="0" left="0" top="37" text="" width="1038" height="650"/>
+        <Div id="divTitle" taborder="1" left="0" top="0" right="0" url="SDIFrame::SDIFrameWorkTitle.xfdl" height="38" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
+        <Static id="staLodingTime" taborder="2" top="7" width="325" height="17" usedecorate="true" color="orangered" right="10" textAlign="right" text="해당 화면의 loading 시간은 0.05 Sec 입니다."/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[/**
+*  Nexacro Professional Training Couse
+*  @MenuPath    SIDFrame > SDIFrameWork 
+*  @FileName 	SDIFrameWork.xfdl 
+*  @Creator 	TOBESOFT Education
+*  @CreateDate 	2022/12/22
+*  @Desction    SDI 업무 공통 화면
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2022/12/22      		 TOBESOFT Education	 	  	최초 생성 
+*******************************************************************************
+*/
+
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+this.objApp = this.gfnGetApplication();
+
+/***********************************************************************************************
+* FORM EVENT 영역(onload)
+/***********************************************************************************************/
+/**
+ * form onload 함수
+ * @return 
+ * @example
+ * @memberOf 
+ */
+this.form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.form_onsize();		
+		
+	this.divTitle.form.set_scrollbartype("none")
+};
+
+this.fnSetLoad = function()
+{
+	//넘어온 아규먼트 셋팅
+	this.fnSetOwnFrameArgu(this);
+	// form로딩시 화면에 표시할 page URL 설정
+	this.divWork.set_url(this.parent.arguments["pageUrl"]);
+}
+
+
+/**
+ * workFrame_onclose event
+ * @return 
+ * @example
+ *
+ * @memberOf 
+ */
+this.form_onclose = function(obj:Form, e:nexacro.CloseEventInfo)
+{   
+	try
+	{
+		//trace("workFrame_onclose : " + e.fromobject.name);
+		if (e.fromobject == "[object Form]")
+		{ 
+			var winId = this.getOwnerFrame().name;
+			//trace("winId : " + winId);
+			if (this.objApp.gvMdiFrame.form.bClose) 
+			{
+				this.objApp.gvMdiFrame.form.bClose = false;
+				this.objApp.gvMdiFrame.form.fnTabOnClose(winId);
+			}
+		}
+	}
+	catch(e)
+	{
+
+	}
+}
+
+/**
+ * onsize event
+ * @return 
+ * @example
+ *
+ * @memberOf this
+ */
+this.form_onsize = function(obj:Form, e:nexacro.SizeEventInfo)
+{	
+	this.resetScroll();
+}
+
+/**
+ * @description 각 화면에서 디버그창을 호출할 수 있도록 단축키 지정
+*/
+this.form_onkeydown = function(obj:nexacro.Form,e:nexacro.KeyEventInfo)
+{
+	// 공통 키다운 이벤트 호출
+	this.gfnOnkeydown(obj, e);
+};
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+/**
+ * @description 메세지 콜백
+*/
+this.fnMsgCallback = function (strId, strVal)
+{
+	//trace("strId >> " + strId + "   strVal >> " + strVal);
+	if(strId == "confirm.before.movepage"){
+		if(strVal == true)
+		{
+			this.close();
+		}
+	}
+};
+
+/************************************************************************************************
+ * CRUD 및 TRANSACTION 서비스 호출 처리
+ ************************************************************************************************/
+
+/************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+/**
+ *  넘어온 아규먼트 처리 설정
+ * @param  {XaComp} this(현재form)
+ * @return
+ * @example
+ * fnSetOwnFrameArgu(this);
+ * @memberOf 
+ */
+this.fnSetOwnFrameArgu = function(o)
+{	
+	var menuId = this.parent.arguments["menuId"];	
+	
+	if(this.objApp.gvIsComBtnUse){	//공통 버튼 사용유무
+		//공통 버튼권한세팅
+		var sAuth = this.fnGetAuth(menuId, "auth");  //권한조회	
+		this.divTitle.form.fnSetAuthBtn(sAuth);
+	}	
+	
+	var sTitle = this.parent.arguments["menuPath"];
+	this.divTitle.form.staTitle.set_text(sTitle);		
+}
+
+/**
+ * gdsMenu에서 버튼권한 가져오기
+ * @param {string} menuId: 메뉴Id
+ * @param {string} colId: 컬럼(권한별) Id
+ * @return 
+ * @example
+ *
+ * @memberOf 
+ */
+this.fnGetAuth = function(menuId, colId)
+{   
+	var sValue = this.objApp.gdsMenu.lookupAs(this.FRAME_MENUCOLUMNS.menuId, menuId, colId);		
+	if(this.gfnIsNull(sValue))
+	{
+		sValue = "YNNNNN";
+	}
+	return sValue;	
+}
+
+/**
+ * @description workFrame close 시 처리
+*/
+this.fnWorkFrameClose = function()
+{
+	if (this.gfnIsNull(this.divWork.form.lookup("fnClose")))
+	{
+		trace("해당화면에 fnClose 함수가 없습니다. fnClose 함수가 없으면 데이타 변경여부 체크를 하지 않습니다.");
+	}
+	else
+	{
+		if (this.divWork.form.fnClose() == false)
+		{
+			var sMsgId 		 = "confirm.before.movepage";					//메세지ID
+			var arrArg 		 = "";											//메세지취환될값 배열[생략가능]
+			var sPopId 		 = sMsgId;										//메세지팝업ID[생략가능]	*해당화면에서 메시지 중복사용시 구분되는값을 넣어줘야함
+			var sMsgCallback = "fnMsgCallback";								//메세지콜백[생략가능] 		* confirm성 메시지를 사용 시 반드시 필요
+			
+			// 변경된 데이터가 있습니다. 현재 화면을 닫겠습니까?
+			this.gfnAlert(sMsgId, arrArg, sPopId, sMsgCallback);	
+			return false;
+		}
+	}	
+	this.close();
+}
+]]></Script>
+  </Form>
+</FDL>

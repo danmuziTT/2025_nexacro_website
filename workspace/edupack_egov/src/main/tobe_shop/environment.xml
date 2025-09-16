@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ENV version="2.1">
+  <Environment themeid="theme::blue" datatyperule="2.0" loadingimage="url('loading.gif')">
+    <ScreenDefinition>
+      <Screen id="Desktop_screen" type="desktop"/>
+    </ScreenDefinition>
+    <Variables>
+      <Variable id="evRunMode" initval="L"/>
+      <Variable id="evUserId" initval="admin"/>
+      <Variable id="evUserNm" initval="관리자"/>
+      <Variable id="evTraceMode" initval="true"/>
+      <Variable id="evMessagePopup" initval="true"/>
+      <Variable id="evLanguage" initval="KO"/>
+      <Variable id="evLanguageChange" initval="KO"/>
+      <Variable id="evQuikView" initval="Y"/>
+      <Variable id="evVariable1" initval="Env Variable Value1"/>
+    </Variables>
+    <Cookies/>
+    <httpheader/>
+  </Environment>
+</ENV>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="seller_logoutPopup" width="400" height="200" titletext="New Form">
+    <Layouts>
+      <Layout height="200" width="400">
+        <Static id="sta00" taborder="0" text="스마트스토어로 이동합니다" left="75" top="69" width="251" font="20px Verdana" height="23" onclick="sta00_onclick"/>
+        <Button id="btn00" taborder="1" text="이동하기" left="0" top="153" width="200" borderRadius="0px" font="15px Verdana" onclick="btn00_onclick" bottom="0"/>
+        <Button id="btn00_00" taborder="2" text="판매자센터로 돌아가기" left="200" top="153" width="200" borderRadius="0px" font="15px verdana" onclick="btn00_00_onclick" bottom="0"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.objApp = nexacro.getApplication()
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) 
+{
+// 		alert(this.objApp.av_TopFrame.form.name);	
+// 	this.objApp.av_TopFrame.form.Div01.set_visible(false);
+// 	this.objApp.av_TopFrame.form.Div01_00.set_visible(true);
+// 	
+	//k.form.btn02.set_visible(false);
+	//this.parent.parent.parent.UserFrame.set_formurl("form::Form_shopMain.xfdl")
+	this.parent.parent.parent.set_separatesize("150,*,0");
+	this.parent.parent.parent.TopMainFrame.set_formurl("form::Form_Top.xfdl");
+	
+
+	this.close();
+};
+
+this.btn00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) 
+{
+	this.close();
+};
+
+
+]]></Script>
+  </Form>
+</FDL>

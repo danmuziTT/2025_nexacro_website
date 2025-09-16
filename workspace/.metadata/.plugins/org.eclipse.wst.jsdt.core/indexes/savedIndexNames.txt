@@ -1,0 +1,6 @@
+INDEX VERSION 1.4+C:\EduPack\workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+4079897925.index
+29369123.index
+2137807420.index
+688639634.index
+1584584388.index

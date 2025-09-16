@@ -1,0 +1,539 @@
+package com.edupack.edu.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import com.edupack.edu.service.NexaEduService;
+import com.edupack.edu.service.mapper.NexaEduMapper;
+import com.edupack.edu.vo.NexaEduVO;
+import com.nexacro.java.xapi.data.DataSet;
+
+@Service
+public class NexaEduServiceImpl implements NexaEduService {
+
+   @Resource
+   NexaEduMapper nexaEduMapper;
+    
+   @Override
+   public List<Map<String, Object>> getEmpList() {
+      return nexaEduMapper.getEmpList();
+   }
+
+@Override
+public List<Map<String, Object>> getEmpListParam1(String sDeptCd) {
+	// TODO Auto-generated method stub
+	return nexaEduMapper.getEmpListParam1(sDeptCd);
+}
+
+
+@Override
+public List<Map<String, Object>> getEmpListParam2(NexaEduVO serrchVO) {
+	// TODO Auto-generated method stub
+	return nexaEduMapper.getEmpListParam2(serrchVO);
+}
+
+@Override
+public List<Map<String, Object>> getEmpListParamDs(Map<String, String> searchMap) {
+	// TODO Auto-generated method stub
+	return nexaEduMapper.getEmpListParamDs(searchMap);
+}
+
+
+
+@Override
+public List<Map<String, Object>> getDeptList() {
+	// TODO Auto-generated method stub
+	return nexaEduMapper.getDeptList();
+}
+
+@Override
+public List<Map<String, Object>> getPosList() {
+	// TODO Auto-generated method stub
+	return nexaEduMapper.getPosList();
+}
+
+@Override
+public int chechId(String empId) {
+	return nexaEduMapper.chechId(empId);
+}
+
+@Override
+public void saveEmp(List<Map<String, Object>> saveList) { //입력 수정 삭제를 루프문을 돌면서 하나씩처리 해줘야됨 (한변에 처리가 안됨)
+	int nSize = saveList.size();
+	for(int i =0; i <nSize; i++) {
+		Map<String, Object> rowData = saveList.get(i);
+		if((int)rowData.get("DataSetRowType")== DataSet.ROW_TYPE_INSERTED) { //insert SQP
+			nexaEduMapper.insertEmp(rowData);
+		} 
+		else if((int)rowData.get("DataSetRowType")== DataSet.ROW_TYPE_UPDATED) { //update SQL
+			Map orgData = (Map) rowData.get("DataSetSavedData");
+			String orgEmpId = (String) orgData.get("EMPL_ID");
+			rowData.put("ORG_EMPL_ID", orgEmpId);
+			nexaEduMapper.updateEmp(rowData);
+		}
+		else if((int)rowData.get("DataSetRowType")== DataSet.ROW_TYPE_DELETED) { //delete SQL
+			nexaEduMapper.deleteEmp(rowData);
+		}
+	}
+}
+
+@Override
+public void saveMember(List<Map<String, Object>> saveList) { //List 여러 데이터를 받아옴, update j_member sql
+		Map<String, Object> rowData = saveList.get(0);
+		nexaEduMapper.insertMember(rowData);	
+}
+
+@Override
+public List<Map<String, Object>> getMemberList() {
+	return nexaEduMapper.getMemberList();
+}
+
+
+@Override
+public void saveMemberAll(List<Map<String, Object>> saveData) { //수정, 삭제, 입력된 것을 넣어주고 삭제해주기
+	int nSize = saveData.size();
+	
+	for(int i =0; i <nSize; i++) {
+		Map<String, Object> rowData = saveData.get(i);
+		
+		if((int)rowData.get("DataSetRowType")== DataSet.ROW_TYPE_INSERTED) { //insert SQP
+			nexaEduMapper.insertDataU(rowData);
+		} 
+		
+		else if((int)rowData.get("DataSetRowType")== DataSet.ROW_TYPE_UPDATED) { //update SQL
+			Map orgData = (Map) rowData.get("DataSetSavedData");
+			String orgUserId = (String) orgData.get("USER_ID");
+			rowData.put("ORG_USER_ID", orgUserId);
+			nexaEduMapper.updateDataU(rowData);
+		}
+		
+		else if((int)rowData.get("DataSetRowType")== DataSet.ROW_TYPE_DELETED) { //delete SQL
+			nexaEduMapper.deletDataU(rowData);
+		}
+	}
+}
+
+
+
+@Override
+public int loginMember(List<Map<String, Object>> saveList) {
+
+	Map<String, Object> rowData = saveList.get(0);
+	return nexaEduMapper.loginMember(rowData);
+}
+
+
+@Override
+public List<Map<String, Object>> loginId(List<Map<String, Object>> saveList) {
+	Map<String, Object> rowData = saveList.get(0);
+	return nexaEduMapper.loginId(rowData);
+}
+
+@Override
+public String getIdChk(String sIdresult) {
+	// TODO Auto-generated method stub
+	return nexaEduMapper.getIdChk(sIdresult);
+}
+
+@Override
+public void saveUser(List<Map<String, Object>> saveUserData) { //회원가입 사람들 저장 
+	Map<String, Object> rowData = saveUserData.get(0);
+	nexaEduMapper.saveUser(rowData);
+}
+
+@Override
+public List<Map<String, Object>> getShopData() {
+	return nexaEduMapper.getShopData();
+}
+
+@Override
+public List<Map<String, Object>> getShopDataDetail() {
+	return nexaEduMapper.getShopDataDetail();
+}
+
+@Override
+public List<Map<String, Object>> getShopDataOption() {
+	return nexaEduMapper.getShopDataOption();
+}
+
+@Override
+public List<Map<String, Object>> getShopDataCategory() {
+	nexaEduMapper.getShopDataCategorysum(); // UPDATE 실행
+	nexaEduMapper.getShopDataCategoryAllSum();
+    return nexaEduMapper.getShopDataCategory(); // UPDATE 후 SELECT 실행
+}
+
+@Override
+public int changeLikeNum(List<Map<String, Object>> likeNum) {
+	Map<String, Object> rowData = likeNum.get(0);
+	return nexaEduMapper.updateLikeNum(rowData);
+}
+
+@Override
+public List<Map<String, Object>> userInfoLike(String userId) {
+	return nexaEduMapper.userInfoLike(userId);
+}
+
+@Override
+public List<Map<String, Object>> userInfoCart(String userId) {
+	return nexaEduMapper.userInfoCart(userId);
+}
+
+//@Override
+//public List<Map<String, Object>> addLike(NexaEduVO addLikeVo) {
+//	return nexaEduMapper.likeAdd(addLikeVo);
+//}
+//
+//@Override
+//public List<Map<String, Object>> RemoveLikeVo(NexaEduVO removeLikeVo) {
+//	return nexaEduMapper.likeRemove(removeLikeVo);
+//}
+
+
+@Override
+public void addLike(List<Map<String, Object>> likelist) {
+	int nSize = likelist.size();
+	for(int i =0; i <nSize; i++) {
+		Map<String, Object> rowData = likelist.get(i);
+		nexaEduMapper.likeAdd(rowData);
+	}
+}
+
+@Override
+public void removeLike(List<Map<String, Object>> likelist) {
+		Map<String, Object> rowData = likelist.get(0);
+		nexaEduMapper.likeRemove(rowData);
+}
+
+@Override
+public List<Map<String, Object>> updateUser(Map<String, String> upUser) {
+	nexaEduMapper.updateUserData(upUser);
+	return nexaEduMapper.updateUser(upUser);
+}
+
+@Override
+public List<Map<String, Object>> getBuyData() {
+	return nexaEduMapper.getBuyData(); 
+}
+
+@Override
+public List<Map<String, Object>> getBuyDetail() {
+	return nexaEduMapper.getBuyDetail(); 
+}
+
+@Override
+public List<Map<String, Object>> getPayData() {
+	return nexaEduMapper.getPayData(); 
+}
+
+@Override
+public List<Map<String, Object>> getSellDetail() {
+	return nexaEduMapper.getSellDetail();
+}
+
+@Override
+public List<Map<String, Object>> getDeliveryData() {
+	return nexaEduMapper.getDeliveryData();
+}
+
+@Override
+public void saveNewData(List<Map<String, Object>> saveList) {
+	Map<String, Object> rowData = saveList.get(0);
+	nexaEduMapper.saveNewData(rowData);
+	
+}
+
+@Override
+public void saveNewOption(List<Map<String, Object>> saveList) {
+	int nSize = saveList.size();
+	
+	for(int i =0; i <nSize; i++) {
+	Map<String, Object> rowData = saveList.get(i);
+	nexaEduMapper.saveNewOption(rowData);
+	}
+}
+
+@Override
+public void saveNewDetail(List<Map<String, Object>> saveList) {
+	Map<String, Object> rowData = saveList.get(0);
+	nexaEduMapper.saveNewDetail(rowData);
+}
+
+
+@Override
+public void saveEdtData(List<Map<String, Object>> saveList) {
+	Map<String, Object> rowData = saveList.get(0);
+	nexaEduMapper.saveEdtData(rowData);
+}
+
+@Override
+public void saveEdtOption(List<Map<String, Object>> saveList) {
+int nSize = saveList.size();
+	
+	for(int i =0; i <nSize; i++) {
+	Map<String, Object> rowData = saveList.get(i);
+	
+	if((int)rowData.get("DataSetRowType")== DataSet.ROW_TYPE_INSERTED) { //insert SQP
+		nexaEduMapper.saveInsertOption(rowData);
+	} 
+	else if((int)rowData.get("DataSetRowType")== DataSet.ROW_TYPE_DELETED) { //delete SQL
+		nexaEduMapper.saveDeleteOption(rowData);
+	}
+	else if((int)rowData.get("DataSetRowType")== DataSet.ROW_TYPE_UPDATED) { //update SQL
+		Map orgData = (Map) rowData.get("DataSetSavedData");
+		String orgUserId = (String) orgData.get("PRO_CODE");
+		rowData.put("ORG_PRO_CODE", orgUserId);
+		nexaEduMapper.saveEdtOption(rowData);
+	}
+}
+	for (int i = 0; i < nSize; i++) {
+        Map<String, Object> rowData = saveList.get(i);
+        if ((int) rowData.get("DataSetRowType") == DataSet.ROW_TYPE_INSERTED) {
+            // 새로 삽입된 데이터를 처리
+            nexaEduMapper.saveInsertOption(rowData);
+        }
+    }
+}
+
+@Override
+public void saveEdtDetail(List<Map<String, Object>> saveList) {
+	Map<String, Object> rowData = saveList.get(0);
+	nexaEduMapper.saveEdtDetail(rowData);
+}
+
+@Override
+public void edtCartNum(List<Map<String, Object>> saveList) {
+	Map<String, Object> rowData = saveList.get(0);
+	nexaEduMapper.edtCartNum(rowData);
+}
+
+@Override
+public void deleteCart(List<Map<String, Object>> saveList) {
+	int nSize = saveList.size();
+	for(int i =0; i <nSize; i++) {
+		Map<String, Object> rowData = saveList.get(i);
+		nexaEduMapper.deleteCart(rowData);
+	}
+}
+
+@Override
+public void addCartInfo(List<Map<String, Object>> saveList) {
+	Map<String, Object> rowData = saveList.get(0);
+	nexaEduMapper.addCartInfo(rowData);
+}
+
+@Override
+public void saveDeliveryData(List<Map<String, Object>> saveList) {
+    int nSize = saveList.size();
+    for (int i = 0; i < nSize; i++) {
+        Map<String, Object> rowData = saveList.get(i);
+        String orderNo = (String) rowData.get("ORDER_NO");
+
+        // 이미 존재하는 데이터인지 확인 (여기서는 orderNo를 기준으로 확인)
+        // 예를 들어, ORDER_NO가 이미 존재하면 UPDATE, 없으면 INSERT
+        boolean isExistingData = nexaEduMapper.checkIfOrderNoExists(orderNo);
+
+        if (isExistingData) {
+            // 데이터가 존재하면 UPDATE
+        	nexaEduMapper.updateDeliveryData(rowData);
+        } else {
+            // 데이터가 없으면 INSERT
+        	nexaEduMapper.insertDeliveryData(rowData);
+        }
+    }
+}
+
+@Override
+public int getOrderNo() {
+	return nexaEduMapper.getOrderNo();
+}
+
+@Override
+public void getUserOrder(List<Map<String, Object>> saveList) {
+	Map<String, Object> rowData = saveList.get(0);
+	 String Pamount = (String) rowData.get("TOTAL_AMOUNT");
+	nexaEduMapper.getUserOrder(rowData);
+	rowData.put("TOTAL_AMOUNT", Pamount);
+	nexaEduMapper.getUserPay(rowData);
+}
+
+@Override
+public void getUserOrderDetail(List<Map<String, Object>> saveList) {
+	 int nSize = saveList.size();
+	 
+	    for (int i = nSize-1; i >= 0; i--) {
+	        Map<String, Object> rowData = saveList.get(i);
+	        
+	        nexaEduMapper.getUserOrderDetail(rowData);
+	        nexaEduMapper.updateOptionNumber(rowData);
+	        nexaEduMapper.deleteCart(rowData);
+	    }
+}
+
+@Override
+public void getUserOneOrderDetail(List<Map<String, Object>> saveList) {
+	Map<String, Object> rowData = saveList.get(0);
+	nexaEduMapper.getUserOrderDetail(rowData);
+    nexaEduMapper.updateOptionNumber(rowData);
+}
+
+@Override
+public List<Map<String, Object>> useUserOrder() {
+	return nexaEduMapper.useUserOrder();
+	
+}
+
+@Override
+public List<Map<String, Object>> useUserOrderDetail() {
+	return nexaEduMapper.useUserOrderDetail();
+}
+
+@Override
+public void SaveCancleData(List<Map<String, Object>> saveList) {
+    int nSize = saveList.size();
+    for (int i = 0; i < nSize; i++) {
+        Map<String, Object> rowData = saveList.get(i);
+        
+        // 기존 STATUS 값을 DB에서 조회하는 로직 추가 (여기서는 예시로 간단히 처리)
+        String orderNo = (String) rowData.get("ORDER_NO");
+        Integer inputStatus = (Integer) rowData.get("STATUS");
+
+        // 기존 STATUS 값을 DB에서 가져오는 쿼리 실행
+        String existingStatus = nexaEduMapper.getExistingStatus(rowData); // 기존 STATUS 값 조회
+
+        // 기존 STATUS 값이 3이고, 입력된 STATUS 값이 4일 때만 updateProOpNumber 실행
+        if ("3".equals(existingStatus) && inputStatus == 4) {
+            nexaEduMapper.updateProOpNumber(rowData);
+        }
+
+        // 다른 데이터 처리 로직 (STATUS 업데이트 등)
+        nexaEduMapper.SaveCancleData(rowData);
+    }
+}
+
+@Override
+public void SaveChangeData(List<Map<String, Object>> saveList) {
+    int nSize = saveList.size();
+    for (int i = 0; i < nSize; i++) {
+        Map<String, Object> rowData = saveList.get(i);
+        
+        // 기존 STATUS 값을 DB에서 조회하는 로직 추가 (여기서는 예시로 간단히 처리)
+        String orderNo = (String) rowData.get("ORDER_NO");
+        Integer inputStatus = (Integer) rowData.get("STATUS");
+
+        // 기존 STATUS 값을 DB에서 가져오는 쿼리 실행
+        String existingStatus = nexaEduMapper.getExistingStatus(orderNo); // 기존 STATUS 값 조회
+    	// 기존 STATUS 값이 3이고, 입력된 STATUS 값이 4일 때만 updateProOpNumber 실행
+        if ("5".equals(existingStatus) && inputStatus == 6) {
+            nexaEduMapper.updateProOpNumber(rowData);
+        }
+        // 다른 데이터 처리 로직 (STATUS 업데이트 등)
+        nexaEduMapper.SaveCancleData(rowData);
+    }
+}
+
+@Override
+public void savePayStatus(List<Map<String, Object>> saveList) {
+    int nSize = saveList.size();
+    for (int i = 0; i < nSize; i++) {
+        Map<String, Object> rowData = saveList.get(i);
+        nexaEduMapper.savePayStatus(rowData);
+    }
+}
+
+@Override
+public void saveBuyStatus(List<Map<String, Object>> saveList) {
+	int nSize = saveList.size();
+    for (int i = 0; i < nSize; i++) {
+        Map<String, Object> rowData = saveList.get(i);
+        nexaEduMapper.saveBuyStatus(rowData);
+    }
+}
+
+@Override
+public List<Map<String, Object>> getAlertData(String user_id) {
+	return nexaEduMapper.getAlertData(user_id);
+}
+
+@Override
+public void saveAlertData(List<Map<String, Object>> saveList) { //만약 서버에는 공지사항이 있고 받은 in_data에는 없는 경우 지워야되는데 어떻게 해야돼? inset, delete, update 다 해야돼 
+	int nSize = saveList.size();
+	
+	for(int i =0; i <nSize; i++) {
+		Map<String, Object> rowData = saveList.get(i);
+		
+		if((int)rowData.get("DataSetRowType")== DataSet.ROW_TYPE_INSERTED) { //insert SQP
+			int alert_no = nexaEduMapper.getAlertKey() + 1;  // 기존 값에서 1 증가
+		    rowData.put("ALERT_NO", alert_no);  // rowData에 추가
+		    nexaEduMapper.insertAlert(rowData);  // 데이터 삽입
+		} 
+		
+		else if((int)rowData.get("DataSetRowType")== DataSet.ROW_TYPE_UPDATED) { //update SQL
+			Map orgData = (Map) rowData.get("DataSetSavedData");
+			String orgUserId = (String) orgData.get("USER_ID");
+			rowData.put("ORG_USER_ID", orgUserId);
+			nexaEduMapper.updateAlert(rowData);
+		}
+		
+		else if((int)rowData.get("DataSetRowType")== DataSet.ROW_TYPE_DELETED) { //delete SQL
+			nexaEduMapper.deleteAlert(rowData);
+		}
+	}
+
+}
+
+@Override
+public List<Map<String, Object>> getAlertDataSite() {
+	return nexaEduMapper.getAlertDataSite();
+}
+
+@Override
+public List<Map<String, Object>> getUserMyOrder(String user_id) {
+	return nexaEduMapper.getUserMyOrder(user_id);
+}
+@Override
+public List<Map<String, Object>> getUserOrderMyDetail(String user_id) {
+	return nexaEduMapper.getUserOrderMyDetail(user_id);
+}
+
+@Override
+public void changeBuyStatus(List<Map<String, Object>> saveList) {
+	int nSize = saveList.size();
+	
+	for(int i =0; i <nSize; i++) {
+		Map<String, Object> rowData = saveList.get(i);
+		nexaEduMapper.changeBuyStatus(rowData);
+	}
+}
+
+@Override
+public String idFound(List<Map<String, Object>> saveList) {
+    Map<String, Object> rowData = saveList.get(0);
+    
+    int result = nexaEduMapper.idFound(rowData);
+
+    if (result == 0) {
+        return "0"; // 0 반환
+    } else {
+        return nexaEduMapper.idFoundResult(rowData); // USER_ID 반환
+    }
+}
+
+@Override
+public String pswFound(List<Map<String, Object>> saveList) {
+Map<String, Object> rowData = saveList.get(0);
+    
+    int result = nexaEduMapper.pswFound(rowData);
+
+    if (result == 0) {
+        return "0"; // 0 반환
+    } else {
+        return nexaEduMapper.pswFoundResult(rowData); 
+    }
+}
+
+}

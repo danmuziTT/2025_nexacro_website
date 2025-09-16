@@ -1,0 +1,59 @@
+package com.edupack.edu.web;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.collections.map.HashedMap;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.edupack.edu.service.EdupackService;
+import com.nexacro.uiadapter.spring.core.annotation.ParamVariable;
+import com.nexacro.uiadapter.spring.core.data.NexacroResult;
+
+@Controller
+public class EdupackController {
+
+	@Resource(name="edupackService")
+	private EdupackService edupackService;
+	
+	@RequestMapping(value = "getEmpListAll.do")
+	public NexacroResult getEmpListAll() {
+		
+		List<Map<String,Object>> resultData = edupackService.getEmpListAll();
+		
+		NexacroResult result = new NexacroResult();
+		result.addDataSet("out_emp", resultData);
+		return result;
+		
+	}	
+	
+	@RequestMapping(value = "getEmpListParamVarialbe1.do")
+	public NexacroResult getEmpListParamVarialbe1(@ParamVariable(name="strDept") String paramDept) {
+		
+		List<Map<String,Object>> resultData = edupackService.getEmpListParamVarialbe1(paramDept);
+		
+		NexacroResult result = new NexacroResult();
+		result.addDataSet("out_emp", resultData);
+		return result;
+		
+	}	
+	
+	@RequestMapping(value = "getEmpListParamVarialbe2.do")
+	public NexacroResult getEmpListParamVarialbe2(@ParamVariable(name="strDept") String paramDept,
+			                                      @ParamVariable(name="strName") String paramName) {
+		
+		Map<String,String> searchMap = new HashedMap();
+		searchMap.put("DEPT", paramDept);
+		searchMap.put("NAME", paramName);
+		
+		List<Map<String,Object>> resultData = edupackService.getEmpListParamVarialbe2(searchMap);
+		
+		NexacroResult result = new NexacroResult();
+		result.addDataSet("out_emp", resultData);
+		return result;
+		
+	}	
+}

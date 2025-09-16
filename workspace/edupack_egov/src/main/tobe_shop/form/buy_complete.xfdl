@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="buy_complete" width="1280" height="720" titletext="구매 완료 폼" onload="buy_complete_onload">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Static id="sta02" taborder="5" text="sta02" left="0" top="0" width="50%" height="50%" visible="false"/>
+        <ImageViewer id="ImageViewer00" taborder="0" left="sta02:-236" top="27" width="473" height="413" background="transparent" border="0px solid" fittocontents="none" stretch="fixaspectratio" imagealign="center middle" image="url('theme::blue/images/takuhai_daibiki_card.png')"/>
+        <Static id="sta00" taborder="1" text=" 결제가 완료되었습니다" left="sta02:-107" top="450" width="215" height="80" font="20px Verdana" onclick="sta00_onclick"/>
+        <Static id="sta01" taborder="2" text="이용해주셔서 감사합니다." left="sta02:-117" top="ImageViewer00:85" width="235" height="74" font="20px Verdana"/>
+        <Button id="btn00" taborder="3" text="메인화면으로" left="110" top="sta02:266" width="456" height="64" onclick="btn00_onclick"/>
+        <Button id="btn00_00" taborder="4" text="마이페이지로" top="626" width="456" height="64" onclick="btn00_00_onclick" left="sta02:74"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+
+this.buy_complete_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+	this.objApp = nexacro.getApplication();
+	
+	var nHeight = this.getLayoutInfo(this.getCurrentLayoutID(), "height");
+	this.parent.parent.fnMainPageOnLoad(nHeight);
+};
+
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+
+
+this.btn00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.parent.parent.fv_setUrl("userInfo::User_myPage.xfdl");
+};
+
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.parent.parent.fv_setUrl("form::Form_shopMain.xfdl");
+};
+]]></Script>
+  </Form>
+</FDL>

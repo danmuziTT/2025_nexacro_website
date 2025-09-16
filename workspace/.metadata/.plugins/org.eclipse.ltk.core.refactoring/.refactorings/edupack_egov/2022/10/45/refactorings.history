@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;connection_edu.jsp&apos; to &apos;connection_edu.jsp&apos;&#x0D;&#x0A;- Original project: &apos;edupack_egov&apos;&#x0D;&#x0A;- Destination element: &apos;connection_edu.jsp&apos;&#x0D;&#x0A;- Original element: &apos;connection_edu.jsp&apos;" description="Copy file" element1="src/main/webapp/edu/connection_edu.jsp" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1667193441583" target="/edupack_egov/src/main/webapp/edu/connection_edu.jsp" units="0" version="1.0"/>
+</session>

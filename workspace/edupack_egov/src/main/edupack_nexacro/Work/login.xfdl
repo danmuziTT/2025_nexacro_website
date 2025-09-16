@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="login" width="1280" height="720" titletext="New Form" onload="login_onload">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Div id="div00" taborder="0" text="div00" left="173" top="48" width="793" height="565" border="1px solid">
+          <Layouts>
+            <Layout>
+              <Static id="sta00" taborder="0" text="아이디" left="70" top="48" width="120" height="26" onclick="div00_sta00_onclick"/>
+              <Edit id="edt_Name" taborder="1" left="262" top="38" width="402" height="44"/>
+              <Static id="sta01" taborder="2" text="비밀번호" left="70" top="115" width="120" height="26"/>
+              <Static id="sta01_00" taborder="3" text="성명" left="70" top="168" width="120" height="26"/>
+              <Static id="sta01_00_00" taborder="4" text="생년월일" left="70" top="208" width="120" height="26"/>
+              <Static id="sta01_00_00_00" taborder="5" text="이메일" left="70" top="288" width="120" height="26"/>
+              <Static id="sta01_00_00_00_00" taborder="6" text="성별" left="71" top="245" width="120" height="26"/>
+              <Static id="sta01_00_00_00_01" taborder="7" text="휴대폰" left="71" top="335" width="120" height="26"/>
+              <Static id="sta01_00_00_00_01_00" taborder="8" text="주소" left="71" top="385" width="120" height="26"/>
+              <Edit id="edt00_00" taborder="9" left="266" top="106" width="402" height="44" password="true"/>
+              <Edit id="edt00_00_00" taborder="10" left="266" top="169" width="402" height="29"/>
+              <Calendar id="cal00" taborder="11" left="265" top="219" width="405" height="27"/>
+              <Radio id="rdo00" taborder="12" left="266" top="256" width="409" height="30" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical" onitemchanged="div00_rdo00_onitemchanged">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">0</Col>
+                      <Col id="datacolumn">남성</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">1</Col>
+                      <Col id="datacolumn">여성</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">2</Col>
+                      <Col id="datacolumn">기타</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Radio>
+              <Edit id="edtUserEmail" taborder="13" left="266" top="292" width="150" height="29"/>
+              <Edit id="edt00_00_00_00_00_00" taborder="14" left="262" top="385" width="124" height="29"/>
+              <Edit id="edt00_00_00_00_00_00_00" taborder="15" left="262" top="431" width="402" height="29"/>
+              <Combo id="cmbUserEmail" taborder="16" left="455" top="292" width="209" height="29" value="" index="-1" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">0</Col>
+                      <Col id="datacolumn">daum.com</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">1</Col>
+                      <Col id="datacolumn">naver.com</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">2</Col>
+                      <Col id="datacolumn">gmail.com</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Combo>
+              <Static id="sta02" taborder="17" text="@" left="428" top="298" width="12" height="14"/>
+              <Button id="btn00" taborder="18" text="중복확인" left="680" top="291" width="87" height="26" onclick="div00_btn00_onclick"/>
+              <Edit id="edt00_00_00_00_00_00_01" taborder="19" left="436" top="385" width="233" height="29"/>
+              <Button id="btn01" taborder="20" text="검색" left="383" top="384" width="64" height="27" onclick="div00_btn01_onclick"/>
+              <MaskEdit id="msk00" taborder="21" left="263" top="340" width="415" height="30" type="string" format="###-####-####"/>
+              <Button id="btn02" taborder="22" text="btn02" left="241" top="486" width="139" height="38" onclick="div00_btn02_onclick"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <WebBrowser id="webPost" taborder="1" left="990" top="404" width="270" height="204" onusernotify="webPost_onusernotify"/>
+        <Grid id="grd00" taborder="2" left="927" top="76" width="314" height="187" binddataset="ds00">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row band="head" size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="USER_NAME"/>
+                <Cell col="1" text="USER_BIRTH"/>
+                <Cell col="2" text="USER_PHONE"/>
+                <Cell col="3" text="USER_GENDER"/>
+                <Cell col="4" text="USER_GRADE"/>
+                <Cell col="5" text="USER_NICK"/>
+                <Cell col="6" text="USER_ID"/>
+                <Cell col="7" text="USER_PW"/>
+                <Cell col="8" text="USER_EMAIL"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:USER_NAME"/>
+                <Cell col="1" text="bind:USER_BIRTH"/>
+                <Cell col="2" text="bind:USER_PHONE"/>
+                <Cell col="3" text="bind:USER_GENDER"/>
+                <Cell col="4" text="bind:USER_GRADE"/>
+                <Cell col="5" text="bind:USER_NICK"/>
+                <Cell col="6" text="bind:USER_ID"/>
+                <Cell col="7" text="bind:USER_PW"/>
+                <Cell col="8" text="bind:USER_EMAIL"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds00">
+        <ColumnInfo>
+          <Column id="USER_NAME" type="STRING" size="256"/>
+          <Column id="USER_BIRTH" type="STRING" size="256"/>
+          <Column id="USER_PHONE" type="STRING" size="256"/>
+          <Column id="USER_GENDER" type="STRING" size="256"/>
+          <Column id="USER_GRADE" type="STRING" size="256"/>
+          <Column id="USER_NICK" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="USER_PW" type="STRING" size="256"/>
+          <Column id="USER_EMAIL" type="STRING" size="256"/>
+          <Column id="ADDR_MAIN" type="STRING" size="256"/>
+          <Column id="ADDR_POST" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[this.div00_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sEmail = this.div00.form.edtUserEmail.value + "@" + this.div00.form.cmbUserEmail.value;
+	this.ds00.setColumn(this.ds00.rowposition, "USER_EMAIL", sEmail);
+
+};
+
+this.div00_btn01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfnPostSearchDaum(this.webPost);
+};
+
+this.webPost_onusernotify = function(obj:nexacro.WebBrowser,e:nexacro.WebUserNotifyEventInfo)
+{
+	var sPost = e.userdata;
+	
+	if(sPost.indexOf("OK!!!::") == 0){ //like
+		var arrAdd = sPost.split(":::");
+		for(var i = 0; i < arrAdd.length; i++){
+			trace(i + "-->" + arrAdd[i]);
+		}
+	this.div00.form.edt00_00_00_00_00_00_01.set_value(arrAdd[3]);
+	this.div00.form.edt00_00_00_00_00_00_00.set_value(arrAdd[6]);
+	}
+};
+
+this.login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+	this.ds00.addRow();
+};
+
+this.div00_btn02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var strSvcUrl = "edu/saveMember.do";
+	var inData    = "dsMember=ds00:U";
+	var outData   = "";
+	var strArg    = "";
+
+	this.gfnTransaction("save", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+};
+
+this.fnCallback = function (id, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode < 0){ //오류가 난 경우
+		this.alert("ERROR"+ sErrorMsg);
+	}
+	
+	switch(id) {
+	case "save":
+		this.alert("저장되었습니다");
+		break;
+	default:
+	}
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item1" compid="div00.form.edt00_00" propid="value" datasetid="ds00" columnid="USER_PW"/>
+      <BindItem id="item0" compid="div00.form.edt00_00_00" propid="value" datasetid="ds00" columnid="USER_NAME"/>
+      <BindItem id="item3" compid="div00.form.cal00" propid="value" datasetid="ds00" columnid="USER_BIRTH"/>
+      <BindItem id="item4" compid="div00.form.rdo00" propid="value" datasetid="ds00" columnid="USER_GENDER"/>
+      <BindItem id="item5" compid="div00.form.msk00" propid="value" datasetid="ds00" columnid="USER_PHONE"/>
+      <BindItem id="item6" compid="div00.form.edt_Name" propid="value" datasetid="ds00" columnid="USER_ID"/>
+      <BindItem id="item8" compid="div00.form.edt00_00_00_00_00_00_01" propid="accessibilityaction" datasetid="ds00" columnid="ADDR_POST"/>
+      <BindItem id="item2" compid="div00.form.edt00_00_00_00_00_00_00" propid="value" datasetid="ds00" columnid="ADDR_MAIN"/>
+    </Bind>
+  </Form>
+</FDL>

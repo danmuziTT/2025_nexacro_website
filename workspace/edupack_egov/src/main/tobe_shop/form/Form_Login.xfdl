@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_Login" width="1280" height="440" titletext="로그인하기" onload="Form_Login_onload">
+    <Layouts>
+      <Layout height="440" width="1280">
+        <Static id="sta00" taborder="1" text="sta00" left="0" top="0" width="50%" background="pink" height="220" visible="false"/>
+        <Div id="Div00" taborder="0" top="39" width="1000" height="402" left="sta00:-500" text="" visible="true">
+          <Layouts>
+            <Layout>
+              <Static id="sta00" taborder="0" text="환영합니다" left="380" top="19" width="240" height="55" cssclass="WF_loginTitle" onclick="Div00_sta00_onclick"/>
+              <Static id="sta01" taborder="1" text="보다 더 많은 즐거움을 위해 로그인 해주세요!" left="254" top="sta00:10" width="493" height="28" cssclass="WF_loginText"/>
+              <Static id="sta02" taborder="2" text="아이디" left="60" top="121" width="120" height="60" cssclass="WF_loginText"/>
+              <Static id="sta03" taborder="3" text="비밀번호" left="60" top="191" width="120" height="60" cssclass="WF_loginText"/>
+              <Edit id="edt00" taborder="4" top="141" width="700" height="40" right="60" onchanged="Div00_edt00_onchanged"/>
+              <Edit id="edt01" taborder="5" top="211" width="700" height="40" right="60" password="true"/>
+              <Button id="btn_login" taborder="6" text="로그인하기" left="200" width="253" height="68" top="272" onclick="Div00_btn_login_onclick"/>
+              <Button id="btn_register" taborder="7" text="회원가입하기" width="253" height="68" right="200" top="272" onclick="Div00_btn_register_onclick"/>
+              <Static id="sta04" taborder="8" text="아이디 또는 비밀번호를 잊어버리셨나요? 아이디와 비밀번호 찾으러 가기" left="171" top="351" width="659" height="43" onclick="Div00_sta04_onclick" font="bold 20px/normal Verdana"/>
+            </Layout>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+
+this.Form_Login_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+	//화면변환 변수
+	this.objApp = nexacro.getApplication();
+	
+	var nHeight = this.getLayoutInfo(this.getCurrentLayoutID(), "height");
+ 	this.parent.parent.fnMainPageOnLoad(nHeight);
+	
+	this.dsSearch.addRow();
+	this.objApp.gdsUserInfo.addRow();
+
+};
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+this.fnCallback = function(id, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode < 0){ //오류가 난 경우
+		this.alert("ERROR"+ sErrorMsg);
+	}
+	if(this.objApp.gdsUserInfo.rowcount == 0){
+		alert("아이디 또는 비밀번호가 다릅니다.");
+	}
+	else{
+		var username = this.objApp.gdsUserInfo.getColumn(0, "USER_NAME");
+		this.loginSuccess(username);
+	}
+};
+
+
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+this.send_urlInfo = function(divUrl)
+{
+	var objFrame = this.objApp.mainframe.VFrameSet00.UserFrame;
+	objFrame.form.fv_setUrl(divUrl);
+};
+
+
+this.loginSuccess = function(loginName){
+	var CF = new ChildFrame();
+   var strName = "chf";
+   var nLeft = 0;
+   var nTop = 0;
+   var nWidth = 250;
+   var nHeight = 150;
+   var nRight = null;
+   var nBottom = null;
+   var strUrl = "form::form_loginPopup.xfdl"; // 복사한 경우에는 Generate 필수
+
+    CF.init(strName, nLeft, nTop, nWidth, nHeight, nRight, nBottom, strUrl);
+   CF.set_openalign("center middle");
+   CF.set_titlebarheight("40px");
+   CF.showModal(this.getOwnerFrame(), {loginName:loginName}, this, ""); 
+   
+}
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+this.Div00_btn_register_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //회원가입하기 버튼
+{
+	var divUrl = "form::Form_register.xfdl";
+	this.send_urlInfo(divUrl)
+};
+
+this.name = "";
+this.Div00_btn_login_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //로그인하기 버튼 (로그인정보가 맞으면 메인화면, 안맞으면 틀렸다는 팝업)
+{
+	/*var strSvcUrl = "edu/loginMember.do";
+	var inData    = "loginData=dsSearch:U";
+	var outData   = "";
+	var strArg    = "";
+
+	this.gfnTransaction("loginMember", strSvcUrl, inData, outData, strArg, "fnCallback", true); */
+	
+	var strSvcUrl = "edu/loginId.do";
+	var inData    = "loginData=dsSearch:U";
+	var outData   = "gdsUserInfo=out_emp";
+	var strArg    = "";
+
+	this.gfnTransaction("loginId", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+	
+};
+
+this.Div00_gotoSeller_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //판매자센터 이동버튼 <판매자센터로 링크 바꿔주기
+{ //아이디와 비밀번호가 판매자의 것인지 확인 후 맞으면 이동 (이동만 구현함)
+	var TF_seller = "sellerInfo::seller_mainUp.xfdl" 
+	var WF_seller = "sellerInfo::seller_main.xfdl" 
+	var manageSize = this.objApp.mainframe.VFrameSet00;
+	manageSize.set_separatesize("150,0,*");
+	manageSize.TopMainFrame.set_formurl(TF_seller);
+};
+
+
+this.Div00_sta04_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo)
+{
+	var divUrl = "form::id_found.xfdl";
+	this.send_urlInfo(divUrl)
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsSearch">
+        <ColumnInfo>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="USER_PW" type="STRING" size="256"/>
+          <Column id="USER_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="Div00.form.edt00" propid="value" datasetid="dsSearch" columnid="USER_ID"/>
+      <BindItem id="item1" compid="Div00.form.edt01" propid="value" datasetid="dsSearch" columnid="USER_PW"/>
+    </Bind>
+  </Form>
+</FDL>

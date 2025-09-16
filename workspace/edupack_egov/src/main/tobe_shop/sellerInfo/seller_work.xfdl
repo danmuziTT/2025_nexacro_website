@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="seller_work" width="1000" height="700" titletext="New Form" onload="Form_Work_onload" onactivate="Form_Work_onactivate">
+    <Layouts>
+      <Layout height="700" width="1000">
+        <Static id="sta_Title" taborder="0" text="Static00" left="10" top="11" width="253" height="19"/>
+        <Div id="div_work" taborder="1" text="Div00" left="0" right="0" top="50" bottom="0"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.fv_menuId = "";
+
+
+this.Form_Work_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var objCF = this.getOwnerFrame();
+	
+	this.fv_menuId = objCF.param.MENU_ID;
+	var sMenuName = objCF.param.MENU_NAME;
+	var sFormUrl = objCF.param.FORM_URL;
+	
+	this.sta_Title.set_text(sMenuName);
+	this.div_work.set_url(sFormUrl); 
+	
+	var nRow = nexacro.getApplication().gdsSellerMenu.findRow("MENU_ID", this.fv_menuId);
+	
+};
+
+this.Form_Work_onactivate = function(obj:nexacro.Form,e:nexacro.ActivateEventInfo)
+{
+   var sId = this.getOwnerFrame().name; //MENU_ID 잘 잡아줌 
+	nexacro.getApplication().av_frameMdi.form.fnTabFocus(sId);//에러 1
+	
+   };
+
+]]></Script>
+  </Form>
+</FDL>

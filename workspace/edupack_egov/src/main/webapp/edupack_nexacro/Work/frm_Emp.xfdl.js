@@ -1,0 +1,418 @@
+(function()
+{
+    return function()
+    {
+        if (!this._is_form)
+            return;
+        
+        var obj = null;
+        
+        this.on_create = function()
+        {
+            this.set_name("frm_Emp");
+            this.set_titletext("New Form");
+            if (Form == this.constructor)
+            {
+                this._setFormPosition(1910,720);
+            }
+            
+            // Object(Dataset, ExcelExportObject) Initialize
+            obj = new Dataset("ds_emp", this);
+            obj.set_keystring("");
+            obj._setContents("<ColumnInfo><Column id=\"EMPL_ID\" type=\"STRING\" size=\"10\"/><Column id=\"FULL_NAME\" type=\"STRING\" size=\"50\"/><Column id=\"DEPT_CD\" type=\"STRING\" size=\"10\"/><Column id=\"POS_CD\" type=\"STRING\" size=\"10\"/><Column id=\"HIRE_DATE\" type=\"DATE\" size=\"10\"/><Column id=\"SALARY\" type=\"INT\" size=\"10\"/><Column id=\"GENDER\" type=\"STRING\" size=\"10\"/><Column id=\"MARRIED\" type=\"STRING\" size=\"10\"/><Column id=\"MEMO\" type=\"STRING\" size=\"10\"/><Column id=\"COL_CHK\" type=\"STRING\" size=\"1\"/></ColumnInfo><Rows><Row><Col id=\"EMPL_ID\">AA001</Col><Col id=\"FULL_NAME\">Olivia</Col><Col id=\"DEPT_CD\">01</Col><Col id=\"POS_CD\">03</Col><Col id=\"HIRE_DATE\">20101003</Col><Col id=\"SALARY\">83000</Col><Col id=\"GENDER\">W</Col><Col id=\"MARRIED\">true</Col><Col id=\"MEMO\">ivory</Col><Col id=\"COL_CHK\">0</Col></Row><Row><Col id=\"EMPL_ID\">AA002</Col><Col id=\"FULL_NAME\">John</Col><Col id=\"DEPT_CD\">02</Col><Col id=\"POS_CD\">04</Col><Col id=\"HIRE_DATE\">20051011</Col><Col id=\"SALARY\">76000</Col><Col id=\"GENDER\">M</Col><Col id=\"MARRIED\">false</Col><Col id=\"MEMO\">greenyellow</Col><Col id=\"COL_CHK\">0</Col></Row><Row><Col id=\"EMPL_ID\">BB001</Col><Col id=\"FULL_NAME\">Jackson</Col><Col id=\"DEPT_CD\">03</Col><Col id=\"POS_CD\">03</Col><Col id=\"HIRE_DATE\">20070206</Col><Col id=\"SALARY\">95000</Col><Col id=\"GENDER\">M</Col><Col id=\"MARRIED\">true</Col><Col id=\"MEMO\">aliceblue</Col><Col id=\"COL_CHK\">0</Col></Row><Row><Col id=\"EMPL_ID\">BB002</Col><Col id=\"FULL_NAME\">Maia</Col><Col id=\"DEPT_CD\">04</Col><Col id=\"POS_CD\">02</Col><Col id=\"HIRE_DATE\">20090512</Col><Col id=\"SALARY\">60000</Col><Col id=\"GENDER\">W</Col><Col id=\"MARRIED\">false</Col><Col id=\"MEMO\">ivory</Col><Col id=\"COL_CHK\">0</Col></Row><Row><Col id=\"EMPL_ID\">CC001</Col><Col id=\"FULL_NAME\">Adam</Col><Col id=\"DEPT_CD\">01</Col><Col id=\"POS_CD\">04</Col><Col id=\"HIRE_DATE\">20010109</Col><Col id=\"SALARY\">88000</Col><Col id=\"GENDER\">M</Col><Col id=\"MARRIED\">true</Col><Col id=\"MEMO\">greenyellow</Col><Col id=\"COL_CHK\">0</Col></Row><Row><Col id=\"EMPL_ID\">DD001</Col><Col id=\"FULL_NAME\">Ray</Col><Col id=\"DEPT_CD\">02</Col><Col id=\"POS_CD\">03</Col><Col id=\"HIRE_DATE\">20160202</Col><Col id=\"SALARY\">60000</Col><Col id=\"GENDER\">M</Col><Col id=\"MARRIED\">true</Col><Col id=\"MEMO\">lightpink</Col><Col id=\"COL_CHK\">0</Col></Row></Rows>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_dept", this);
+            obj._setContents("<ColumnInfo><Column id=\"DEPT_CD\" type=\"STRING\" size=\"32\"/><Column id=\"DEPT_NAME\" type=\"STRING\" size=\"32\"/></ColumnInfo><Rows><Row><Col id=\"DEPT_CD\">01</Col><Col id=\"DEPT_NAME\">Accounting Team</Col></Row><Row><Col id=\"DEPT_CD\">02</Col><Col id=\"DEPT_NAME\">HR Team</Col></Row><Row><Col id=\"DEPT_CD\">03</Col><Col id=\"DEPT_NAME\">Sales Team</Col></Row><Row><Col id=\"DEPT_CD\">04</Col><Col id=\"DEPT_NAME\">Design Team</Col></Row><Row><Col id=\"DEPT_CD\">05</Col><Col id=\"DEPT_NAME\">Education Team</Col></Row></Rows>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds_pos", this);
+            obj._setContents("<ColumnInfo><Column id=\"POS_CD\" type=\"string\" size=\"32\"/><Column id=\"POS_NAME\" type=\"string\" size=\"32\"/></ColumnInfo><Rows><Row><Col id=\"POS_CD\">04</Col><Col id=\"POS_NAME\">Officer</Col></Row><Row><Col id=\"POS_CD\">03</Col><Col id=\"POS_NAME\">Assistant Manager</Col></Row><Row><Col id=\"POS_CD\">02</Col><Col id=\"POS_NAME\">Division Manager</Col></Row><Row><Col id=\"POS_CD\">01</Col><Col id=\"POS_NAME\">Chairman</Col></Row></Rows>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("ds00", this);
+            obj._setContents("<ColumnInfo><Column id=\"EMPL_ID\" type=\"string\" size=\"10\"/><Column id=\"FULL_NAME\" type=\"string\" size=\"50\"/><Column id=\"DEPT_CD\" type=\"string\" size=\"10\"/><Column id=\"POS_CD\" type=\"string\" size=\"10\"/><Column id=\"GENDER\" type=\"string\" size=\"10\"/><Column id=\"HIRE_DATE\" type=\"date\" size=\"10\"/><Column id=\"MARRIED\" type=\"string\" size=\"10\"/><Column id=\"SALARY\" type=\"int\" size=\"10\"/><Column id=\"MEMO\" type=\"string\" size=\"10\"/></ColumnInfo><Rows><Row><Col id=\"EMPL_ID\"/><Col id=\"FULL_NAME\"/><Col id=\"DEPT_CD\"/><Col id=\"POS_CD\"/><Col id=\"GENDER\"/><Col id=\"MARRIED\"/><Col id=\"SALARY\">0</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\"/><Col id=\"FULL_NAME\">이채영</Col><Col id=\"DEPT_CD\"/><Col id=\"POS_CD\"/><Col id=\"GENDER\"/><Col id=\"MARRIED\"/><Col id=\"SALARY\">0</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\"/><Col id=\"FULL_NAME\">dasda</Col><Col id=\"DEPT_CD\"/><Col id=\"POS_CD\"/><Col id=\"GENDER\"/><Col id=\"MARRIED\"/><Col id=\"SALARY\">0</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\">DD552</Col><Col id=\"FULL_NAME\">dd</Col><Col id=\"DEPT_CD\"/><Col id=\"POS_CD\"/><Col id=\"GENDER\">M</Col><Col id=\"MARRIED\"/><Col id=\"SALARY\">444444</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\">FF 33</Col><Col id=\"FULL_NAME\">김민규</Col><Col id=\"DEPT_CD\">01</Col><Col id=\"POS_CD\"/><Col id=\"GENDER\">M</Col><Col id=\"MARRIED\"/><Col id=\"SALARY\">0</Col><Col id=\"MEMO\">yellow&#10;</Col></Row><Row><Col id=\"EMPL_ID\">AA233</Col><Col id=\"FULL_NAME\">김민규</Col><Col id=\"DEPT_CD\">01</Col><Col id=\"POS_CD\">04</Col><Col id=\"GENDER\">M</Col><Col id=\"MARRIED\"/><Col id=\"SALARY\">0</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\">AA123</Col><Col id=\"FULL_NAME\">김세진</Col><Col id=\"DEPT_CD\">01</Col><Col id=\"POS_CD\">02</Col><Col id=\"GENDER\">M</Col><Col id=\"HIRE_DATE\">20200621</Col><Col id=\"MARRIED\"/><Col id=\"SALARY\">1316134912</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\">DD001</Col><Col id=\"FULL_NAME\">김수민</Col><Col id=\"DEPT_CD\">01</Col><Col id=\"POS_CD\">02</Col><Col id=\"GENDER\">M</Col><Col id=\"HIRE_DATE\">20200618</Col><Col id=\"MARRIED\"/><Col id=\"SALARY\">0</Col><Col id=\"MEMO\">gray</Col></Row><Row><Col id=\"EMPL_ID\">AA123</Col><Col id=\"FULL_NAME\">하윤수</Col><Col id=\"DEPT_CD\">01</Col><Col id=\"POS_CD\"/><Col id=\"GENDER\">M</Col><Col id=\"HIRE_DATE\">20241226</Col><Col id=\"MARRIED\">false</Col><Col id=\"SALARY\">100</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\">AA222</Col><Col id=\"FULL_NAME\">한국희</Col><Col id=\"DEPT_CD\">01</Col><Col id=\"POS_CD\">04</Col><Col id=\"GENDER\">W</Col><Col id=\"HIRE_DATE\">20241226</Col><Col id=\"MARRIED\"/><Col id=\"SALARY\">1111</Col><Col id=\"MEMO\">pink</Col></Row><Row><Col id=\"EMPL_ID\">DD990</Col><Col id=\"FULL_NAME\">김지영</Col><Col id=\"DEPT_CD\">02</Col><Col id=\"POS_CD\"/><Col id=\"GENDER\">W</Col><Col id=\"HIRE_DATE\">20241205</Col><Col id=\"MARRIED\">true</Col><Col id=\"SALARY\">157686441</Col><Col id=\"MEMO\">pink&#10;</Col></Row><Row><Col id=\"EMPL_ID\">AA456</Col><Col id=\"FULL_NAME\">서승혁</Col><Col id=\"DEPT_CD\">02</Col><Col id=\"POS_CD\">01</Col><Col id=\"GENDER\">M</Col><Col id=\"MARRIED\"/><Col id=\"SALARY\">0</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\">AA122</Col><Col id=\"FULL_NAME\">하윤수</Col><Col id=\"DEPT_CD\">02</Col><Col id=\"POS_CD\"/><Col id=\"GENDER\">M</Col><Col id=\"HIRE_DATE\">20241226</Col><Col id=\"MARRIED\"/><Col id=\"SALARY\">100</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\">AS123</Col><Col id=\"FULL_NAME\">홍길동</Col><Col id=\"DEPT_CD\">02</Col><Col id=\"POS_CD\">03</Col><Col id=\"GENDER\">M</Col><Col id=\"HIRE_DATE\">20241223</Col><Col id=\"MARRIED\">true</Col><Col id=\"SALARY\">1874919424</Col><Col id=\"MEMO\">12312321</Col></Row><Row><Col id=\"EMPL_ID\">AA002</Col><Col id=\"FULL_NAME\">testname</Col><Col id=\"DEPT_CD\">02</Col><Col id=\"POS_CD\">02</Col><Col id=\"GENDER\">M</Col><Col id=\"HIRE_DATE\">20241226</Col><Col id=\"MARRIED\">false</Col><Col id=\"SALARY\">1410065408</Col><Col id=\"MEMO\">test</Col></Row><Row><Col id=\"EMPL_ID\">WR323</Col><Col id=\"FULL_NAME\">weare</Col><Col id=\"DEPT_CD\">02</Col><Col id=\"POS_CD\">03</Col><Col id=\"GENDER\">W</Col><Col id=\"HIRE_DATE\">20241223</Col><Col id=\"MARRIED\">true</Col><Col id=\"SALARY\">0</Col><Col id=\"MEMO\">werwer</Col></Row><Row><Col id=\"EMPL_ID\">AA213</Col><Col id=\"FULL_NAME\">aaaa</Col><Col id=\"DEPT_CD\">03</Col><Col id=\"POS_CD\">02</Col><Col id=\"GENDER\"/><Col id=\"MARRIED\"/><Col id=\"SALARY\">0</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\">DD112</Col><Col id=\"FULL_NAME\">TERRY</Col><Col id=\"DEPT_CD\">03</Col><Col id=\"POS_CD\"/><Col id=\"GENDER\"/><Col id=\"HIRE_DATE\">20200621</Col><Col id=\"MARRIED\"/><Col id=\"SALARY\">0</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\">DD555</Col><Col id=\"FULL_NAME\">김주성</Col><Col id=\"DEPT_CD\">04</Col><Col id=\"POS_CD\"/><Col id=\"GENDER\">M</Col><Col id=\"HIRE_DATE\">20241210</Col><Col id=\"MARRIED\"/><Col id=\"SALARY\">45600</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\">DS123</Col><Col id=\"FULL_NAME\">김태훈</Col><Col id=\"DEPT_CD\">04</Col><Col id=\"POS_CD\">01</Col><Col id=\"GENDER\">M</Col><Col id=\"HIRE_DATE\">20241226</Col><Col id=\"MARRIED\">false</Col><Col id=\"SALARY\">99999</Col><Col id=\"MEMO\"/></Row><Row><Col id=\"EMPL_ID\">AA111</Col><Col id=\"FULL_NAME\">dlwldnjs</Col><Col id=\"DEPT_CD\">04</Col><Col id=\"POS_CD\">01</Col><Col id=\"GENDER\">W</Col><Col id=\"HIRE_DATE\">20241223</Col><Col id=\"MARRIED\"/><Col id=\"SALARY\">11221122</Col><Col id=\"MEMO\">green</Col></Row></Rows>");
+            this.addChild(obj.name, obj);
+            
+            // UI Components Initialize
+            obj = new Static("sta00","52","20","56","17",null,null,null,null,null,null,this);
+            obj.set_taborder("0");
+            obj.set_text("사원관리");
+            obj.set_cssclass("sta_WF_TitleMain");
+            this.addChild(obj.name, obj);
+
+            obj = new Div("div_search","10","44",null,"46","10",null,null,null,null,null,this);
+            obj.set_taborder("1");
+            obj.set_cssclass("div_WF_Search");
+            this.addChild(obj.name, obj);
+
+            obj = new Edit("edt_dept_cd","123","8","78","28",null,null,null,null,null,null,this.div_search.form);
+            obj.set_taborder("0");
+            this.div_search.addChild(obj.name, obj);
+
+            obj = new Button("btn_dept","201","8","30","28",null,null,null,null,null,null,this.div_search.form);
+            obj.set_taborder("1");
+            obj.set_text("");
+            obj.set_verticalAlign("");
+            obj.set_cssclass("btn_WF_Find");
+            this.div_search.addChild(obj.name, obj);
+
+            obj = new Edit("edt_dept_nm","231","8","144","28",null,null,null,null,null,null,this.div_search.form);
+            obj.set_taborder("2");
+            this.div_search.addChild(obj.name, obj);
+
+            obj = new Radio("rdo_gender","543","8","192","28",null,null,null,null,null,null,this.div_search.form);
+            obj.set_taborder("3");
+            obj.set_codecolumn("codecolumn");
+            obj.set_datacolumn("datacolumn");
+            obj.set_columncount("-1");
+            obj.set_rowcount("-1");
+            var div_search_form_rdo_gender_innerdataset = new nexacro.NormalDataset("div_search_form_rdo_gender_innerdataset", obj);
+            div_search_form_rdo_gender_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">A</Col><Col id=\"datacolumn\">전체</Col></Row><Row><Col id=\"codecolumn\">M</Col><Col id=\"datacolumn\">남자</Col></Row><Row><Col id=\"codecolumn\">W</Col><Col id=\"datacolumn\">여자</Col></Row></Rows>");
+            obj.set_innerdataset(div_search_form_rdo_gender_innerdataset);
+            obj.set_index("0");
+            this.div_search.addChild(obj.name, obj);
+
+            obj = new Static("Static04","475","8","68","28",null,null,null,null,null,null,this.div_search.form);
+            obj.set_taborder("4");
+            obj.set_text("성별");
+            obj.set_cssclass("sta_WF_SearchLabel");
+            this.div_search.addChild(obj.name, obj);
+
+            obj = new Static("Static00","0","8","123","28",null,null,null,null,null,null,this.div_search.form);
+            obj.set_taborder("5");
+            obj.set_text("부서코드/부서명");
+            obj.set_cssclass("sta_WF_SearchLabel");
+            this.div_search.addChild(obj.name, obj);
+
+            obj = new Button("btnSelect","795","8","100","26",null,null,null,null,null,null,this);
+            obj.set_taborder("5");
+            obj.set_text("조회");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btnInsert","btnSelect:20","7","100","26",null,null,null,null,null,null,this);
+            obj.set_taborder("2");
+            obj.set_text("입력");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btnDelete","btnInsert:20","7","100","26",null,null,null,null,null,null,this);
+            obj.set_taborder("3");
+            obj.set_text("삭제");
+            this.addChild(obj.name, obj);
+
+            obj = new Button("btn_Save","btnDelete:25","7","100","26",null,null,null,null,null,null,this);
+            obj.set_taborder("4");
+            obj.set_text("저장");
+            this.addChild(obj.name, obj);
+
+            obj = new Grid("grd00","20","115","1350","569",null,null,null,null,null,null,this);
+            obj.set_taborder("6");
+            obj.set_binddataset("ds_emp");
+            obj._setContents("<Formats><Format id=\"default\"><Columns><Column size=\"70\"/><Column size=\"48\"/><Column size=\"48\"/><Column size=\"120\"/><Column size=\"100\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"100\"/><Column size=\"100\"/><Column size=\"80\"/><Column size=\"80\"/><Column size=\"80\"/></Columns><Rows><Row size=\"24\" band=\"head\"/><Row size=\"24\"/><Row size=\"24\" band=\"summ\"/></Rows><Band id=\"head\"><Cell text=\"Rowtype\"/><Cell col=\"1\" text=\"var\"/><Cell col=\"2\" text=\"this\"/><Cell col=\"3\" text=\"currow(예약어)\"/><Cell col=\"4\" text=\"사칙연산\"/><Cell col=\"5\" text=\"EMPL_ID\"/><Cell col=\"6\" text=\"FULL_NAME\"/><Cell col=\"7\" text=\"DEPT_CD\"/><Cell col=\"8\" text=\"POS_CD\"/><Cell col=\"9\" text=\"HIRE_DATE\"/><Cell col=\"10\" text=\"SALARY\"/><Cell col=\"11\" text=\"GENDER\"/><Cell col=\"12\" text=\"GENDER(삼항)\"/><Cell col=\"13\" text=\"GENDER(함수)\"/><Cell col=\"14\" text=\"MARRIED\"/><Cell col=\"15\" text=\"MEMO\"/><Cell col=\"16\" text=\"COL_CHK\"/></Band><Band id=\"body\"><Cell text=\"expr:dataset.getRowType(currow)\"/><Cell col=\"1\" text=\"expr:comp.parent.a1\"/><Cell col=\"2\" text=\"expr:comp.parent.a2\"/><Cell col=\"3\" text=\"expr:currow+1\"/><Cell col=\"4\" text=\"expr:EMPL_ID +FULL_NAME\"/><Cell col=\"5\" text=\"bind:EMPL_ID\" displaytype=\"mask\" maskeditformat=\"AA-###\" maskedittype=\"string\"/><Cell col=\"6\" text=\"bind:FULL_NAME\"/><Cell col=\"7\" text=\"bind:DEPT_CD\" displaytype=\"combocontrol\" combodataset=\"ds_dept\" combocodecol=\"DEPT_CD\" combodatacol=\"DEPT_NAME\"/><Cell col=\"8\" text=\"bind:POS_CD\" displaytype=\"combotext\" combodataset=\"ds_pos\" combocodecol=\"POS_CD\" combodatacol=\"POS_NAME\"/><Cell col=\"9\" text=\"bind:HIRE_DATE\"/><Cell col=\"10\" text=\"bind:SALARY\"/><Cell col=\"11\" text=\"bind:GENDER\"/><Cell col=\"12\" text=\"expr:GENDER==&quot;M&quot;?&quot;남&quot;:(GENDER==&quot;W&quot;?&quot;여&quot;:&quot;기타&quot;)\"/><Cell col=\"13\" text=\"expr:comp.parent.fn_gender(GENDER)\"/><Cell col=\"14\" text=\"bind:MARRIED\" displaytype=\"checkboxcontrol\" combodataset=\"ds_emp\" combocodecol=\"MARRIED\" combodatacol=\"MARRIED\"/><Cell col=\"15\" text=\"bind:MEMO\"/><Cell col=\"16\" text=\"bind:COL_CHK\"/></Band><Band id=\"summary\"><Cell/><Cell col=\"1\"/><Cell col=\"2\"/><Cell col=\"3\" text=\"expr:comp.parent.ds_emp.getRowCount();\"/><Cell col=\"4\" text=\"expr:dataset.getRowCount();\"/><Cell col=\"5\"/><Cell col=\"6\"/><Cell col=\"7\"/><Cell col=\"8\"/><Cell col=\"9\"/><Cell col=\"10\" text=\"expr:dataset.getSum(&quot;SALARY&quot;);\"/><Cell col=\"11\"/><Cell col=\"12\"/><Cell col=\"13\"/><Cell col=\"14\"/><Cell col=\"15\"/><Cell col=\"16\"/></Band></Format></Formats>");
+            this.addChild(obj.name, obj);
+
+            obj = new Div("div01","1389","115","503","550",null,null,null,null,null,null,this);
+            obj.set_taborder("7");
+            obj.set_border("1px solid");
+            this.addChild(obj.name, obj);
+
+            obj = new Static("sta00","24","23","120","26",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("0");
+            obj.set_text("성명");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Edit("edt00","139","16","340","30",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("1");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Static("sta01","24","76","120","26",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("2");
+            obj.set_text("사원번호");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new MaskEdit("msk00","139","72","340","30",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("3");
+            obj.set_type("string");
+            obj.set_format("AA-###");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Static("sta02","24","126","120","26",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("4");
+            obj.set_text("부서");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Static("sta03","24","176","120","26",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("5");
+            obj.set_text("직급");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Combo("cbo00","139","129","340","30",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("6");
+            obj.set_innerdataset("ds_dept");
+            obj.set_codecolumn("DEPT_CD");
+            obj.set_datacolumn("DEPT_NAME");
+            obj.set_text("cbo00");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Static("sta04","24","259","120","26",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("7");
+            obj.set_text("성별");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Static("sta05","24","319","120","26",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("8");
+            obj.set_text("결혼여부");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Static("sta06","24","366","120","26",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("9");
+            obj.set_text("입사일");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new ListBox("lst00","139","181","340","67",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("10");
+            obj.set_innerdataset("ds_pos");
+            obj.set_codecolumn("POS_CD");
+            obj.set_datacolumn("POS_NAME");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Radio("rdo00","139","258","340","30",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("11");
+            obj.set_codecolumn("codecolumn");
+            obj.set_datacolumn("datacolumn");
+            obj.set_direction("vertical");
+            var div01_form_rdo00_innerdataset = new nexacro.NormalDataset("div01_form_rdo00_innerdataset", obj);
+            div01_form_rdo00_innerdataset._setContents("<ColumnInfo><Column id=\"codecolumn\" size=\"256\"/><Column id=\"datacolumn\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"codecolumn\">M</Col><Col id=\"datacolumn\">남성</Col></Row><Row><Col id=\"codecolumn\">W</Col><Col id=\"datacolumn\">여성</Col></Row><Row><Col id=\"datacolumn\">기타</Col><Col id=\"codecolumn\">ECT</Col></Row></Rows>");
+            obj.set_innerdataset(div01_form_rdo00_innerdataset);
+            this.div01.addChild(obj.name, obj);
+
+            obj = new CheckBox("chk00","139","304","340","30",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("12");
+            obj.set_text("결혼했음");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Calendar("cal00","139","361","340","30",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("13");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Static("sta07","24","423","120","26",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("14");
+            obj.set_text("급여");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new MaskEdit("msk01","139","425","340","30",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("15");
+            obj.set_format("#,###");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Static("sta08","24","477","120","26",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("16");
+            obj.set_text("비고사항");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new TextArea("txt00","139","471","340","68",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("17");
+            this.div01.addChild(obj.name, obj);
+
+            obj = new Calendar("cal01","239","304","240","30",null,null,null,null,null,null,this.div01.form);
+            obj.set_taborder("18");
+            obj.set_visible("true");
+            this.div01.addChild(obj.name, obj);
+            // Layout Functions
+            //-- Default Layout : this.div_search.form
+            obj = new Layout("default","",0,0,this.div_search.form,function(p){});
+            this.div_search.form.addLayout(obj.name, obj);
+
+            //-- Default Layout : this.div01.form
+            obj = new Layout("default","",0,0,this.div01.form,function(p){});
+            this.div01.form.addLayout(obj.name, obj);
+
+            //-- Default Layout : this
+            obj = new Layout("default","",1910,720,this,function(p){});
+            this.addLayout(obj.name, obj);
+            
+            // BindItem Information
+            obj = new BindItem("item0","div01.form.edt00","value","ds_emp","FULL_NAME");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item1","div01.form.msk00","value","ds_emp","EMPL_ID");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item2","div01.form.cbo00","value","ds_emp","DEPT_CD");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item3","div01.form.lst00","value","ds_emp","POS_CD");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item4","div01.form.cal00","value","ds_emp","HIRE_DATE");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item5","div01.form.msk01","value","ds_emp","SALARY");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item6","div01.form.chk00","value","ds_emp","MARRIED");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item7","div01.form.rdo00","value","ds_emp","GENDER");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item8","div01.form.txt00","value","ds_emp","MEMO");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item9","div01.form.cal01","visible","ds_emp","MARRIED");
+            this.addChild(obj.name, obj);
+            obj.bind();
+
+            obj = new BindItem("item10","div01.form.txt00","background","ds_emp","MEMO");
+            this.addChild(obj.name, obj);
+            obj.bind();
+            
+            // TriggerItem Information
+
+        };
+        
+        this.loadPreloadList = function()
+        {
+
+        };
+        
+        // User Script
+        this.registerScript("frm_Emp.xfdl", function() {
+
+        var a1 = "123"; //이 스크립트 내에서만 접근이 가능한 변수
+        this.a2 = "456"; //this > 다른 화면에서도 접근이 가능한 변수
+
+
+        this.fn_gender = function(arg)
+        {
+        	if(arg== "M"){
+        		return "남";
+        	}else if(arg == "W"){
+        		return "여";
+        	}else{
+        		return "기타";
+        		}
+
+        /*	switch(arg) {
+        	case "M":
+        		return "남"
+        		break;
+        	case "W":
+        		return "여"
+        		break;
+        	default:
+        		return "기타"
+        		}
+        		*/
+        }
+
+        this.out_var = " " ;
+
+        this.fn_callback = function(id, nCode, sMsg){
+        	if(nCode <0){
+        		this.alert("실패");
+        		return;
+        	}
+
+        	if(id == "tr_select"){
+        		this.alert("조회 성공");
+        	} else if(id =="tr_save"){
+        		this.alert("저장 성공 " + this.out_var);
+        	}
+        }
+        this.btnSelect_onclick = function(obj,e)
+        {
+        	this.transaction(
+        	"tr_select" //id
+        	 ,"SvcJsp::select_emp.jsp?sDept=" //url
+        	 , " "//input dataset
+        	 ,"ds_emp=out_emp" //output dataset, 데이터셋 사이를 띄워 놓으면 구분짓겟다는 의미
+        	 ," "//inVar
+        	, "fn_callback" //콜백함수이름
+        	); //id, url, iinput, output, 콜백함수이름, 등
+        };
+
+
+        this.btnInsert_onclick = function(obj,e)
+        {
+        	this.ds_emp.addRow();
+        };
+
+
+        this.btnDelete_onclick = function(obj,e)
+        {
+        	this.ds_emp.deleteRow(this.ds_emp.rowposition);
+        };
+
+        this.btn_Save_onclick = function(obj,e)
+        {
+        	var name = "jiyoung kim";
+        	this.transaction(
+        	"tr_save" //id
+        	 ,"SvcJsp::save_emp.jsp" //url
+        	 , "in_emp=ds_emp:U"//input dataset
+        	 ,"" //output dataset, 데이터셋 사이를 띄워 놓으면 구분짓겟다는 의미
+        	 ,"in_var1="+ nexacro.wrapQuote(name) //inVar
+        	, "fn_callback" //콜백함수이름
+        	); //id, url, iinput, output, 콜백함수이름, 등
+        };
+
+
+        this.frm_Emp_onload = function(obj, e)
+        {
+        	var strSvcID = "tr_code"; //id
+        var strURL = "SvcJsp::select_code.jsp"; //url
+        var strInDatasets = ""; //inDs cilent > server .jsp :I U D
+        var strOutDatasets = "ds_dept=out_dept ds_pos=out_pos"; //outDs server > client .jsp :SELECT
+        var strArgument = ""; //invar
+        var strCallbackFunc = "fn_callback" //콜백함수이름
+
+        this.transaction(
+        	strSvcID
+        	 ,strURL
+        	 ,strInDatasets
+        	 ,strOutDatasets
+        	 ,strArgument
+        	,strCallbackFunc
+        );
+        }
+
+        });
+        
+        // Regist UI Components Event
+        this.on_initEvent = function()
+        {
+            this.addEventHandler("onload",this.frm_Emp_onload,this);
+            this.div_search.form.btn_dept.addEventHandler("onclick",this.div_search_btn_dept_onclick,this);
+            this.div_search.form.rdo_gender.addEventHandler("onitemchanged",this.div_search_rdo_gender_onitemchanged,this);
+            this.btnSelect.addEventHandler("onclick",this.btnSelect_onclick,this);
+            this.btnInsert.addEventHandler("onclick",this.btnInsert_onclick,this);
+            this.btnDelete.addEventHandler("onclick",this.btnDelete_onclick,this);
+            this.btn_Save.addEventHandler("onclick",this.btn_Save_onclick,this);
+            this.div01.form.msk00.addEventHandler("onchanged",this.div01_msk00_onchanged,this);
+            this.div01.form.chk00.addEventHandler("onclick",this.div01_chk00_onclick,this);
+            this.ds_emp.addEventHandler("cancolumnchange",this.ds_emp_cancolumnchange,this);
+            this.ds_emp.addEventHandler("onrowsetchanged",this.ds_emp_onrowsetchanged,this);
+            this.ds_emp.addEventHandler("onrowposchanged",this.ds_emp_onrowposchanged,this);
+            this.ds_emp.addEventHandler("oncolumnchanged",this.ds_emp_oncolumnchanged,this);
+        };
+        this.loadIncludeScript("frm_Emp.xfdl");
+        this.loadPreloadList();
+        
+        // Remove Reference
+        obj = null;
+    };
+}
+)();

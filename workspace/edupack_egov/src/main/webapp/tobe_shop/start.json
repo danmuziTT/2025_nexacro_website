@@ -1,0 +1,78 @@
+﻿{
+    "version" : "21.0.0.1",
+    "runtime" :
+    {
+        "target" :
+        {
+            "os" : "windows"
+        },
+        "framework" :
+        [    
+        "./nexacrolib/framework/Framework.js"
+        ],
+        "component" :
+        [    
+        "./nexacrolib/component/CompBase.js",
+        "./nexacrolib/component/ComComp.js",
+        "./nexacrolib/component/Grid.js",
+        "./nexacrolib/component/ListView.js",
+        "./nexacrolib/component/DeviceAPI.js",
+        "./nexacrolib/component/ExtJs/EduCommon.js",
+        "./nexacrolib/component/ExtJs/ExtFrame.js",
+        "./nexacrolib/component/ExtJs/ExtUtil.js",
+        "./nexacrolib/component/ExtJs/ExtTransaction.js",
+        "./nexacrolib/component/ExtJs/ExtValidation.js",
+        "./nexacrolib/component/ExtJs/ExtPopup.js",
+        "./nexacrolib/component/ExtJs/ExtMultiLanguage.js",
+        "./nexacrolib/component/ExtJs/ExtFile.js",
+        "./nexacrolib/component/ExtJs/ExtMessage.js",
+        "./nexacrolib/component/ExtJs/ExtGrid.js",
+        "./nexacrolib/component/ExtJs/ExtExcel.js",
+        "./nexacrolib/component/ExtJs/ExtComp.js",
+        "./nexacrolib/component/ExtJs/ExtPivotGrid.js",
+        "./nexacrolib/component/ExtJs/ExtrMateChartH5.js"
+        ],
+        "environment" :
+        [    
+        {
+        "file":"./environment.xml.js"
+        }
+        ],
+        "screen" :
+        [    
+        {"id":"Desktop_screen","type":"desktop","themeid":"theme::blue"}
+        ],
+        "xadl" :
+        [
+        {
+        	"screenid":"Desktop_screen",
+        	"launch":"./Application_Desktop.xadl.js",
+        	"quickview":"./Application_Desktop.xadl.quickview.js",
+        	"form":[
+        				"./form/Form_Top.xfdl.js",
+        		"./Base/user_form.xfdl.js",
+        		"./sellerInfo/frame_left.xfdl.js",
+        		"./sellerInfo/frame_MDI.xfdl.js",
+        		"./sellerInfo/seller_main.xfdl.js"
+        	]
+        }
+        ],  
+        "protocol" :
+        {
+            "adaptors" :
+            []
+        },
+        "resource" :
+        {
+
+        },
+		"deploy" :
+        {
+
+        },
+        "userfont" :
+        [
+
+        ]
+    }
+}

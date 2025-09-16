@@ -1,0 +1,597 @@
+package com.edupack.edu.web;
+
+import java.io.Console;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.edupack.edu.service.NexaEduService;
+import com.edupack.edu.vo.NexaEduVO;
+import com.nexacro.uiadapter.spring.core.annotation.ParamDataSet;
+import com.nexacro.uiadapter.spring.core.annotation.ParamVariable;
+import com.nexacro.uiadapter.spring.core.data.NexacroResult;
+
+@Controller
+public class NexaEduController {
+   
+   private Logger log = LoggerFactory.getLogger(this.getClass());
+   
+   
+   @Resource
+   private NexaEduService nexaEduService; //파라메터 전달 안하는거
+   @RequestMapping(value = "edu/getEmpList.do")
+   
+   public NexacroResult getEmpList() {
+      List<Map<String, Object>> resultData = nexaEduService.getEmpList();
+      
+      NexacroResult result = new NexacroResult();
+      result.addDataSet("out_emp", resultData);
+      
+      
+      return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/getEmpListParam1.do") //정보를 1개 받아서 상호작용하기
+   public NexacroResult getEmpListParam1(@ParamVariable(name = "pDept") String sDeptCd){
+	   List<Map<String, Object>> resultData = nexaEduService.getEmpListParam1(sDeptCd); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   result.addDataSet("out_emp", resultData);
+	   
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/getEmpListParam2.do") //정보를 2개 받기, xml에서는 2개 이상의 정보를 옮길 수 없기에 다른 방법을 사용해야 함 
+   public NexacroResult getEmpListParam2(@ParamVariable(name = "pDept") String sDeptCd, @ParamVariable(name = "pName") String sName){
+	   NexaEduVO serchVO = new NexaEduVO();
+	   serchVO.setDeptCd(sDeptCd);
+	   serchVO.setFullName(sName);
+	   
+	   List<Map<String, Object>> resultData = nexaEduService.getEmpListParam2(serchVO); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   result.addDataSet("out_emp", resultData);
+	   
+	   return result;
+   }
+   //vo 형태 대신 map 형태로 만들어도 된다 (예시본)
+  // Map<String, String> searchMap = new HashedMap();
+   //searchMap.put("dept_cd", sDeptCd);
+   //searchMap.put("full_name", sName);
+   
+
+   @RequestMapping(value = "edu/getEmpListParamDs.do") //
+   public NexacroResult getEmpListParamDs(@ParamDataSet(name = "paramDs") Map<String, String> searchMap){
+	   
+	   List<Map<String, Object>> resultData = nexaEduService.getEmpListParamDs(searchMap); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   result.addDataSet("out_emp", resultData);
+	   
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/getCodeList.do") //
+   public NexacroResult getCodeList(){
+	   
+	   List<Map<String, Object>> resulDept = nexaEduService.getDeptList(); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   List<Map<String, Object>> resultPos = nexaEduService.getPosList();
+	   
+	   NexacroResult result = new NexacroResult();
+	   result.addDataSet("out_emp", resulDept);
+	   result.addDataSet("out_emp", resultPos);
+	   
+	   return result;
+   }
+
+   
+   @RequestMapping(value = "edu/chechId.do") //
+   public NexacroResult chechId(@ParamVariable(name = "paramId") String empId){
+	   
+	   int nCnt = nexaEduService.chechId(empId); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+
+	   NexacroResult result = new NexacroResult();
+	   result.addVariable("idCount", nCnt);
+	   return result;
+   }
+   
+   
+   
+   
+   @RequestMapping(value = "edu/saveEmp.do") //
+   public NexacroResult saveEmp(@ParamDataSet(name = "in_emp") List<Map<String, Object>> saveList){
+	   
+	   nexaEduService.saveEmp(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+
+   
+   @RequestMapping(value = "edu/saveMember.do") //
+   public NexacroResult saveMember(@ParamDataSet(name = "dsMember1") List<Map<String, Object>> saveList){
+
+	   nexaEduService.saveMember(saveList); //map > key, value 형태로 받음 . 여러 데이터 결과 들어올 예정 
+
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/selectMember.do") //
+   public NexacroResult selectMember(){
+	   
+	   List<Map<String, Object>> memberList = nexaEduService.getMemberList();
+
+	   NexacroResult result = new NexacroResult();
+	   result.addDataSet("out_emp", memberList);
+	   return result;
+   }
+   
+   
+   
+   @RequestMapping(value = "edu/saveMemberAll.do") //
+   public NexacroResult saveMemberAll(@ParamDataSet(name = "dsMember") List<Map<String, Object>> saveData){
+
+	   nexaEduService.saveMemberAll(saveData); //map > key, value 형태로 받음 . 여러 데이터 결과 들어올 예정 
+
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/loginMember.do")
+   public NexacroResult loginMember(@ParamDataSet(name = "loginData" ) List<Map<String, Object>> saveList){
+	   int nCnt = nexaEduService.loginMember(saveList);  //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+
+	   NexacroResult result = new NexacroResult();
+	   result.addVariable("idCount", nCnt);
+	   return result;
+
+   }
+   
+   @RequestMapping(value = "edu/loginId.do")
+   public NexacroResult loginId(@ParamDataSet(name = "loginData") List<Map<String, Object>> saveList){
+	   List<Map<String, Object>> resultLogin = nexaEduService.loginId(saveList);  //int 값으로 보내 아이디가 있는지 없는지 확인 0 일 경우 없음. 1인 경우 아이디가 있음 
+
+	   NexacroResult result = new NexacroResult();
+	   result.addDataSet("out_emp", resultLogin);
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/getIdChk.do") //정보를 1개 받아서 상호작용하기
+   public NexacroResult getIdChk(@ParamVariable(name = "idRegister") String sIdresult){
+	   String resultData = nexaEduService.getIdChk(sIdresult); //중복이면 0, 아니면 데이터 가져옴 (case 문 쓸 것)
+	   
+	   NexacroResult result = new NexacroResult();
+	   result.addVariable("out_cnt", resultData);
+	   
+	   return result;
+   }
+
+   
+   @RequestMapping(value = "edu/saveUser.do") //
+   public NexacroResult saveUser(@ParamDataSet(name = "saveUserData") List<Map<String, Object>> saveUserData){
+	   nexaEduService.saveUser(saveUserData); //map > key, value 형태로 받음 . 여러 데이터 결과 들어올 예정 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/getShopData.do") //
+   public NexacroResult getShopData() {
+	      List<Map<String, Object>> selldata = nexaEduService.getShopData();
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	      return result;
+	   }
+   
+   @RequestMapping(value = "edu/getShopDataDetail.do") //
+   public NexacroResult getShopDataDetail() {
+	      List<Map<String, Object>> selldata = nexaEduService.getShopDataDetail();
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	      return result;
+	   }
+   
+   @RequestMapping(value = "edu/getShopDataOption.do") //
+   public NexacroResult getShopDataOption() {
+	      List<Map<String, Object>> selldata = nexaEduService.getShopDataOption();
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	 
+	      return result;
+	   }
+   
+   @RequestMapping(value = "edu/getShopDataCategory.do") //
+   public NexacroResult getShopDataCategory() {
+	      List<Map<String, Object>> cateData = nexaEduService.getShopDataCategory();
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", cateData);
+	      return result;
+	   }
+  
+   @RequestMapping(value = "edu/userInfoCart.do") //
+   public NexacroResult userInfoCart(@ParamVariable(name = "userId") String userId){
+	   
+	   List<Map<String, Object>> nData = nexaEduService.userInfoCart(userId);
+
+	   NexacroResult result = new NexacroResult();
+	   result.addDataSet("out_emp", nData);
+	   return result;
+   }
+
+   
+   @RequestMapping(value = "edu/userInfoLike.do") //
+   public NexacroResult userInfoLike(@ParamVariable(name = "userId") String userId){
+	   List<Map<String, Object>> nLike = nexaEduService.userInfoLike(userId);
+
+	   NexacroResult result = new NexacroResult();
+	   result.addDataSet("out_emp", nLike);
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/changeLikeNum.do") // like 수 수정 후 서버 저장
+   public NexacroResult changeLikeNum(@ParamDataSet(name = "likeNum") List<Map<String, Object>> likeNum){
+       int updatedRows = nexaEduService.changeLikeNum(likeNum); 
+       NexacroResult result = new NexacroResult();
+       result.addVariable("updatedRows", updatedRows); // 몇 개의 행이 변경되었는지 클라이언트에 반환
+       
+       return result;
+   }
+   
+   
+//  @RequestMapping("/edu/addLike.do")
+//   public NexacroResult addLike(@ParamVariable(name = "userId") String userId, @ParamVariable(name = "proCode") String proCode) {
+//	   NexaEduVO addLikeVo = new NexaEduVO();
+//	   addLikeVo.userId(userId);
+//	   addLikeVo.proCode(proCode);
+//	   List<Map<String, Object>> resultData = nexaEduService.addLike(addLikeVo); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+//	   NexacroResult result = new NexacroResult();
+//	   
+//	   return result;
+//   }
+//   
+//   @RequestMapping("/edu/removeLike.do")
+//   public NexacroResult removeLike(@ParamVariable(name = "userId") String userId, @ParamVariable(name = "proCode") String proCode) {
+//	   NexaEduVO RemoveLikeVo = new NexaEduVO();
+//	   RemoveLikeVo.userId(userId);
+//	   RemoveLikeVo.proCode(proCode);
+//	   List<Map<String, Object>> resultData = nexaEduService.RemoveLikeVo(RemoveLikeVo); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+//	   NexacroResult result = new NexacroResult();
+//	   return result;
+//   }
+
+   
+   @RequestMapping(value = "edu/addLike.do") //
+   public NexacroResult addLike(@ParamDataSet(name = "dsUserLike") List<Map<String, Object>> likelist){
+
+	   nexaEduService.addLike(likelist); //map > key, value 형태로 받음 . 여러 데이터 결과 들어올 예정 
+
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/removeLike.do") //
+   public NexacroResult removeLike(@ParamDataSet(name = "dsUserLike") List<Map<String, Object>> likelist){
+
+	   nexaEduService.removeLike(likelist); //map > key, value 형태로 받음 . 여러 데이터 결과 들어올 예정 
+
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/updateUserData.do") //
+   public NexacroResult updateUser(@ParamDataSet(name = "in_data") Map<String, String> upUser){
+	   
+	   List<Map<String, Object>> resultData = nexaEduService.updateUser(upUser); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   result.addDataSet("out_emp", resultData);
+	   
+	   return result;
+   }
+   
+   
+   
+   @RequestMapping(value = "edu/getBuyData.do") //
+   public NexacroResult getBuyData() {
+	      List<Map<String, Object>> selldata = nexaEduService.getBuyData();
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	 
+	      return result;
+	   }
+   
+   
+   @RequestMapping(value = "edu/getBuyDetail.do") //
+   public NexacroResult getBuyDetail() {
+	      List<Map<String, Object>> selldata = nexaEduService.getBuyDetail();
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	 
+	      return result;
+	   }
+   
+   
+   @RequestMapping(value = "edu/getPayData.do") //
+   public NexacroResult getPayData() {
+	      List<Map<String, Object>> selldata = nexaEduService.getPayData();
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	 
+	      return result;
+	   }
+   
+   
+   @RequestMapping(value = "edu/getSellDetail.do") //
+   public NexacroResult getSellDetail() {
+	      List<Map<String, Object>> selldata = nexaEduService.getSellDetail();
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	 
+	      return result;
+	   }
+   
+   
+   @RequestMapping(value = "edu/getDeliveryData.do") //
+   public NexacroResult getDeliveryData() {
+	      List<Map<String, Object>> selldata = nexaEduService.getDeliveryData();
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	 
+	      return result;
+	   }
+   
+   
+   
+   @RequestMapping(value = "edu/saveNewData.do") //
+   public NexacroResult saveNewData(@ParamDataSet(name = "in_emp") List<Map<String, Object>> saveList){
+	   
+	   nexaEduService.saveNewData(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+
+   @RequestMapping(value = "edu/saveNewOption.do") //
+   public NexacroResult saveNewOption(@ParamDataSet(name = "in_emp") List<Map<String, Object>> saveList){
+	   nexaEduService.saveNewOption(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/saveNewDetail.do") //
+   public NexacroResult saveNewDetail(@ParamDataSet(name = "in_emp") List<Map<String, Object>> saveList){
+	   nexaEduService.saveNewDetail(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   
+   
+   @RequestMapping(value = "edu/saveEdtData.do") //
+   public NexacroResult saveEdtData(@ParamDataSet(name = "in_emp") List<Map<String, Object>> saveList){
+	   nexaEduService.saveEdtData(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+
+   @RequestMapping(value = "edu/saveEdtOption.do") //
+   public NexacroResult saveEdtOption(@ParamDataSet(name = "in_emp") List<Map<String, Object>> saveList){
+	   nexaEduService.saveEdtOption(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/saveEdtDetail.do") //
+   public NexacroResult saveEdtDetail(@ParamDataSet(name = "in_emp") List<Map<String, Object>> saveList){
+	   nexaEduService.saveEdtDetail(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/edtCartNum.do") //
+   public NexacroResult edtCartNum(@ParamDataSet(name = "in_emp") List<Map<String, Object>> saveList){
+	   
+	   nexaEduService.edtCartNum(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/deleteCart.do") //
+   public NexacroResult deleteCart(@ParamDataSet(name = "in_emp") List<Map<String, Object>> saveList){
+	   
+	   nexaEduService.deleteCart(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/addCartInfo.do") //
+   public NexacroResult addCartInfo(@ParamDataSet(name = "in_emp") List<Map<String, Object>> saveList){
+	   nexaEduService.addCartInfo(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/saveDeliveryData.do") //
+   public NexacroResult saveDeliveryData(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList){
+	   nexaEduService.saveDeliveryData(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/getOrderNo.do") //정보를 1개 받아서 상호작용하기
+   public NexacroResult getOrderNo(){
+	   int resultData = nexaEduService.getOrderNo(); //
+	   
+	   NexacroResult result = new NexacroResult();
+	   result.addVariable("out_cnt", resultData);
+	   
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/getUserOrder.do") // 정보 받기
+   public NexacroResult getUserOrder(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList){
+	   nexaEduService.getUserOrder(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/getUserOrderDetail.do") //세부정보 받기
+   public NexacroResult getUserOrderDetail(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList){
+	   nexaEduService.getUserOrderDetail(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/getUserOneOrderDetail.do") //세부정보 하나만 받기
+   public NexacroResult getUserOneOrderDetail(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList){
+	   nexaEduService.getUserOneOrderDetail(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/useUserOrder.do") //세부정보 하나만 받기
+   public NexacroResult useUserOrder(){
+	   List<Map<String, Object>> selldata =nexaEduService.useUserOrder();
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	   return result;
+   }
+   @RequestMapping(value = "edu/useUserOrderDetail.do") //세부정보 하나만 받기
+   public NexacroResult useUserOrderDetail(){
+	   List<Map<String, Object>> selldata =nexaEduService.useUserOrderDetail();
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/SaveCancleData.do") //
+   public NexacroResult SaveCancleData(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList){
+	   nexaEduService.SaveCancleData(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   
+   
+   @RequestMapping(value = "edu/SaveChangeData.do") //
+   public NexacroResult SaveChangeData(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList){
+	   nexaEduService.SaveChangeData(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/savePayStatus.do") //
+   public NexacroResult savePayStatus(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList){
+	   nexaEduService.savePayStatus(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/saveBuyStatus.do") //
+   public NexacroResult saveBuyStatus(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList){
+	   nexaEduService.saveBuyStatus(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/getAlertData.do") //
+   public NexacroResult getAlertData(@ParamVariable(name = "user_id") String user_id){
+	   List<Map<String, Object>> selldata =nexaEduService.getAlertData(user_id);
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/saveAlertData.do") //
+   public NexacroResult saveAlertData(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList){
+	   nexaEduService.saveAlertData(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/getAlertDataSite.do")
+   public NexacroResult getAlertDataSite(){
+	   List<Map<String, Object>> selldata =nexaEduService.getAlertDataSite();
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/getUserMyOrder.do") //
+   public NexacroResult getUserMyOrder(@ParamVariable(name = "user_id") String user_id){
+	   List<Map<String, Object>> selldata =nexaEduService.getUserMyOrder(user_id);
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	   return result;
+   }  
+   
+   @RequestMapping(value = "edu/getUserOrderMyDetail.do") //
+   public NexacroResult getUserOrderMyDetail(@ParamVariable(name = "user_id") String user_id){
+	   List<Map<String, Object>> selldata =nexaEduService.getUserOrderMyDetail(user_id);  
+	      NexacroResult result = new NexacroResult();
+	      result.addDataSet("out_emp", selldata);
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/changeBuyStatus.do") //
+   public NexacroResult changeBuyStatus(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList){
+	   nexaEduService.changeBuyStatus(saveList);   //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   @RequestMapping(value = "edu/cancleBuyStatus.do") //
+   public NexacroResult cancleBuyStatus(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList){
+	   nexaEduService.changeBuyStatus(saveList);   //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+   
+   
+   @RequestMapping(value = "edu/idFound.do")
+   public NexacroResult idFound(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList) {
+       String result2 = nexaEduService.idFound(saveList);   // 처리 결과를 String으로 반환
+       NexacroResult result = new NexacroResult();
+       result.addVariable("result", result2);  // "result"라는 이름으로 반환값을 추가
+       return result;
+   }
+   
+   @RequestMapping(value = "edu/pswFound.do")
+   public NexacroResult pswFound(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList) {
+       String result2 = nexaEduService.pswFound(saveList);   // 처리 결과를 String으로 반환
+       NexacroResult result = new NexacroResult();
+       result.addVariable("result", result2);  // "result"라는 이름으로 반환값을 추가
+       return result;
+   }
+   
+   @RequestMapping(value = "edu/saveProData.do") //
+   public NexacroResult saveProData(@ParamDataSet(name = "in_data") List<Map<String, Object>> saveList){
+	   nexaEduService.saveProData(saveList); //map > key, value 형태로 받음 . 2차원의 여러 결과가 오면 listMap 형태로 받으면 됨 
+	   NexacroResult result = new NexacroResult();
+	   return result;
+   }
+}

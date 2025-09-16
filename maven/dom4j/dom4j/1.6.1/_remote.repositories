@@ -1,0 +1,7 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Wed May 04 13:31:50 KST 2022
+dom4j-1.6.1.jar>tobesoft=
+dom4j-1.6.1-sources.jar>mvn2s=
+dom4j-1.6.1.pom>tobesoft=
+dom4j-1.6.1.pom>mvn2s=
+dom4j-1.6.1.jar>mvn2s=

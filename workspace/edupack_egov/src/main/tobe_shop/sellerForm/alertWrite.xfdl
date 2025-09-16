@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="alertWrite" width="1000" height="650" titletext="공지사항" onload="alertWrite_onload">
+    <Layouts>
+      <Layout height="650" mobileorientation="landscape" width="1000">
+        <Static id="sta01" taborder="7" left="0" top="0" width="64.00%" height="52.31%" background="pink" visible="false" text=""/>
+        <Static id="staLine" taborder="0" left="50" top="87" height="3" background="#3f6267" right="50"/>
+        <Static id="staAnno" taborder="1" text="공지사항" left="60" top="40" width="80" height="23" font="normal 700 20px/normal &quot;Arial&quot;"/>
+        <Button id="btnWrite" taborder="2" text="작성" left="sta01:-10" top="30" height="42" cssclass="Check" font="normal 15px/normal &quot;Arial&quot;" onclick="btnWrite_onclick" width="101"/>
+        <Div id="divAnno" taborder="3" left="sta01:-225" top="110" width="550" height="440" border="1px solid black" text="" visible="true">
+          <Layouts>
+            <Layout>
+              <Static id="staTitle" taborder="0" text="제목" left="30" top="39" width="40" height="23" font="normal 20px/normal &quot;Arial&quot;"/>
+              <Edit id="Edit00" taborder="1" left="120" top="30" width="400" height="40"/>
+              <Static id="staText" taborder="2" text="내용" left="30" top="110" width="40" height="23" font="normal 20px/normal &quot;Arial&quot;"/>
+              <TextArea id="TextArea00" taborder="3" left="120" top="100" width="400" height="309"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Grid id="grdAnno" taborder="4" left="sta01:-620" top="110" width="370" height="440" border="1px solid black" binddataset="dsAnno" autofittype="col" oncellclick="grdAnno_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="57"/>
+                <Column size="205"/>
+                <Column size="105"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="순번"/>
+                <Cell col="1" text="제목"/>
+                <Cell col="2" text="작성자"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ALERT_NO"/>
+                <Cell col="1" text="bind:TITLE"/>
+                <Cell col="2" text="bind:WRITER"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btnFin" taborder="5" text="저장" left="sta01:232" top="30" width="101" height="42" cssclass="Check" font="normal 15px/normal &quot;Arial&quot;" onclick="btnFin_onclick"/>
+        <Button id="btnDelete" taborder="6" text="삭제" left="sta01:111" top="30" width="101" height="42" cssclass="Check" font="normal 15px/normal &quot;Arial&quot;" onclick="btnDelete_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsAnno">
+        <ColumnInfo>
+          <Column id="ALERT_NO" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="DETAIL" type="STRING" size="256"/>
+          <Column id="WRITER" type="STRING" size="256"/>
+          <Column id="DATE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+
+this.alertWrite_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.objApp = nexacro.getApplication();
+	
+	var user_id = this.objApp.gdsUserInfo.getColumn(0, "USER_ID");
+	var strSvcUrl = "edu/getAlertData.do"; //s_order
+	var inData    = "";
+	var outData   = "dsAnno=out_emp";
+	var strArg    = "user_id="+user_id;
+	this.gfnTransaction("getAlertData", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+
+};
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+this.fnCallback = function(id, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode < 0){ //오류가 난 경우
+		this.alert("ERROR"+ sErrorMsg);
+		return ;
+	}
+	
+	if(id == "getAlertData"){
+		return ;
+	}
+	
+	if(id =="saveAlertData"){
+		alert("저장이 완료되었습니다");
+	}
+}
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+
+this.fnToday = function()
+{
+    var objDate = new nexacro.Date();
+    var yyyy = objDate.getFullYear(); // 연도
+    var mm = (objDate.getMonth() + 1).toString().padStart(2, "0"); // 월
+    var dd = objDate.getDate().toString().padStart(2, "0"); // 일
+    
+    var sToday = yyyy + "-" + mm + "-" + dd; // 'yyyy-MM-dd' 형식으로 날짜 생성
+    return sToday; // 문자열로 반환
+}
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+
+this.btnWrite_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsAnno.addRow();
+	this.dsAnno.addColumn("ALERT_NO")
+	var dateN = this.fnToday();
+	var nRow = this.dsAnno.rowcount -1;
+	this.dsAnno.setColumn(nRow,"WRITER", this.objApp.gdsUserInfo.getColumn(0,"USER_ID"));
+	this.dsAnno.setColumn(nRow,"DATE", dateN); // 날짜 이상하게 나옴
+	this.dsAnno.setColumn(nRow,"ALERT_NO", nRow + 1);
+};
+
+this.btnDelete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	var inK = this.dsAnno.rowposition;
+	this.dsAnno.deleteRow(inK);
+};
+
+this.btnFin_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var strSvcUrl = "edu/saveAlertData.do"; 
+	var inData    = "in_data=dsAnno:U";
+	var outData   = "";
+	var strArg    = "";
+	this.gfnTransaction("saveAlertData", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="divAnno.form.Edit00" propid="value" datasetid="dsAnno" columnid="TITLE"/>
+      <BindItem id="item1" compid="divAnno.form.TextArea00" propid="value" datasetid="dsAnno" columnid="DETAIL"/>
+    </Bind>
+  </Form>
+</FDL>

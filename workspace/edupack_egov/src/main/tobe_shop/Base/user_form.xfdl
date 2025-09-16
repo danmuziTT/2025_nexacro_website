@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="user_form" width="1280" height="570" titletext="구매자 유저프레임" onload="user_form_onload" onsize="user_form_onsize" onstepchanged="user_form_onstepchanged">
+    <Layouts>
+      <Layout height="570" width="1280" stepcount="0">
+        <Div id="Div01" taborder="0" left="220" top="0" text="" url="form::Form_shopMain.xfdl" formscrollbartype="none" bottom="40" onsize="Div01_onsize" right="0"/>
+        <Div id="Div00" taborder="1" left="0" top="Div01:0" bottom="0" right="0" text="" url="form::Form_footer.xfdl" onsize="Div00_onsize"/>
+        <Div id="Div02" taborder="2" left="0" top="0" height="530" background="skyblue" right="Div01:0" url="form::Form_Left.xfdl" formscrollbartype="none" formscrolltype="none" onsize="Div02_onsize"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+this.fv_setUrl = function(formUrl)
+{	
+//	  this.Div01.url = formUrl;
+	  this.Div01.set_url(formUrl);
+	  //this.Div01.form.reload(); //강제 url 변경 후 새로고침 
+	var size_case = 0; //1이면 화면분할 0 , 0 이면 화면분할X 
+	
+	if(formUrl === "form::Form_viewProducts.xfdl" || formUrl === "form::Form_viewProSale.xfdl"){ //상품보기
+		size_case = 1;
+		}
+	else {
+		size_case = 0;
+	}
+    this.size_trance(size_case)
+};
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+this.user_form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+	//화면변환 변수
+	this.objApp = nexacro.getApplication();
+	this.fv_setUrl(this.Div01.url); 
+	
+		
+	this.objApp.gdsProInfo.clear();
+	this.objApp.gdsProDetailInfo.clear();
+	this.objApp.gdsProOption.clear();
+	this.objApp.gdsProCategory.clear();
+	
+	var strSvcUrl = "edu/getShopData.do";
+	var inData    = "";
+	var outData   = "gdsProInfo=out_emp";
+	var strArg    = "";
+	this.gfnTransaction("getShopData", strSvcUrl, inData, outData, strArg, "fnCallback", true); 
+	
+};
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+this.fnMainPageOnLoad = function(height) //division 을 늘려주고 줄여주는 기능을 이쪽에서 해주게 됨 
+{
+	this.Div01.set_height(height);
+	this.Div01.form.resetScroll();
+	this.resetScroll();
+}	
+
+this.fnMainPageOnLoad1 = function(height) //division 을 늘려주고 줄여주는 기능을 이쪽에서 해주게 됨 
+{
+	this.Div00.set_height(height);
+	this.Div00.form.resetScroll();
+	this.resetScroll();
+}
+
+this.fnMainPageOnLoad2 = function(height) //division 을 늘려주고 줄여주는 기능을 이쪽에서 해주게 됨 
+{
+	this.Div02.set_height(height);
+	this.Div02.form.resetScroll();
+	this.resetScroll();
+}
+
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+
+this.size_trance = function(i)
+{
+	if(i == 1){
+		this.Div02.set_width(200);  // 사이즈 분할 0
+		this.Div01.set_right(0);
+		this.Div02.set_left(0);
+		this.Div01.set_left(200);
+	}
+	else{
+		this.Div02.set_width(0);  // 사이즈 분할 X
+		this.Div01.set_right(0);
+		this.Div01.set_left(0);
+	}
+	this.Div00.set_height(200)
+};
+
+this.fnCallback = function(id, nErrorCode, sErrorMsg) //트랜젝션 콜백
+{
+	if(nErrorCode < 0){ //오류가 난 경우
+		this.alert("ERROR"+ sErrorMsg);
+		return ;
+	}
+	if(id == "getShopData"){
+	var strSvcUrl = "edu/getShopDataDetail.do";
+	var inData    = "";
+	var outData   = "gdsProDetailInfo=out_emp";
+	var strArg    = "";
+	this.gfnTransaction("getShopDataDetail", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+	}
+	else if(id == "getShopDataDetail"){
+		var strSvcUrl = "edu/getShopDataOption.do";
+		var inData    = "";
+		var outData   = "gdsProOption=out_emp";
+		var strArg    = "";
+		this.gfnTransaction("getShopDataOption", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+	}
+	else if(id == "getShopDataOption"){
+		var strSvcUrl = "edu/getShopDataCategory.do"; //카테고리 데이터 out
+		var inData    = "";
+		var outData   = "gdsProCategory=out_emp";
+		var strArg    = "";
+		this.gfnTransaction("getShopDataCategory", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+	}
+};
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+************************************************************************** */
+
+this.user_form_onsize = function(obj:nexacro.Form,e:nexacro.SizeEventInfo)
+{
+	obj.resetScroll();
+};
+]]></Script>
+  </Form>
+</FDL>

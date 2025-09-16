@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="add_search" width="800" height="400" titletext="New Form">
+    <Layouts>
+      <Layout height="400" width="800"/>
+    </Layouts>
+  </Form>
+</FDL>

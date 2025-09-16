@@ -1,0 +1,556 @@
+(function()
+{
+    return function()
+    {
+        if (!this._is_form)
+            return;
+        
+        var obj = null;
+        
+        this.on_create = function()
+        {
+            this.set_name("form_viewOne");
+            this.set_titletext("물건 하나만 보기");
+            if (Form == this.constructor)
+            {
+                this._setFormPosition(1280,1030);
+            }
+            
+            // Object(Dataset, ExcelExportObject) Initialize
+            obj = new Dataset("dsOption", this);
+            obj._setContents("<ColumnInfo><Column id=\"PRO_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_OPTION\" type=\"STRING\" size=\"256\"/><Column id=\"OPTION_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"OPTION_NUMBER\" type=\"STRING\" size=\"256\"/><Column id=\"OPTION_ADD_PRICE\" type=\"STRING\" size=\"256\"/><Column id=\"OP_LOOK_PRICE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("dsLikeNum", this);
+            obj._setContents("<ColumnInfo><Column id=\"PRO_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"LIKE_NUMBER\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("dsLikeInfo", this);
+            obj._setContents("<ColumnInfo><Column id=\"USER_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_CODE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("dsAddCart", this);
+            obj._setContents("<ColumnInfo><Column id=\"USER_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_OPTION\" type=\"STRING\" size=\"256\"/><Column id=\"OPTION_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_OP_NUMBER\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
+
+
+            obj = new Dataset("dsDeleteLike", this);
+            obj._setContents("<ColumnInfo><Column id=\"USER_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_NAME\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this.addChild(obj.name, obj);
+            
+            // UI Components Initialize
+            obj = new Div("Div001","21","25",null,"625","25",null,null,null,null,null,this);
+            obj.set_taborder("0");
+            obj.set_border("1px solid #0f0f0f");
+            obj.set_borderRadius("5px");
+            this.addChild(obj.name, obj);
+
+            obj = new ImageViewer("pro_image","27","38","509","428",null,null,null,null,null,null,this.Div001.form);
+            obj.set_taborder("0");
+            obj.set_background("");
+            obj.set_stretch("fixaspectratio");
+            this.Div001.addChild(obj.name, obj);
+
+            obj = new Static("sta_proName","559","70",null,"99","10",null,null,null,null,null,this.Div001.form);
+            obj.set_taborder("1");
+            obj.set_text("상품 제목");
+            obj.set_cssclass("pro_oneTitle");
+            this.Div001.addChild(obj.name, obj);
+
+            obj = new Static("sta00","sta_proName:-156","196",null,"69","10",null,null,null,null,null,this.Div001.form);
+            obj.set_taborder("2");
+            obj.set_text("상품 가격");
+            obj.set_cssclass("pro_onePrice");
+            this.Div001.addChild(obj.name, obj);
+
+            obj = new Combo("cmb00","557","305","652","82",null,null,null,null,null,null,this.Div001.form);
+            obj.set_taborder("3");
+            obj.set_cssclass("pro_oneOption");
+            obj.set_innerdataset("dsOption");
+            obj.set_codecolumn("PRO_OPTION");
+            obj.set_datacolumn("OP_LOOK_PRICE");
+            obj.set_text("선택옵션");
+            obj.set_value("");
+            obj.set_index("-1");
+            this.Div001.addChild(obj.name, obj);
+
+            obj = new Button("btn00","495",null,"231","84",null,"50",null,null,null,null,this.Div001.form);
+            obj.set_taborder("4");
+            obj.set_text("장바구니로");
+            this.Div001.addChild(obj.name, obj);
+
+            obj = new Button("btn00_00","739",null,"231","84",null,"50",null,null,null,null,this.Div001.form);
+            obj.set_taborder("5");
+            obj.set_text("바로 구매하기");
+            this.Div001.addChild(obj.name, obj);
+
+            obj = new Button("btn00_00_00","984",null,"231","84",null,"50",null,null,null,null,this.Div001.form);
+            obj.set_taborder("6");
+            obj.set_text("♡ 0");
+            obj.set_icon("url(\'theme::blue/images/likeHerat_off.png\')");
+            this.Div001.addChild(obj.name, obj);
+
+            obj = new Static("sta01","583","sta_proName:10","313","80",null,null,null,null,null,null,this.Div001.form);
+            obj.set_taborder("7");
+            obj.set_text("sta01");
+            obj.set_cssclass("pro_oneTitle");
+            obj.set_visible("false");
+            this.Div001.addChild(obj.name, obj);
+
+            obj = new WebBrowser("web00","21","696",null,"309","25",null,null,null,null,null,this);
+            obj.set_taborder("1");
+            this.addChild(obj.name, obj);
+            // Layout Functions
+            //-- Default Layout : this.Div001.form
+            obj = new Layout("default","",0,0,this.Div001.form,function(p){});
+            this.Div001.form.addLayout(obj.name, obj);
+
+            //-- Default Layout : this
+            obj = new Layout("default","",1280,1030,this,function(p){});
+            this.addLayout(obj.name, obj);
+            
+            // BindItem Information
+
+            
+            // TriggerItem Information
+
+        };
+        
+        this.loadPreloadList = function()
+        {
+
+        };
+        
+        // User Script
+        this.registerScript("Form_viewOne.xfdl", function() {
+        /**************************************************************************
+        * include 영역
+        **************************************************************************/
+
+        /**************************************************************************
+        * FORM 변수 선언 영역 (fv)
+        **************************************************************************/
+        this.fnIdx="";
+        /**************************************************************************
+        * FORM EVENT 영역(onload, onbeforeclose)
+        **************************************************************************/
+
+        var code = 0;
+        var likeNum = 0;
+        var thName = 0;
+        var salePrice = 0;
+        var sHtme = 0;
+        var objApp = 0;
+
+        this.form_viewOne_onload = function(obj, e) {
+            this.objApp = nexacro.getApplication();
+
+        	var nHeight = this.getLayoutInfo(this.getCurrentLayoutID(), "height");
+         	this.parent.parent.fnMainPageOnLoad(nHeight);
+
+            var row = this.objApp.gdsProInfo.rowposition;
+            this.code = this.objApp.gdsProInfo.getColumn(row, "PRO_CODE");
+
+            // 상품 이미지 설정
+            this.Div001.form.pro_image.set_image(this.objApp.gdsProInfo.getColumn(row, "SERVER_IMG"));
+            this.thName = this.objApp.gdsProInfo.getColumn(row, "PRO_NAME");
+            this.Div001.form.sta_proName.set_text(this.thName);
+
+            // 세일 가격 계산
+            this.salePrice = this.objApp.gdsProInfo.getColumn(row, "HOW_MUCH");
+            var salePer = this.objApp.gdsProInfo.getColumn(row, "SALE_PERCENT");
+            if (salePer !== 0) {
+                this.salePrice *= (100 - salePer) / 100;
+                this.Div001.form.sta01.set_visible(true);
+                this.Div001.form.sta01.set_text(salePer + " %");
+                this.Div001.form.sta01.set_color("red");
+                this.Div001.form.sta00.set_color("red");
+            }
+            this.Div001.form.sta00.set_text(this.salePrice);
+
+            // 좋아요 수 설정
+            this.likeNum = this.objApp.gdsProInfo.getColumn(row, "LIKE_NUMBER");
+            this.Div001.form.btn00_00_00.set_text(this.likeNum);
+
+            // 옵션 데이터 설정
+            this.dsOption.copyData(this.objApp.gdsProOption, true);
+            this.fnDataReset();
+
+            // 사용자 정보 기반으로 좋아요 상태 변경
+            var userInfo = this.objApp.gdsUserInfo.getColumn(0, "USER_ID");
+            if (userInfo) {
+                var rowLike = this.objApp.gdsUserLike.findRowExpr("USER_ID == '" + userInfo + "' && PRO_CODE == '" + this.code + "'");
+                if (rowLike >= 0) {
+                    this.Div001.form.btn00_00_00.set_icon("theme::blue/images/likeHerat_on.png");
+                } else {
+                    this.Div001.form.btn00_00_00.set_icon("theme::blue/images/likeHerat_off.png");
+                }
+            }
+
+            // 옵션 필터링 및 옵션 가격 텍스트 설정
+            this.dsOption.copyData(this.objApp.gdsProOption);
+            for (var i = this.dsOption.rowcount - 1; i >= 0; i--) {
+                var opCode = this.dsOption.getColumn(i, "PRO_CODE");
+                if (opCode !== this.code) {
+                    this.dsOption.deleteRow(i);
+                }
+            }
+
+        	this.dsOption.addColumn("OP_LOOK_PRICE"); // 먼저 컬럼 추가
+
+        	for (var inE = 0; inE < this.dsOption.rowcount; inE++) {
+        		var optionNumber = this.dsOption.getColumn(inE, "OPTION_NUMBER");
+        		var optionName = this.dsOption.getColumn(inE, "OPTION_NAME");
+        		var addPrice = this.dsOption.getColumn(inE, "OPTION_ADD_PRICE");
+
+        		var lookPrice = optionNumber > 0
+        			? optionName + "( +" + addPrice + " / 남은수량 " + optionNumber + " 개)"
+        			: optionName + "( 품절 )";
+
+        		this.dsOption.setColumn(inE, "OP_LOOK_PRICE", lookPrice);
+        	}
+
+            // 품절 처리
+            var Psum = 0;
+            for (var j = 0; j < this.dsOption.rowcount; j++) {
+                Psum += this.dsOption.getColumn(j, "OPTION_NUMBER");
+            }
+            if (Psum <= 0) {
+                this.Div001.form.cmb00.set_enable(false);
+                this.Div001.form.sta00.set_text("품절");
+                this.Div001.form.sta_proName.set_color("red");
+                this.Div001.form.btn00_00.set_enable(false);
+                this.Div001.form.btn00_00.set_text("구매불가");
+        		this.Div001.form.btn00.set_text("구매불가");
+        		this.Div001.form.btn00.set_enable(false);
+                if (salePer !== 0) {
+                    this.Div001.form.sta01.set_visible(false);
+                }
+            }
+        		var nRow = this.objApp.gdsProDetailInfo.findRow("PRO_CODE", this.code);
+        		this.fnIdx = nRow;
+        		this.setTimer(1,100);
+
+        };
+
+        /**************************************************************************
+        * CRUD 및 TRANSACTION 서비스 호출 처리
+        **************************************************************************/
+
+        /**************************************************************************
+        * CALLBACK 콜백 처리부분(Transaction, Popup)
+        **************************************************************************/
+
+        this.fnCallback = function(id, nErrorCode, sErrorMsg) //트랜젝션 콜백
+        {
+        	if(nErrorCode < 0){ //오류가 난 경우
+        		this.alert("ERROR"+ sErrorMsg);
+        		return ;
+        	}
+        	if(id =="addCartInfo"){
+        		var nSize = this.objApp.gdsUserCart.rowcount;
+        		this.objApp.gdsUserCart.addRow();
+        		this.objApp.gdsUserCart.setColumn(nSize,"USER_ID", this.dsAddCart.getColumn(0,"USER_ID"));
+        		this.objApp.gdsUserCart.setColumn(nSize,"PRO_CODE", this.dsAddCart.getColumn(0,"PRO_CODE"));
+        		this.objApp.gdsUserCart.setColumn(nSize,"PRO_NAME", this.dsAddCart.getColumn(0,"PRO_NAME"));
+        		this.objApp.gdsUserCart.setColumn(nSize,"PRO_OPTION", this.dsAddCart.getColumn(0,"PRO_OPTION"));
+        		this.objApp.gdsUserCart.setColumn(nSize,"OPTION_NAME", this.dsAddCart.getColumn(0,"OPTION_NAME"));
+        		this.objApp.gdsUserCart.setColumn(nSize,"PRO_OP_NUMBER", this.dsAddCart.getColumn(0,"PRO_OP_NUMBER"));
+        //
+        		this.dsAddCart.clearData();
+        		alert("저장이 완료되었습니다");
+        	}
+        };
+
+        this.fnCallbackLike = function(id, nErrorCode, sErrorMsg) //트랜젝션 콜백
+        {
+        	if(nErrorCode < 0){ //오류가 난 경우
+        		this.alert("ERROR"+ sErrorMsg);
+        		return ;
+        	}
+        		var code = this.dsLikeNum.getColumn(0, "PRO_CODE"); // 수정한 물건 코드
+        		var likeNum = this.dsLikeNum.getColumn(0, "LIKE_NUMBER"); // 변경된 좋아요 수
+
+        		var row = this.objApp.gdsProInfo.findRow("PRO_CODE", code); // PRO_CODE 기준으로 행 찾기
+
+        		if (row >= 0) { // 해당 행이 존재하면
+        			this.objApp.gdsProInfo.setColumn(row, "LIKE_NUMBER", likeNum); // LIKE_NUMBER 업데이트
+        		}
+
+        		if(id == "removeLike"){
+        			for(var i = this.objApp.gdsUserLike.rowcount-1; i >= 0; i--){
+        				var lCode = this.objApp.gdsUserLike.getColumn(i, "PRO_CODE");
+        				if(lCode == this.dsDeleteLike.getColumn(0,"PRO_CODE")){
+        					this.objApp.gdsUserLike.deleteRow(i);
+        				}
+        			}
+        			this.dsDeleteLike.deleteRow();
+        		}
+
+        };
+
+        /**************************************************************************
+        * 사용자 FUNCTION 영역
+        **************************************************************************/
+
+        this.fnDataReset = function()
+        {
+        	this.dsLikeNum.clear();
+        	this.dsLikeNum.addColumn("PRO_CODE", "STRING", 256);
+        	this.dsLikeNum.addColumn("LIKE_NUMBER", "INT", 256);
+
+        	var rowChange = this.dsLikeNum.addRow();
+        	this.dsLikeNum.setColumn(rowChange, "PRO_CODE", this.code);
+        	this.dsLikeNum.setColumn(rowChange, "LIKE_NUMBER", this.likeNum)
+        };
+
+
+        this.fn_viewTextDe = function (iK)
+        {
+        	var sHtml =  this.objApp.gdsProDetailInfo.getColumn(iK,"DETAIL_INFO");
+        	trace("sHtml=" + sHtml);
+        //		var str_html = "";
+        // 		str_html += "<html>\n";
+        // 		str_html += "<head>\n";
+        // 		str_html += "<title>타이틀</title>\n";
+        // 		str_html += "<meta content='text/html; charset=euc-kr' http-equiv=Content-Type>\n";
+        // 		str_html += "<style type='text/css'> p, td, li {font-family:굴림체, arial; font-size:10pt; margin-top:5px;margin-bottom:5px;} body{margin:10px 10px 10px 10px; line-height:1.2; font-family:굴림체, arial; font-size:10pt;}</style>\n";
+        // 		str_html += "</head>\n";
+        // 		str_html += "<body id='content'>\n";
+        // 		str_html += "<div id='content_div'>\n";
+        // 		str_html += sHtml + "\n";
+        // 		str_html += "</div>\n";
+        // 		str_html += "</body>\n";
+        // 		str_html += "</html>\n";
+
+        	var str_html = "<html><body>" + sHtml + "</body></html>";
+
+
+        		this.web00.document.body.innerHTML = str_html;
+        };
+        /**************************************************************************
+        * 각 COMPONENT 별 EVENT 영역
+        **************************************************************************/
+
+        this.Div00_btn00_onclick = function(obj,e) //장바구니 저장 및 팝업
+        {
+        	var userInfo = this.objApp.gdsUserInfo.getColumn(0, "USER_ID");
+        	if (!userInfo) {
+                alert("로그인 후 이용 가능한 서비스입니다!");
+                return;
+            }
+
+        	if(!this.Div001.form.cmb00.value ){
+        		alert("옵션을 선택해야 합니다!");
+        		return;
+        	}
+
+        	var thOp = this.Div001.form.cmb00.value;
+        	var thOpName = this.dsOption.getColumn(thOp -1, "OPTION_NAME")
+        	for(i = 0; i < this.objApp.gdsUserCart.rowcount; i++){
+        		var gdsCode = this.objApp.gdsUserCart.getColumn(i, "PRO_CODE");
+        		var gdsOp = this.objApp.gdsUserCart.getColumn(i, "PRO_OPTION");
+        		if(thOp == gdsOp && this.code == gdsCode){
+        			this.alert("이미 장바구니에 선택된 옵션입니다!");
+        			return;
+        		}
+        	}
+
+
+        	var nRow = this.dsAddCart.insertRow(0);
+        	this.dsAddCart.setColumn(nRow,"USER_ID", this.objApp.gdsUserInfo.getColumn(0, "USER_ID"));
+        	this.dsAddCart.setColumn(nRow,"PRO_CODE", this.code);
+        	this.dsAddCart.setColumn(nRow,"PRO_NAME", this.thName);
+        	this.dsAddCart.setColumn(nRow,"PRO_OPTION", thOp);
+        	this.dsAddCart.setColumn(nRow,"OPTION_NAME", thOpName);
+        	this.dsAddCart.setColumn(nRow,"PRO_OP_NUMBER", 1);
+
+
+        	var strSvcUrl = "edu/addCartInfo.do";  //데이터 수정
+        	var inData    = "in_emp=dsAddCart:A";
+        	var outData   = "";
+        	var strArg    = "";
+        	this.gfnTransaction("addCartInfo", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+
+
+        };
+
+        this.Div00_btn00_00_onclick = function(obj,e) //바로 구매하기 창으로 이동
+        {
+        	var userInfo = this.objApp.gdsUserInfo.getColumn(0, "USER_ID"); //로그인 확인 (코드 완성되면 빼기)
+            if (!userInfo) {
+                alert("로그인 후 이용 가능한 서비스입니다!");
+                return;
+            }
+
+        	if(!this.Div001.form.cmb00.value ){
+        		alert("옵션을 선택해야 합니다!");
+        		return;
+        	}
+
+        	for(i = 0; i < this.objApp.gdsProOption.rowcount; i ++){
+        		var gdsCode = this.objApp.gdsProOption.getColumn(i, "PRO_CODE"); //1
+        		var gdsOption = this.objApp.gdsProOption.getColumn(i, "PRO_OPTION"); //1
+        			if(this.selectedValue == gdsOption && this.code == gdsCode){
+        				this.objApp.gdsProOption.set_rowposition(i);
+        				break ;
+        			}
+        		}
+        	this.parent.parent.fv_setUrl("form::Form_buyInfo.xfdl");
+        };
+
+        this.Div00_btn00_00_00_onclick = function(obj, e)
+        {
+            var userInfo = this.objApp.gdsUserInfo.getColumn(0, "USER_ID");
+            var proCode = this.code;
+
+            if (!userInfo) {
+                alert("로그인 후 이용 가능한 서비스입니다!");
+                return;
+            }
+
+            // 서버에서 좋아요 상태를 가져옴
+            var rowLike = this.objApp.gdsUserLike.findRowExpr("USER_ID == '" + userInfo + "' && PRO_CODE == '" + proCode + "'");
+            var isLiked = (rowLike >= 0);  // 좋아요 여부 (true: 이미 좋아요 한 상태)
+
+            // 좋아요 상태에 따라 버튼 아이콘 설정 및 데이터 변경
+        	var strSvcUrl = "";
+        	var id = 0;
+        	var inData = 0;
+            if (rowLike != -1){
+        		this.Div001.form.btn00_00_00.set_icon("theme::blue/images/likeHerat_off.png");
+                this.likeNum -= 1;  // 좋아요 숫자 감소
+                //  // gds에서 좋아요 취소한 물건코드의 안을 비워두기
+        		this.dsDeleteLike.addRow();
+        		this.dsDeleteLike.setColumn(0,"USER_ID", this.objApp.gdsUserInfo.getColumn(0,"USER_ID"));
+                this.dsDeleteLike.setColumn(0,"PRO_CODE", this.objApp.gdsUserLike.getColumn(rowLike,"PRO_CODE"));
+        		this.dsDeleteLike.setColumn(0,"PRO_NAME", this.objApp.gdsUserLike.getColumn(rowLike,"PRO_NAME"));
+        		strSvcUrl = "edu/removeLike.do";  // 좋아요 취소 API 호출
+        		id = "removeLike";
+        		inData = "dsUserLike=dsDeleteLike";
+            }
+        	else {
+                this.Div001.form.btn00_00_00.set_icon("theme::blue/images/likeHerat_on.png");
+        		this.likeNum += 1;  // 좋아요 숫자 증가
+                var newRow = this.objApp.gdsUserLike.addRow();
+                this.objApp.gdsUserLike.setColumn(newRow, "USER_ID", userInfo);
+                this.objApp.gdsUserLike.setColumn(newRow, "PRO_CODE", this.code);
+        		this.objApp.gdsUserLike.setColumn(newRow, "PRO_NAME", this.thName);
+                strSvcUrl = "edu/addLike.do";  // 좋아요 추가 API 호출
+        		id = "addLike";
+        		inData = "dsUserLike=gdsUserLike:U";
+        	}
+
+            // UI 업데이트
+            this.Div001.form.btn00_00_00.set_text(this.likeNum);  // 좋아요 숫자 업데이트
+            this.dsLikeNum.setColumn(0, "LIKE_NUMBER", this.likeNum);  // dsLikeNum 데이터셋 업데이트
+
+
+            var outData = "";
+        	var strArg = "";
+            this.gfnTransaction(id, strSvcUrl, inData, outData, strArg, "fnCallbackLike", true);
+
+        	var strSvcUrl = "edu/changeLikeNum.do";
+        	var inData    = "likeNum=dsLikeNum:A";
+        	var outData   = "";
+        	var strArg    = "";
+        	this.gfnTransaction("changeLikeNum", strSvcUrl, inData, outData, strArg, "fnCallbackLike", true);
+        };
+
+
+        var selectedValue = 0 ;
+        this.Div001_cmb00_onitemchanged = function(obj,e)
+        {
+        	var selectedIdx = e.postindex;  // 선택된 항목의 인덱스
+            this.selectedValue = obj.value; //PRO_OPTION 의 값이 나옴
+        	var row = this.objApp.gdsProInfo.rowposition
+
+        	for(i = 0; i < this.dsOption.rowcount; i++){
+        		if(this.dsOption.getColumn(i, "PRO_OPTION") == this.selectedValue){
+        			if(this.dsOption.getColumn(i,"OPTION_NUMBER") <= 0){
+        				alert("본 상품은 품절입니다. 구매할 수 없습니다.");
+        				this.Div001.form.btn00_00.set_enable(false);
+        				this.Div001.form.btn00.set_enable(false);
+        				this.Div001.form.sta00.set_text(this.salePrice);
+        				return ;
+        			}
+        			else{
+        				this.Div001.form.btn00_00.set_enable(true);
+        				this.Div001.form.btn00.set_enable(true);
+        			}
+        		}
+        		if(this.dsOption.getColumn(i, "PRO_OPTION") == this.selectedValue){
+        			if(this.dsOption.getColumn(i, "OPTION_ADD_PRICE") > 0){
+        				var sum = this.salePrice + this.dsOption.getColumn(i, "OPTION_ADD_PRICE");
+        				this.Div001.form.sta00.set_text(sum);
+        				return;
+        			}
+        			else{
+        				this.Div001.form.sta00.set_text(this.salePrice);
+        				return;
+        			}
+        	}
+        	}
+        };
+
+        this.btn00_onclick = function(obj,e)
+        {
+        	var nRow = this.dsAddCart.addRow();
+        	this.dsAddCart.setColumn(nRow,"USER_ID", this.objApp.gdsUserInfo.getColumn(0, "USER_ID"));
+        	this.dsAddCart.setColumn(nRow,"PRO_CODE", this.code);
+        	this.dsAddCart.setColumn(nRow,"PRO_NAME", this.thName);
+        	this.dsAddCart.setColumn(nRow,"PRO_OPTION", thOp);
+        	this.dsAddCart.setColumn(nRow,"OPTION_NAME", thOpName);
+        	this.dsAddCart.setColumn(nRow,"PRO_OP_NUMBER", 1);
+        };
+
+        this.WebView00_onloadcompleted = function(obj, e) {
+             //this.WebView00.callScript("document.body.innerHTML = `" + this.sHtml.replace(/`/g, '\\`') + "`;");
+        	this.fnSetWebViewContent(WebView00, sHtml);
+        };
+
+        this.fnSetWebViewContent = function(objWebView, sHtmlContent)
+        {
+            // WebView의 document에 접근하여 HTML을 설정합니다.
+            var objDoc = WebView00.getProperty("document");
+
+            // HTML 데이터가 있을 경우, 이를 삽입합니다.
+            var strHtml = "<html><body>" + sHtml + "</body></html>";
+
+            // WebView의 body에 HTML 내용 삽입
+            objDoc.setProperty("innerHTML", strHtml);
+        };
+
+        this.form_viewOne_ontimer = function(obj,e)
+        {
+        	if(e.timerid == 1)
+        	{
+        		this.killTimer(1);
+        		this.fn_viewTextDe(this.fnIdx);
+        	}
+        };
+
+        });
+        
+        // Regist UI Components Event
+        this.on_initEvent = function()
+        {
+            this.addEventHandler("onload",this.form_viewOne_onload,this);
+            this.addEventHandler("ontimer",this.form_viewOne_ontimer,this);
+            this.Div001.form.pro_image.addEventHandler("onload",this.Div00_pro_image_onload,this);
+            this.Div001.form.cmb00.addEventHandler("onitemchanged",this.Div001_cmb00_onitemchanged,this);
+            this.Div001.form.btn00.addEventHandler("onclick",this.Div00_btn00_onclick,this);
+            this.Div001.form.btn00_00.addEventHandler("onclick",this.Div00_btn00_00_onclick,this);
+            this.Div001.form.btn00_00_00.addEventHandler("onclick",this.Div00_btn00_00_00_onclick,this);
+        };
+        this.loadIncludeScript("Form_viewOne.xfdl");
+        this.loadPreloadList();
+        
+        // Remove Reference
+        obj = null;
+    };
+}
+)();

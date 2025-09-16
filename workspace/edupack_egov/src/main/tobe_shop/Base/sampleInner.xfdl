@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmNotice" width="800" height="776" titletext="frmNotice" onload="frmNotice_onload" background="#efefee" ontimer="frmNotice_ontimer">
+    <Layouts>
+      <Layout height="776" width="800">
+        <WebBrowser id="web00" taborder="0" left="37" top="21" width="731" height="225"/>
+        <Button id="btn00" taborder="1" text="btn00" left="39" top="291" width="87" height="53" onclick="btn00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Notice">
+        <ColumnInfo>
+          <Column id="AN" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="Level" type="STRING" size="256"/>
+          <Column id="CHK" type="STRING" size="256"/>
+          <Column id="URL_INFO" type="STRING" size="256"/>
+          <Column id="MAIN_OPEN" type="STRING" size="256"/>
+          <Column id="LINE_COUNT" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="AN">1</Col>
+            <Col id="TITLE">비슷한 시기에 열리는 타 대회와 동일한 
+	동해물과 백두산이 
+	마르독 낭리나ㅣㅣㄹㄴㄹㅇㄴㄹ아이디어로 중복 접수 가능한가요?
+	비슷한 시기에 열리는 타 대회와 동일한 
+	동해물과 백두산이 
+	마르독 낭리나ㅣㅣㄹㄴㄹㅇㄴㄹ아이디어로 중복 접수 가능한가요?
+	비슷한 시기에 열리는 타 대회와 동일한 
+	동해물과 백두산이 
+	마르독 낭리나ㅣㅣㄹㄴㄹㅇㄴㄹ아이디어로 중복 접수 가능한가요?
+	비슷한 시기에 열리는 타 대회와 동일한 
+	동해물과 백두산이 
+	마르독 낭리나ㅣㅣㄹㄴㄹㅇㄴㄹ아이디어로 중복 접수 가능한가요?
+	비슷한 시기에 열리는 타 대회와 동일한 
+	동해물과 백두산이 
+	마르독 낭리나ㅣㅣㄹㄴㄹㅇㄴㄹ아이디어로 중복 접수 가능한가요?
+	비슷한 시기에 열리는 타 대회와 동일한 
+	동해물과 백두산이 
+	마르독 낭리나ㅣㅣㄹㄴㄹㅇㄴㄹ아이디어로 중복 접수 가능한가요?
+	비슷한 시기에 열리는 타 대회와 동일한 
+	동해물과 백두산이 
+	마르독 낭리나ㅣㅣㄹㄴㄹㅇㄴㄹ아이디어로 중복 접수 가능한가요?
+	비슷한 시기에 열리는 타 대회와 동일한 
+	동해물과 백두산이 
+	마르독 낭리나ㅣㅣㄹㄴㄹㅇㄴㄹ아이디어로 중복 접수 가능한가요?
+	비슷한 시기에 열리는 타 대회와 동일한 
+	동해물과 백두산이 
+	마르독 낭리나ㅣㅣㄹㄴㄹㅇㄴㄹ아이디어로 중복 접수 가능한가요?
+	비슷한 시기에 열리는 타 대회와 동일한 
+	동해물과 백두산이 
+	마르독 낭리나ㅣㅣㄹㄴㄹㅇㄴㄹ아이디어로 중복 접수 가능한가요?
+	비슷한 시기에 열리는 타 대회와 동일한 
+	동해물과 백두산이 
+	마르독 낭리나ㅣㅣㄹㄴㄹㅇㄴㄹ아이디어로 중복 접수 가능한가요?
+	비슷한 시기에 열리는 타 대회와 동일한 
+	동해물과 백두산이 
+	마르독 낭리나ㅣㅣㄹㄴㄹㅇㄴㄹ아이디어로 중복 접수 가능한가요?</Col>
+            <Col id="Level">1</Col>
+          </Row>
+          <Row>
+            <Col id="TITLE">필자는 얼마전에 JS에서 HTML 요소의 크기를 가져와서 계산해야하는 일이 발생했다. 예전에 어렴풋이 사용한 기억이 있어서, IDE의 코드 자동완성기능을 믿고, 그냥 element.width라고 쳐보니 많은 속성들이 나왔다. 
+
+속성이 여러개가 있다는 것은 분명 차이가 있을것이고 제품에서는 정확한 결과를 내야하기 때문에 이 차이들을 알 필요가 있다. 알아보자.
+
+ 
+
+1.  element.offsetWidth (Height)
+element.offsetWidth는 margin을 제외한, padding값, border값까지 계산한 값을 가져온다. (일반적으로 많이쓰임)
+
+아래의 코드를 보자
+
+<style>*{margin: 0;box-sizing: border-box;}.asdf{width: 100px;height: 100px;margin: 30px;padding: 20px;border: 10px solid #20c997;background-color: #22b8cf;color: #fff;overflow: scroll;}</style><div class="asdf">글씨글씨글씨글씨글씨글씨글씨글씨</div><div class="result"/><script>let div = document.querySelector('.asdf');let result = document.querySelector('.result');result.innerText = div.offsetWidth + 'x' + div.offsetHeight;</script></Col>
+            <Col id="AN">1</Col>
+            <Col id="Level">2</Col>
+            <Col id="LINE_COUNT">10</Col>
+            <Col id="CHK"/>
+          </Row>
+          <Row>
+            <Col id="AN">2</Col>
+            <Col id="TITLE">OpenAPI 서비스 이용 중 에러 메시지가 출력됩니다. 이 메시지가 의미하는 정보는 무엇인가요? 파일첨부</Col>
+            <Col id="Level">1</Col>
+          </Row>
+          <Row>
+            <Col id="AN">2</Col>
+            <Col id="TITLE">가장 많이 발생하는 서비스는 다음과 같습니다.
+
+1. INVALID REQUEST PARAMETER ERROR
+- 필수 입력값을 입력하지 않은 경우 발생하는 에러로 일반적으로 인증키 파라미터(ServiceKey, serviceKey)를 입력하지 않았거나, 대소문자 구분이 틀린 경우 발생합니다.
+
+2. SERVICE KEY IS NOT REGISTERED ERROR
+- 인증키 장애로 잘못된 인증키를 넣어 호출 시 발생합니다.
+예외적으로 서비스 신청(승인), 인증키 발급(재발급 포함)하는 경우 해당 정보가 기관 서버로 동기화되지 않아 발생할 수 있으며, 동기화는 약 1시간 정도 소요될 수 있습니다.
+
+3. UNREGISTERED IP ERROR
+- 서버 방식으로 신청 시 입력 IP와 현재 호출하는 서버의 IP의 외부 공인 IP가 다른 경우 발생합니다.
+
+4. SERVICE ACCESS DENIED ERROR
+- 신청하지 않은 서비스 호출로 해당 서비스를 신청하지 않았거나, 변경신청 등으로 일시 중지될 경우 발생합니다.
+
+5. LIMITED NUMBER OF SERVICE REQUESTS EXCEEDS ERROR
+- 일일사용량(트래픽) 초과되어 발생하는 에러로 하루 사용량 초과 사용 시 발생합니다.
+
+6. DEADLINE HAS EXPIRED ERROR
+- 사용기한이 만료 되었을 경우 발생하는 에러 입니다.
+
+이외에 자주 발생되지 않는 에러는 첨부파일을 통해 확인 가능합니다.
+
+※ 에러 메시지는 제공기관에 따라 다를 수 있는 점 참고 부탁드립니다.</Col>
+            <Col id="Level">2</Col>
+            <Col id="LINE_COUNT">20</Col>
+            <Col id="CHK"/>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sHtml =  this.ds_Notice.getColumn(0,"TITLE");
+		
+		var str_html = "";  
+		str_html += "<html>\n";
+		str_html += "<head>\n";  
+		str_html += "<title>타이틀</title>\n";
+		str_html += "<meta content='text/html; charset=euc-kr' http-equiv=Content-Type>\n";
+		str_html += "<style type='text/css'> p, td, li {font-family:굴림체, arial; font-size:10pt; margin-top:5px;margin-bottom:5px;} body{margin:10px 10px 10px 10px; line-height:1.2; font-family:굴림체, arial; font-size:10pt;}</style>\n";
+		str_html += "</head>\n";
+		str_html += "<body id='content'>\n";
+		str_html += "<div id='content_div'>\n";
+		str_html += sHtml + "\n";  
+		str_html += "</div>\n";   
+		str_html += "</body>\n";
+		str_html += "</html>\n";        
+		
+
+		this.web00.document.body.innerHTML = str_html;
+	
+};
+]]></Script>
+  </Form>
+</FDL>

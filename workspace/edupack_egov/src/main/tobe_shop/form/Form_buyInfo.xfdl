@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="form_buyInfo" width="1280" height="720" titletext="구매하기 버튼 누르면 나오는 창 " onload="form_buyInfo_onload">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <ImageViewer id="ImageViewer00" taborder="0" text="ImageViewer00" left="700" top="40" width="550" height="330" stretch="fixaspectratio"/>
+        <Static id="sta00" taborder="1" text="이름" left="36" top="40" width="159" height="60" cssclass="pro_onePrice"/>
+        <Static id="sta00_00" taborder="2" text="전화번호" left="36" top="sta00:0" width="159" height="60" cssclass="pro_onePrice"/>
+        <Static id="sta01" taborder="3" text="이메일" left="36" top="sta00_00:0" width="120" height="60" cssclass="pro_onePrice"/>
+        <Static id="sta03" taborder="5" left="0" top="220" height="10" right="ImageViewer00:0" background="#186146"/>
+        <Static id="sta02" taborder="4" text="받는 사람 이름" left="36" top="sta03:0" width="120" height="60" cssclass="pro_onePrice"/>
+        <Static id="sta04" taborder="6" text="배송지" left="36" top="sta02:70" width="120" height="60" cssclass="pro_onePrice"/>
+        <Edit id="edtHomeAdd2" taborder="7" left="175" top="415" width="510" height="50" cssclass="register_Edt"/>
+        <Edit id="edtZipcode" taborder="8" left="175" top="360" width="130" height="50" cssclass="register_Edt" enable="false"/>
+        <Edit id="edtHomeAdd1" taborder="9" left="355" top="360" width="330" height="50" cssclass="register_Edt" enable="false"/>
+        <Button id="btn01" taborder="10" left="305" top="360" width="50" height="50" cssclass="WF_register_addr" background="url('theme::blue/images/searchLogo.png') no-repeat center center /contain" onclick="Div00_btn01_onclick"/>
+        <WebBrowser id="webPost" taborder="11" left="1200" top="510" width="60" height="80" visible="false" onusernotify="webPost_onusernotify"/>
+        <Edit id="edt00" taborder="12" left="175" top="235" width="510" height="50"/>
+        <Static id="sta06" taborder="13" text="요청사항" left="36" top="480" width="120" height="60" cssclass="pro_onePrice"/>
+        <Edit id="edt01" taborder="14" left="175" top="480" width="510" height="130"/>
+        <Static id="sta05" taborder="15" text="구매하기 물건 이름" left="702" top="ImageViewer00:5" width="508" height="52" cssclass="pro_onePrice"/>
+        <Static id="sta07" taborder="16" text="옵션" left="700" top="sta05:-2" width="381" height="48" font="20px Verdana" fittocontents="none"/>
+        <Static id="sta08" taborder="17" text="총 결제가격" left="700" top="sta07:10" width="120" height="60" cssclass="pro_onePrice"/>
+        <Static id="sta09" taborder="18" text="sta09" left="sta08:20" top="sta07:10" width="250" height="60" cssclass="pro_onePrice"/>
+        <Spin id="Spin00" taborder="19" left="sta07:10" top="425" width="159" height="60" onchanged="Spin00_onchanged" value="0"/>
+        <Static id="sta04_00" taborder="20" text="전화번호" left="36" top="300" width="120" height="60" cssclass="pro_onePrice"/>
+        <Edit id="edtZipcode00" taborder="21" left="175" top="300" width="510" height="50" cssclass="register_Edt" enable="true"/>
+        <Button id="btn00" taborder="22" text="결제하기" left="58" top="652" width="265" height="57" onclick="btn00_onclick"/>
+        <Edit id="edt00_00" taborder="23" left="175" top="45" width="510" height="50" enable="false"/>
+        <Edit id="edt00_00_00" taborder="24" left="175" top="105" width="510" height="50" enable="false"/>
+        <Edit id="edt00_00_00_00" taborder="25" left="175" top="165" width="510" height="50" enable="false"/>
+        <Button id="btn00_00" taborder="26" text="뒤로가기" left="368" top="652" width="265" height="57" onclick="btn00_00_onclick"/>
+        <Static id="sta00_01_00_00" taborder="27" text="결제방법" left="700" top="560" width="159" height="60" cssclass="pro_onePrice" onclick="sta00_01_00_onclick"/>
+        <Radio id="Radio00" taborder="28" left="900" top="560" width="363" height="120" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" font="18px/normal &quot;verdana&quot;">
+          <Dataset id="innerdataset">
+            <ColumnInfo>
+              <Column id="codecolumn" size="256"/>
+              <Column id="datacolumn" size="256"/>
+            </ColumnInfo>
+            <Rows>
+              <Row>
+                <Col id="codecolumn">0</Col>
+                <Col id="datacolumn">무통장입금</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">1</Col>
+                <Col id="datacolumn">신용카드</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">2</Col>
+                <Col id="datacolumn">애스크로</Col>
+              </Row>
+            </Rows>
+          </Dataset>
+        </Radio>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+
+var code = 0 ;
+var sale = 0;
+var price = 0;
+var addPrice = 0;
+var nOtionNum = 0;
+
+this.form_buyInfo_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	//this.gfnFormOnLoad(this);
+	this.objApp = nexacro.getApplication();
+	
+	var nHeight = this.getLayoutInfo(this.getCurrentLayoutID(), "height");
+	this.parent.parent.fnMainPageOnLoad(nHeight);
+	
+	var row = this.objApp.gdsProInfo.rowposition;
+	
+	var proCode = this.objApp.gdsProInfo.getColumn(row, "PRO_CODE"); //PRO_CODE 열
+	var code = this.objApp.gdsProInfo.getColumn(row, "PRO_NAME"); // PRO_NAME 열
+    this.price = this.objApp.gdsProInfo.getColumn(row, "HOW_MUCH"); // HOW_MUCH 열
+    this.sale = this.objApp.gdsProInfo.getColumn(row, "SALE_PERCENT"); // SALE_PERCENT 열
+	
+	var row2 = this.objApp.gdsProOption.rowposition;
+	var opCode = this.objApp.gdsProOption.getColumn(row2, "PRO_OPTION");
+    var op = this.objApp.gdsProOption.getColumn(row2, "OPTION_NAME"); // OPTION_NAME 열
+	this.addPrice = this.objApp.gdsProOption.getColumn(row2, "OPTION_ADD_PRICE");
+	this.nOtionNum = this.objApp.gdsProOption.getColumn(row2,"OPTION_NUMBER");
+	
+	var img = this.objApp.gdsProInfo.getColumn(row, "SERVER_IMG");
+	if(img != null){
+		this.ImageViewer00.set_image(img);
+		this.ImageViewer00.set_text("");
+	}
+	else{
+		this.ImageViewer00.set_text("이미지 불러오기 실패");
+	}
+	
+	this.sta05.set_text(code);
+	this.sta07.set_text(op);
+	this.sta09.set_text(0);
+	
+	this.dsBuyData.addRow();
+	this.dsBuyData.setColumn(0, "USER_ID", this.objApp.gdsUserInfo.getColumn(0,"USER_ID"));
+	
+	this.dsBuyDataDetail.addRow();
+	this.dsBuyDataDetail.setColumn(0,"USER_ID",this.objApp.gdsUserInfo.getColumn(0,"USER_ID"));
+	this.dsBuyDataDetail.setColumn(0,"BUYER_NAME",this.edt00_00.value);
+	this.dsBuyDataDetail.setColumn(0,"BUYER_PHONE",this.edt00_00_00.value);
+	
+	this.dsBuyDataDetail.setColumn(0,"PRO_CODE",proCode);
+	this.dsBuyDataDetail.setColumn(0,"PRO_OPTION",opCode);
+};
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+this.fn_callback = function(id, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode <0) {
+		this.alert("error" + sErrorMsg);
+		return;
+	}
+	
+	if(id == "getOrderNo"){ //주문번호
+		var k = parseInt(this.out_cnt, 10) + 1; //out_cnt == 값을 받아오지않음
+		var orderNo = "0000000" + k;
+		orderNo = orderNo.slice(-7);
+		
+		this.dsBuyDataDetail.setColumn(0,"ORDER_NO", orderNo);
+		this.dsBuyData.setColumn(0,"ORDER_NO", "00000"+k);
+		this.dsBuyDataDetail.setColumn(0,"STATUS", 0);
+		this.dsBuyData.setColumn(0,"PAY_STATUS", 0);
+		
+		var strSvcUrl = "edu/getUserOrder.do";  
+		var inData    = "in_data=dsBuyData:U";
+		var outData   = "";
+		var strArg    = "";
+		this.gfnTransaction("getUserOrder", strSvcUrl, inData, outData, strArg, "fn_callback", true);	
+	}
+	
+	if(id == "getUserOrder"){
+		this.dsBuyDataDetail.setColumn(0,"RECEIVE_NAME", this.edt00.value);
+		this.dsBuyDataDetail.setColumn(0,"RECEIVE_PHONE", this.edtZipcode00.value);
+		this.dsBuyDataDetail.setColumn(0,"DELIVERY_REQUEST", this.edt01.value);
+		this.dsBuyDataDetail.setColumn(0,"STATUS", 0); //A
+		
+		var strSvcUrl = "edu/getUserOneOrderDetail.do";  
+		var inData    = "in_data=dsBuyDataDetail";
+		var outData   = "";
+		var strArg    = "";
+		this.gfnTransaction("getUserOneOrderDetail", strSvcUrl, inData, outData, strArg, "fn_callback", true);
+	}
+	if(id == "getUserOneOrderDetail"){
+		this.parent.parent.fv_setUrl("form::buy_complete.xfdl");
+	}
+};
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+this.isEmptyFields = function()
+{
+    if (!this.edt00.value || 
+		!this.edt01.value || 
+        !this.edtZipcode00.value || 
+        !this.edtZipcode.value || 
+        !this.edtHomeAdd1.value ||  
+        !this.edtHomeAdd2.value || 
+		!this.Radio00.value || 
+        !this.Spin00.value) 
+    {
+        return false;
+    }
+};
+
+this.webPost_onusernotify = function(obj:nexacro.WebBrowser,e:nexacro.WebUserNotifyEventInfo)
+{
+	var strPost = e.userdata;
+	trace("strPost ==> " + strPost);
+	// e.userdata==>OK!!!:::서울특별시 송파구 백제고분로36가길 9, 101 (석촌동, 스카이타워):::서울특별시 송파구 백제고분로36가길 9:::(석촌동, 스카이타워):::9, Baekjegobun-ro 36ga-gil, Songpa-gu, Seoul:::서울특별시 송파구 석촌동 58-33 스카이타워:::05614:::101
+	if (strPost.indexOf("OK!!!:::") == 0) 
+	{
+		/*
+		 //e.userdata ==>(식별자 ::: 구우편번호 앞 3자리 ::: 구우편번호 뒷 3자리 :::  신규우편번호 ::: 도로명주소 ::: 지번 주소 ::: 조합형 주소여부에 따른 주소)
+		 */
+		var aAddr = strPost.split(":::");
+		
+		/* trace("onusernotify -------------------------------------------");
+		trace("array[1]=>구우편번호 앞 3자리          ==> " +	aAddr[1] );
+		trace("array[2]=>구우편번호 뒷 3자리          ==> " +	aAddr[2] );
+		trace("array[3]=>신규우편번호                  ==> " + aAddr[3] );
+		trace("array[4]=>도로명주소                    ==> " +	aAddr[4] );
+		trace("array[5]=>지번주소                      ==> " +	aAddr[5] );
+		trace("array[6]=>조합형 주소여부에 따른 주소	==> " +	aAddr[6] );
+		trace("-------------------------------------------------------"); */
+
+		this.edtZipcode.set_value(aAddr[3]);	// 신규 우편번호
+		this.edtHomeAdd1.set_value(aAddr[4]);	// 도로명주소
+	}			
+};
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+
+this.Spin00_onchanged = function(obj:nexacro.Spin,e:nexacro.ChangeEventInfo)
+{
+	
+	if(this.Spin00.value > this.nOtionNum){
+		alert("현재 최대로 선택 가능한 개수는 "+ this.nOtionNum +" 개 입니다");
+		this.Spin00.set_value(this.nOtionNum);
+		return ;
+	}
+	var i = this.Spin00.value;
+	var total = 0;
+	
+	if(this.sale != 0){
+		total = ((this.price * (100 - this.sale ) / 100 )+ this.addPrice) * i 
+		this.sta09.set_color("red");
+	}
+	else{
+		total = (this.price + this.addPrice) * i 
+	}
+	this.sta09.set_text(total);
+	this.dsBuyDataDetail.setColumn(0,"OPTION_NUMBER", i);
+	this.dsBuyDataDetail.setColumn(0,"OPTION_PRICE", total);
+	this.dsBuyData.setColumn(0,"TOTAL_AMOUNT", total);
+};
+
+this.out_cnt = 0;
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //구매하기 트랜젝션
+{
+	
+	if(this.isEmptyFields() == false){ // 트랜젝션이 돌지 않아야 함 
+		return ; 
+	}
+	var addAll = "( " + this.edtZipcode.value + " ) " + this.edtHomeAdd1.value + " " + this.edtHomeAdd2.value ;
+	this.dsBuyDataDetail.setColumn(0,"RECEIVE_ADDR", addAll);
+	
+	var strSvcUrl = "edu/getOrderNo.do";   //주문번호 가져오기
+	var inData    = "";
+	var outData   = "";
+	var strArg    = "";
+	this.gfnTransaction("getOrderNo", strSvcUrl, inData, outData, strArg, "fn_callback", true);
+};
+
+this.btn00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	alert("결제가 취소되었습니다");
+	this.parent.parent.fv_setUrl("form::form_viewOne.xfdl");
+};
+
+this.dsBuyData_cancolumnchange = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	if(e.columnid == "OPTION_NUMBER") {
+		var nOtionNum =  this.objApp.gdsProOption.getColumn(e.row, "OPTION_NUMBER");
+		if(nOtionNum < e.newvalue){
+			alert("현재 최대로 선택 가능한 개수는 "+ nOtionNum +" 개 입니다");
+			return false;
+		}
+	}	
+};
+
+
+
+this.Div00_btn01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfnPostSearchDaum(this.webPost);
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsBuyDataDetail" cancolumnchange="dsBuyData_cancolumnchange">
+        <ColumnInfo>
+          <Column id="ORDER_NO" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="BUYER_NAME" type="STRING" size="256"/>
+          <Column id="BUYER_PHONE" type="STRING" size="256"/>
+          <Column id="RECEIVE_NAME" type="STRING" size="256"/>
+          <Column id="RECEIVE_ADDR" type="STRING" size="256"/>
+          <Column id="RECEIVE_PHONE" type="STRING" size="256"/>
+          <Column id="DELIVERY_REQUEST" type="STRING" size="256"/>
+          <Column id="PRO_CODE" type="STRING" size="256"/>
+          <Column id="PRO_OPTION" type="STRING" size="256"/>
+          <Column id="OPTION_NUMBER" type="STRING" size="256"/>
+          <Column id="OPTION_PRICE" type="STRING" size="256"/>
+          <Column id="STATUS" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsBuyData">
+        <ColumnInfo>
+          <Column id="ORDER_NO" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TOTAL_AMOUNT" type="STRING" size="256"/>
+          <Column id="HOW_TO_PAY" type="STRING" size="256"/>
+          <Column id="PAY_STATUS" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="edt00_00" propid="value" datasetid="gdsUserInfo" columnid="USER_NAME"/>
+      <BindItem id="item1" compid="edt00_00_00" propid="value" datasetid="gdsUserInfo" columnid="USER_PHONE"/>
+      <BindItem id="item2" compid="edt00_00_00_00" propid="value" datasetid="gdsUserInfo" columnid="USER_EMAIL"/>
+      <BindItem id="item3" compid="Radio00" propid="value" datasetid="dsBuyData" columnid="HOW_TO_PAY"/>
+    </Bind>
+  </Form>
+</FDL>

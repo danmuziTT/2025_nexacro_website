@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="jour1301" width="1280" height="720" titletext="New Form" onload="jour1301_onload">
+    <Layouts>
+      <Layout height="720" width="1280">
+        <Grid id="grd00" taborder="0" left="53" top="30" width="817" height="180" binddataset="dsMember">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="USER_NAME"/>
+                <Cell col="1" text="USER_BIRTH"/>
+                <Cell col="2" text="USER_PHONE"/>
+                <Cell col="3" text="USER_GRADE"/>
+                <Cell col="4" text="USER_ID"/>
+                <Cell col="5" text="USER_PW"/>
+                <Cell col="6" text="USER_EMAIL"/>
+                <Cell col="7" text="ADDR_MAIN"/>
+                <Cell col="8" text="ADDR_DETAIL"/>
+                <Cell col="9" text="ADDR_POST"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:USER_NAME"/>
+                <Cell col="1" text="bind:USER_BIRTH"/>
+                <Cell col="2" text="bind:USER_PHONE"/>
+                <Cell col="3" text="bind:USER_GRADE"/>
+                <Cell col="4" text="bind:USER_ID"/>
+                <Cell col="5" text="bind:USER_PW"/>
+                <Cell col="6" text="bind:USER_EMAIL"/>
+                <Cell col="7" text="bind:ADDR_MAIN"/>
+                <Cell col="8" text="bind:ADDR_DETAIL"/>
+                <Cell col="9" text="bind:ADDR_POST"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="btn_search" taborder="1" text="조회" left="880" top="30" width="151" height="67" onclick="btn_search_onclick"/>
+        <Button id="btn_ins" taborder="2" text="입력" left="880" top="121" width="151" height="67" onclick="btn_ins_onclick"/>
+        <Button id="btn_del" taborder="3" text="삭제" left="1060" top="30" width="151" height="67" onclick="btn_del_onclick"/>
+        <Button id="btn_save" taborder="4" text="저장" left="1060" top="121" width="151" height="67" onclick="btn_save_onclick"/>
+        <Div id="div00" taborder="5" text="div00" left="40" top="253" width="793" height="365" border="1px solid">
+          <Layouts>
+            <Layout>
+              <Static id="sta00" taborder="0" text="아이디" left="70" top="48" width="120" height="26" onclick="div00_sta00_onclick"/>
+              <Edit id="edt_Name" taborder="1" left="142" top="46" width="160" height="30" onchanged="div00_edt_Name_onchanged"/>
+              <Static id="sta01" taborder="2" text="비밀번호" left="70" top="115" width="120" height="26"/>
+              <Static id="sta01_00" taborder="3" text="성명" left="70" top="168" width="120" height="26"/>
+              <Static id="sta01_00_00" taborder="4" text="생년월일" left="70" top="208" width="120" height="26"/>
+              <Static id="sta01_00_00_00" taborder="5" text="이메일" left="312" top="112" width="120" height="26"/>
+              <Static id="sta01_00_00_00_00" taborder="6" text="성별" left="327" top="50" width="120" height="26"/>
+              <Static id="sta01_00_00_00_01" taborder="7" text="휴대폰" left="312" top="166" width="120" height="26"/>
+              <Static id="sta01_00_00_00_01_00" taborder="8" text="주소" left="316" top="213" width="120" height="26"/>
+              <Edit id="edt00_00" taborder="9" left="142" top="112" width="160" height="33" password="true"/>
+              <Edit id="edt00_00_00" taborder="10" left="142" top="167" width="160" height="29"/>
+              <Calendar id="cal00" taborder="11" left="142" top="216" width="160" height="29"/>
+              <Edit id="edtUserEmail" taborder="12" left="367" top="112" width="105" height="29"/>
+              <Edit id="edt_zip" taborder="13" left="367" top="213" width="95" height="29"/>
+              <Edit id="edt_addrAll" taborder="14" left="362" top="255" width="390" height="29"/>
+              <Combo id="cmbUserEmail" taborder="15" left="509" top="115" width="166" height="29" value="" index="-1" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">daum.com</Col>
+                      <Col id="datacolumn">daum.com</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">naver.com</Col>
+                      <Col id="datacolumn">naver.com</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">gmail.com</Col>
+                      <Col id="datacolumn">gmail.com</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Combo>
+              <Static id="sta02" taborder="16" text="@" left="479" top="119" width="38" height="21"/>
+              <Button id="btn00" taborder="17" text="중복확인" left="682" top="116" width="87" height="26" onclick="div00_btn00_onclick"/>
+              <Edit id="edt_addr" taborder="18" left="512" top="213" width="233" height="29"/>
+              <Button id="btn01" taborder="19" text="검색" left="448" top="213" width="64" height="29" onclick="div00_btn01_onclick"/>
+              <MaskEdit id="msk00" taborder="20" left="367" top="164" width="225" height="30" type="string" format="###-####-####"/>
+              <Radio id="rdo00" taborder="21" left="381" top="41" width="386" height="47" direction="vertical" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" onitemchanged="div00_rdo00_onitemchanged">
+                <Dataset id="innerdataset">
+                  <ColumnInfo>
+                    <Column id="codecolumn" size="256"/>
+                    <Column id="datacolumn" size="256"/>
+                  </ColumnInfo>
+                  <Rows>
+                    <Row>
+                      <Col id="codecolumn">0</Col>
+                      <Col id="datacolumn">남자</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">1</Col>
+                      <Col id="datacolumn">여자</Col>
+                    </Row>
+                    <Row>
+                      <Col id="codecolumn">2</Col>
+                      <Col id="datacolumn">기타</Col>
+                    </Row>
+                  </Rows>
+                </Dataset>
+              </Radio>
+            </Layout>
+          </Layouts>
+        </Div>
+        <WebBrowser id="webPost" taborder="6" left="860" top="261" width="332" height="346" enable="false" onusernotify="webPost_onusernotify"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsMember">
+        <ColumnInfo>
+          <Column id="USER_NAME" type="STRING" size="256"/>
+          <Column id="USER_BIRTH" type="STRING" size="256"/>
+          <Column id="USER_PHONE" type="STRING" size="256"/>
+          <Column id="USER_GRADE" type="STRING" size="256"/>
+          <Column id="USER_NICK" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="USER_PW" type="STRING" size="256"/>
+          <Column id="USER_EMAIL" type="STRING" size="256"/>
+          <Column id="ADDR_MAIN" type="STRING" size="256"/>
+          <Column id="ADDR_DETAIL" type="STRING" size="256"/>
+          <Column id="ADDR_POST" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[/**
+*	회원 리스트 조회 및 관리(수정, 삭제, 저장)
+*	@MenuPath C:\EduPack\workspace\edupack_egov\src\main\edupack_nexacro\Work
+*	@FileName jour1301.xfdl
+*	@Creator 동홍길
+*	@CreateDate 2025/01/16
+*	@Desction 해당 폼 정보 설명
+******************소스 수정 이력**********************************************
+*	date		Modifier	Description
+********************************************************************************
+*	2025/01/16		동홍길		최초 생성
+*	
+*
+*/
+
+/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+this.jour1301_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+};
+
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+//콜백함수
+this.fnCallback = function (id, nErrorCode, nErrorMsg)
+{
+	if(nErrorCode<0){
+		this.alert("ERROR!  " + nErrorMsg);
+		return;
+	}
+	
+	switch(id) {
+	case "selectMember":
+		this.gfnAlert("msg.action.success");	
+		break;
+	default:
+	}
+};
+
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+
+//조회
+this.btn_search_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var strSvcUrl = "edu/selectMember.do";
+	var inData    = "";
+	var outData   = "dsMember=out_emp";
+	var strArg    = "";
+
+	this.gfnTransaction("selectMember", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+};
+
+//데이터 저장
+this.btn_ins_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsMember.addRow();
+};
+
+//데이터열 삭제
+this.btn_del_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsMember.deleteRow(this.dsMember.rowposition);
+};
+
+//데이터 서버에 저장
+this.btn_save_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	if(this.fn_ValiationCheck()  == false ) return;
+
+	var strSvcUrl = "edu/saveMemberAll.do";
+	var inData    = "dsMember=dsMember:U";
+	var outData   = "";
+	var strArg    = "";
+
+	this.gfnTransaction("save", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+};
+
+//이메일 저장
+this.div00_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var sEmail = this.div00.form.edtUserEmail.value + "@" + this.div00.form.cmbUserEmail.value;
+	this.dsMember.setColumn(this.dsMember.rowposition, "USER_EMAIL", sEmail);
+};
+
+//주소지 검색 (외부 API)
+this.div00_btn01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.gfnPostSearchDaum(this.webPost);
+};
+
+this.webPost_onusernotify = function(obj:nexacro.WebBrowser,e:nexacro.WebUserNotifyEventInfo)
+{
+	var sPost = e.userdata;
+	
+	if(sPost.indexOf("OK!!!::") == 0){ //like
+		var arrAdd = sPost.split(":::");
+		for(var i = 0; i < arrAdd.length; i++){
+			trace(i + "-->" + arrAdd[i]);
+		}
+	this.div00.form.edt_zip.set_value(arrAdd[3]);
+	this.div00.form.edt_addr.set_value(arrAdd[4]);
+	this.div00.form.edt_addrAll.set_value("(" + arrAdd[3] + ") " + arrAdd[4]);
+	}
+};
+
+this.fn_ValiationCheck = function ()
+{
+	this.gfnClearValidation(this.dsMember);
+	
+	//rule 등록
+	this.gfnSetValidation(this.dsMember, "USER_ID", "아이디", "required");
+	this.gfnSetValidation(this.dsMember, "USER_NAME", "성명", "required");
+	this.gfnSetValidation(this.dsMember, "USER_BIRTH", "생일", "date");
+
+	//rule 체크
+	this.gfnValidation(this.dsMember, "U");
+
+};
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="div00.form.edt00_00" propid="value" datasetid="dsMember" columnid="USER_PW"/>
+      <BindItem id="item1" compid="div00.form.edt00_00_00" propid="value" datasetid="dsMember" columnid="USER_NAME"/>
+      <BindItem id="item2" compid="div00.form.cal00" propid="value" datasetid="dsMember" columnid="USER_BIRTH"/>
+      <BindItem id="item4" compid="div00.form.msk00" propid="value" datasetid="dsMember" columnid="USER_PHONE"/>
+      <BindItem id="item5" compid="div00.form.edt_Name" propid="value" datasetid="dsMember" columnid="USER_ID"/>
+      <BindItem id="item7" compid="div00.form.rdo00" propid="value" datasetid="dsMember" columnid="USER_GRADE"/>
+      <BindItem id="item8" compid="div00.form.edt_addr" propid="value" datasetid="dsMember" columnid="ADDR_MAIN"/>
+      <BindItem id="item3" compid="div00.form.edt_zip" propid="value" datasetid="dsMember" columnid="ADDR_POST"/>
+      <BindItem id="item9" compid="div00.form.edt_addrAll" propid="value" datasetid="dsMember" columnid="ADDR_DETAIL"/>
+    </Bind>
+  </Form>
+</FDL>

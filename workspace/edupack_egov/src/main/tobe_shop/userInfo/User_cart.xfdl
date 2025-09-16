@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="User_cart" width="1280" height="570" titletext="장바구니" onload="User_cart_onload">
+    <Layouts>
+      <Layout height="570" width="1280">
+        <Grid id="Grid00" taborder="0" left="0" top="71" width="730" height="499" binddataset="dsCartInfo">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="60"/>
+                <Column size="206"/>
+                <Column size="255"/>
+                <Column size="112"/>
+                <Column size="88"/>
+              </Columns>
+              <Rows>
+                <Row size="38" band="head"/>
+                <Row size="51"/>
+              </Rows>
+              <Band id="head">
+                <Cell displaytype="normal" edittype="checkbox" text="선택"/>
+                <Cell col="1" text="상품 제목"/>
+                <Cell col="2" text="옵션"/>
+                <Cell col="3" text="선택수량"/>
+                <Cell col="4" text="바로 주문하기"/>
+              </Band>
+              <Band id="body">
+                <Cell displaytype="checkboxcontrol" edittype="checkbox" text="bind:SELECT"/>
+                <Cell col="1" text="bind:PRO_NAME"/>
+                <Cell col="2" text="bind:OPTION_NAME"/>
+                <Cell col="3" text="bind:PRO_OP_NUMBER" displaytype="normal" edittype="normal"/>
+                <Cell col="4" displaytype="buttoncontrol" edittype="button" text="주문하기"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="sta00" taborder="9" text="sta00" left="0" top="0" width="50%" height="50%" visible="false"/>
+        <Static id="sta00_01_00" taborder="1" text="상품제목" left="sta00:111" top="120" width="159" height="60" cssclass="pro_onePrice" onclick="sta00_01_00_onclick"/>
+        <Static id="sta00_01_00_00" taborder="2" text="옵션" left="sta00:111" top="185" width="159" height="60" cssclass="pro_onePrice" onclick="sta00_01_00_onclick"/>
+        <Static id="sta00_01_00_00_00" taborder="3" text="선택수량" left="sta00:111" top="250" width="159" height="60" cssclass="pro_onePrice"/>
+        <Static id="sta00_01_00_00_01" taborder="4" text="옵션" left="sta00_01_00:0" top="120" width="350" height="60" onclick="sta00_01_00_onclick"/>
+        <Static id="sta00_01_00_00_01_00" taborder="5" text="옵션" left="sta00_01_00_00:0" top="185" width="350" height="60" onclick="sta00_01_00_onclick"/>
+        <Spin id="Spin00" taborder="6" left="sta00_01_00_00_00:-13" top="250" width="323" height="60" canchange="Spin00_canchange" onchanged="Spin00_onchanged"/>
+        <Button id="btn01" taborder="7" text="선택품목 삭제하기" left="sta00:102" top="460" width="258" height="74" onclick="btn01_onclick"/>
+        <Button id="btn00_00" taborder="8" text="선택품목 주문하기" left="sta00:371" top="460" width="258" height="74" onclick="btn00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+
+this.User_cart_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.objApp = nexacro.getApplication();
+	this.dsCartInfo.copyData(this.objApp.gdsUserCart);
+
+	this.dsSendCart.addRow();
+	this.dsCartInfo.addColumn("SELECT", "STRING");
+	
+	for(var k = 0; k<this.dsCartInfo.rowcount; k++){
+		this.dsCartInfo.setColumn(k,"SELECT", 0);
+	}
+	
+	var nHeight = this.getLayoutInfo(this.getCurrentLayoutID(), "height");
+ 	this.parent.parent.fnMainPageOnLoad(nHeight);
+};
+
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+this.fn_callback = function(id, nErrorCode, sErrorMsg)
+{
+	if(nErrorCode <0) {
+		this.alert("error" + sErrorMsg);
+		return;
+	}
+	if(id =="edtCartNum"){
+		var pCode = this.dsSendCart.getColumn(0,"PRO_CODE"); //물품코드
+		var pOp = this.dsSendCart.getColumn(0,"PRO_OPTION"); //옵션
+		var pNum = this.dsSendCart.getColumn(0,"PRO_OP_NUMBER");
+		
+		for(i=0; i < this.objApp.gdsUserCart.rowcount;i++){
+			if(this.objApp.gdsUserCart.getColumn(i,"PRO_CODE") == pCode){
+				if(this.objApp.gdsUserCart.getColumn(i,"PRO_OPTION") == pOp)
+					this.objApp.gdsUserCart.setColumn(i,"PRO_OP_NUMBER", pNum)
+				}
+			}	
+		}
+		
+		if(id =="deleteCart"){
+		var delRow = this.dsDeleteCart.rowcount;
+		for(j = 0; j < delRow; j++){
+			var pCode = this.dsDeleteCart.getColumn(j,"PRO_CODE"); //물품코드
+			var pOp = this.dsDeleteCart.getColumn(j,"PRO_OPTION"); //옵션
+			
+			for(i= this.objApp.gdsUserCart.rowcount -1 ; i >= 0 ;i--){
+				var curPCode = this.objApp.gdsUserCart.getColumn(i,"PRO_CODE");
+				var curPOp = this.objApp.gdsUserCart.getColumn(i,"PRO_OPTION");
+
+				if(curPCode == pCode && curPOp == pOp){
+					this.objApp.gdsUserCart.deleteRow(i);
+				}
+				}	
+			
+			for(var ink = this.dsCartInfo.rowcount - 1; ink >= 0; ink--){ //dsCartInfo 삭제하기
+			var curICode = this.dsCartInfo.getColumn(ink, "PRO_CODE");
+			var curIOp = this.dsCartInfo.getColumn(ink, "PRO_OPTION");
+			
+			if(pCode == curICode && pOp == curIOp){
+				this.dsCartInfo.deleteRow(ink);
+				}
+			}
+		this.dsDeleteCart.deleteRow(j);
+		}		
+		alert("삭제가 완료되었습니다");
+		} 
+
+}
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+this.fnSendCart = function (i)
+{
+	this.dsSendCart.setColumn(0,"USER_ID",this.dsCartInfo.getColumn(i,"USER_ID"))
+	this.dsSendCart.setColumn(0,"PRO_CODE",this.dsCartInfo.getColumn(i,"PRO_CODE"))
+	this.dsSendCart.setColumn(0,"PRO_NAME",this.dsCartInfo.getColumn(i,"PRO_NAME"))
+	this.dsSendCart.setColumn(0,"PRO_OPTION",this.dsCartInfo.getColumn(i,"PRO_OPTION"))
+	this.dsSendCart.setColumn(0,"OPTION_NAME",this.dsCartInfo.getColumn(i,"OPTION_NAME"))
+	this.dsSendCart.setColumn(0,"PRO_OP_NUMBER",this.Spin00.value);
+	
+	var strSvcUrl = "edu/edtCartNum.do";  //데이터 수정
+	var inData    = "in_emp=dsSendCart";
+	var outData   = "";
+	var strArg    = "";
+	this.gfnTransaction("edtCartNum", strSvcUrl, inData, outData, strArg, "fn_callback", true);
+};
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var nLength = this.dsCartInfo.rowcount;
+	var selectNum = 0
+	for(var i = 0; i < nLength; i++){
+		if(this.dsCartInfo.getColumn(i,"SELECT") == 1){
+			selectNum++ ;
+			
+			 var nRow = this.dsPayPro.addRow(); // 새로운 행 추가
+
+        // 특정 컬럼만 복사
+			this.dsPayPro.setColumn(nRow, "USER_ID", this.dsCartInfo.getColumn(i, "USER_ID"));
+			this.dsPayPro.setColumn(nRow, "PRO_CODE", this.dsCartInfo.getColumn(i, "PRO_CODE"));
+			this.dsPayPro.setColumn(nRow, "PRO_NAME", this.dsCartInfo.getColumn(i, "PRO_NAME"));
+			this.dsPayPro.setColumn(nRow, "PRO_OPTION", this.dsCartInfo.getColumn(i, "PRO_OPTION"));
+			this.dsPayPro.setColumn(nRow, "OPTION_NAME", this.dsCartInfo.getColumn(i, "OPTION_NAME"));
+			this.dsPayPro.setColumn(nRow, "PRO_OP_NUMBER", this.dsCartInfo.getColumn(i, "PRO_OP_NUMBER"));
+		}
+	}
+	if(selectNum == 0){
+		alert("구매하실 물건을 선택해주십시오!");
+		return;
+	}
+	alert("총 "+ selectNum + " 개에 대한 구매를 진행하겠습니다");
+	this.objApp.xmlData = this.dsPayPro.saveXML(); //xml 저장 잘됨 
+	this.parent.parent.fv_setUrl("form::Form_buyInfo_copy0.xfdl");
+};
+
+this.Spin00_canchange = function(obj:nexacro.Spin,e:nexacro.ChangeEventInfo) //gds에 저장 및 데이터 update
+{
+	var i = this.dsCartInfo.rowposition	
+	this.fnSendCart(i);	
+};
+
+
+this.btn01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+    var nLength = this.dsCartInfo.rowcount;
+    var selectNum = 0;
+    
+    for(var i = 0; i < nLength; i++){
+        if(this.dsCartInfo.getColumn(i,"SELECT") == 1){
+            selectNum++ ;
+            var newIndex = this.dsDeleteCart.addRow(); // 새 행 추가 후 인덱스 저장
+            this.dsDeleteCart.setColumn(newIndex, "USER_ID", this.dsCartInfo.getColumn(i,"USER_ID"));
+            this.dsDeleteCart.setColumn(newIndex, "PRO_CODE", this.dsCartInfo.getColumn(i,"PRO_CODE"));
+            this.dsDeleteCart.setColumn(newIndex, "PRO_OPTION", this.dsCartInfo.getColumn(i,"PRO_OPTION"));
+        }
+    }
+    if(selectNum == 0){
+        alert("삭제하실 물건을 선택해주십시오!");
+        return;
+    }
+
+    var strSvcUrl = "edu/deleteCart.do";  //데이터 수정
+    var inData    = "in_emp=dsDeleteCart";
+    var outData   = "";
+    var strArg    = "";
+    this.gfnTransaction("deleteCart", strSvcUrl, inData, outData, strArg, "fn_callback", true);
+};
+
+
+this.dsCartInfo_cancolumnchange = function(obj:nexacro.NormalDataset,e:nexacro.DSColChangeEventInfo)
+{
+	if(e.columnid == "PRO_OP_NUMBER") {
+		var nOtionNum =  this.objApp.gdsProOption.getColumn(e.row, "OPTION_NUMBER");
+		if(nOtionNum < e.newvalue){
+			alert("현재 최대로 선택 가능한 개수는 "+ nOtionNum +" 개 입니다");
+			return false;
+		}
+	}	
+};
+
+
+this.Spin00_onchanged = function(obj:nexacro.Spin,e:nexacro.ChangeEventInfo)
+{
+	
+};
+]]></Script>
+    <Objects>
+      <Dataset id="dsCartInfo" cancolumnchange="dsCartInfo_cancolumnchange">
+        <ColumnInfo>
+          <Column id="SELECT" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="PRO_CODE" type="STRING" size="256"/>
+          <Column id="PRO_NAME" type="STRING" size="256"/>
+          <Column id="PRO_OPTION" type="STRING" size="256"/>
+          <Column id="OPTION_NAME" type="STRING" size="256"/>
+          <Column id="PRO_OP_NUMBER" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsSendCart">
+        <ColumnInfo>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="PRO_CODE" type="STRING" size="256"/>
+          <Column id="PRO_NAME" type="STRING" size="256"/>
+          <Column id="PRO_OPTION" type="STRING" size="256"/>
+          <Column id="OPTION_NAME" type="STRING" size="256"/>
+          <Column id="PRO_OP_NUMBER" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsDeleteCart">
+        <ColumnInfo>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="PRO_CODE" type="STRING" size="256"/>
+          <Column id="PRO_NAME" type="STRING" size="256"/>
+          <Column id="PRO_OPTION" type="STRING" size="256"/>
+          <Column id="OPTION_NAME" type="STRING" size="256"/>
+          <Column id="PRO_OP_NUMBER" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsPayPro">
+        <ColumnInfo>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="PRO_CODE" type="STRING" size="256"/>
+          <Column id="PRO_NAME" type="STRING" size="256"/>
+          <Column id="PRO_OPTION" type="STRING" size="256"/>
+          <Column id="OPTION_NAME" type="STRING" size="256"/>
+          <Column id="PRO_OP_NUMBER" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="sta00_01_00_00_01" propid="text" datasetid="dsCartInfo" columnid="PRO_NAME"/>
+      <BindItem id="item1" compid="sta00_01_00_00_01_00" propid="text" datasetid="dsCartInfo" columnid="OPTION_NAME"/>
+      <BindItem id="item2" compid="Spin00" propid="value" datasetid="dsCartInfo" columnid="PRO_OP_NUMBER"/>
+    </Bind>
+  </Form>
+</FDL>

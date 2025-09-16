@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="cancleManage" width="1000" height="650" titletext="취소된 주문건 관리" onload="cancleManage_onload">
+    <Layouts>
+      <Layout height="650" width="1000">
+        <Static id="sta00" taborder="0" text="구매자가 구매 후 취소한 상품들의 상태를 확인할 수 있습니다. 또한 취소 신청된 상품을 취소접수로 변경할 수 있습니다." left="10" top="0" width="649" height="60" onclick="sta00_onclick"/>
+        <Grid id="Grid02" taborder="1" left="0" height="360" binddataset="dsCancleData" right="0" top="290">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="40"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="100"/>
+                <Column size="190"/>
+                <Column size="205"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="100"/>
+              </Columns>
+              <Rows>
+                <Row size="40" band="head"/>
+                <Row size="40"/>
+              </Rows>
+              <Band id="head">
+                <Cell/>
+                <Cell col="1" text="주문번호"/>
+                <Cell col="2" text="주문자명"/>
+                <Cell col="3" text="구매자 전화번호"/>
+                <Cell col="4" text="상품명"/>
+                <Cell col="5" text="옵션명"/>
+                <Cell col="6" text="옵션선택개수"/>
+                <Cell col="7" text="옵션선택가격"/>
+                <Cell col="8" text="상태"/>
+              </Band>
+              <Band id="body">
+                <Cell text="expr:currow +1 "/>
+                <Cell col="1" text="bind:ORDER_NO"/>
+                <Cell col="2" text="bind:BUYER_NAME"/>
+                <Cell col="3" text="bind:BUYER_PHONE" maskedittype="string" maskeditformat="expr:dataset.getColumn(currow, &quot;BUYER_PHONE&quot;).length &gt;= 10 ? (dataset.getColumn(currow, &quot;BUYER_PHONE&quot;).substring(0,2) == '02' ? '@@-@@@@-@@@@' : (dataset.getColumn(currow, &quot;BUYER_PHONE&quot;).length == 11?'@@@-@@@@-@@@@':'@@@-@@@-@@@@' )) : '@@-@@@-@@@@'" displaytype="mask"/>
+                <Cell col="4" text="bind:PRO_NAME"/>
+                <Cell col="5" text="bind:OPTION_NAME"/>
+                <Cell col="6" text="expr:OPTION_NUMBER + &quot; 개&quot;"/>
+                <Cell col="7" text="bind:OPTION_PRICE" textAlign="right" displaytype="number" maskeditformat="expr:&quot;₩ &quot;+ ###,###"/>
+                <Cell col="8" text="expr:STATUS==&quot;3&quot;?&quot;취소접수&quot;:&quot;취소완료&quot;"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="sta01" taborder="2" text="주문번호" left="9" top="125" width="120" height="30"/>
+        <Edit id="edt01" taborder="3" left="139" top="125" width="140" height="30" enable="false"/>
+        <Static id="sta01_01" taborder="4" text="주문자명" left="319" top="125" width="120" height="30"/>
+        <Edit id="edt01_01" taborder="5" left="449" top="125" width="140" height="30" enable="false"/>
+        <Button id="btn00" taborder="6" text="변경사항 저장" left="819" top="60" width="170" height="40" onclick="btn00_onclick"/>
+        <Static id="sta01_01_00" taborder="7" text="주문자 전화번호" left="660" top="125" width="120" height="30"/>
+        <MaskEdit id="mEdt00" taborder="8" left="790" top="125" width="140" height="30" type="string" format="###-####-####"/>
+        <Static id="sta01_00" taborder="9" text="상품명" left="9" top="175" width="120" height="30" onclick="sta01_00_onclick"/>
+        <Edit id="edt01_00" taborder="10" left="139" top="175" width="311" height="30" enable="false"/>
+        <Static id="sta01_00_00" taborder="11" text="옵션명" left="469" top="175" width="120" height="30" onclick="sta01_00_onclick"/>
+        <Edit id="edt01_00_00" taborder="12" left="599" top="175" width="331" height="30" enable="false"/>
+        <Static id="sta01_00_01" taborder="13" text="옵션선택개수" left="10" top="225" width="120" height="30" onclick="sta01_00_onclick"/>
+        <Edit id="edt01_00_01" taborder="14" left="140" top="225" width="139" height="30" enable="false"/>
+        <Static id="sta01_00_01_00" taborder="15" text="옵션가" left="309" top="225" width="120" height="30" onclick="sta01_00_onclick"/>
+        <Edit id="edt01_00_01_00" taborder="16" left="439" top="225" width="139" height="30" enable="false"/>
+        <Static id="sta01_00_01_00_00" taborder="17" text="상태" left="619" top="225" width="80" height="30" onclick="sta01_00_onclick"/>
+        <Radio id="Radio00" taborder="18" left="702" top="220" width="228" height="53" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" onitemchanged="Radio00_onitemchanged">
+          <Dataset id="innerdataset">
+            <ColumnInfo>
+              <Column id="codecolumn" size="256"/>
+              <Column id="datacolumn" size="256"/>
+            </ColumnInfo>
+            <Rows>
+              <Row>
+                <Col id="codecolumn">3</Col>
+                <Col id="datacolumn">취소 접수</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">4</Col>
+                <Col id="datacolumn">취소 완료</Col>
+              </Row>
+            </Rows>
+          </Dataset>
+        </Radio>
+        <Button id="btn02_00_00" taborder="20" text="처리완료만 보기" left="629" top="60" width="170" height="40" onclick="btn02_00_00_onclick"/>
+        <Button id="btn02_00" taborder="19" text="취소접수만 보기" left="449" top="60" height="40" onclick="btn02_00_onclick" width="170"/>
+        <Static id="sta02" taborder="21" left="804" top="60" width="10" height="40" background="gray"/>
+        <Button id="btn02_00_00_00" taborder="22" text="모두 보기" top="60" height="40" right="btn02_00:10" onclick="btn02_00_00_00_onclick" width="170"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+
+this.cancleManage_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.objApp = nexacro.getApplication();
+	var strSvcUrl = "edu/useUserOrderDetail.do"; //데이터 서버에 저장 
+	var inData    = "";
+	var outData   = "dsOrderDetail=out_emp";
+	var strArg    = "";
+	this.gfnTransaction("useUserOrderDetail", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+
+	
+};
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+this.fnCallback = function(id, nErrorCode, sErrorMsg) //트랜젝션 콜백
+{
+	if(nErrorCode < 0){ //오류가 난 경우
+		this.alert("ERROR"+ sErrorMsg);
+		return ;
+	}
+	
+	if(id =="useUserOrderDetail"){
+this.dsCancleData.clearData();
+this.dsCancleData.copyData(this.dsOrderDetail);
+
+for (i = this.dsCancleData.rowcount - 1; i >= 0; i--) {
+    var k = this.dsCancleData.getColumn(i, "STATUS");
+    if (k != "3" && k != "4") {
+        this.dsCancleData.deleteRow(i);
+    }
+}
+
+this.dsCancleData.addColumn("PRO_NAME");
+this.dsCancleData.addColumn("OPTION_NAME");
+
+for (i = 0; i < this.dsCancleData.rowcount; i++) {
+    var dsOpCode = this.dsCancleData.getColumn(i, "PRO_OPTION");
+    var dsProCode = this.dsCancleData.getColumn(i, "PRO_CODE");
+    var foundOption = false;
+
+    for (j = 0; j < this.objApp.gdsProOption.rowcount; j++) {
+        var gdsOp = this.objApp.gdsProOption.getColumn(j, "PRO_OPTION");
+        var gdsPro = this.objApp.gdsProOption.getColumn(j, "PRO_CODE");
+        var gdsOpName = this.objApp.gdsProOption.getColumn(j, "OPTION_NAME");
+
+        if (dsOpCode == gdsOp && dsProCode == gdsPro) {
+            this.dsCancleData.setColumn(i, "OPTION_NAME", gdsOpName);
+            foundOption = true;
+            break;
+        }
+    }
+
+    // 옵션을 찾지 못한 경우 "삭제된 상품입니다"로 설정
+    if (!foundOption) {
+        this.dsCancleData.setColumn(i, "OPTION_NAME", "삭제된 상품입니다");
+    }
+}
+
+for (i = 0; i < this.dsCancleData.rowcount; i++) {
+    var dsProCode = this.dsCancleData.getColumn(i, "PRO_CODE");
+    var foundProduct = false;
+
+    for (var k = 0; k < this.objApp.gdsProInfo.rowcount; k++) {
+        var gdsPro = this.objApp.gdsProInfo.getColumn(k, "PRO_CODE");
+        var gdsName = this.objApp.gdsProInfo.getColumn(k, "PRO_NAME");
+
+        if (dsProCode == gdsPro) {
+            this.dsCancleData.setColumn(i, "PRO_NAME", gdsName);
+            foundProduct = true;
+            break;
+        }
+    }
+
+    // 상품을 찾지 못한 경우 "삭제된 상품입니다"로 설정
+    if (!foundProduct) {
+        this.dsCancleData.setColumn(i, "PRO_NAME", "삭제된 상품입니다");
+    }
+}
+}
+
+
+	if(id =="SaveCancleData"){
+		this.objApp.gdsProOption.clear();
+		var strSvcUrl = "edu/getShopDataOption.do";
+		var inData    = "";
+		var outData   = "gdsProOption=out_emp";
+		var strArg    = "";
+		this.gfnTransaction("getShopDataOption", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+	}
+	if(id == "SaveCancleData"){
+		alert("업데이트가 완료되었습니다");
+}
+};
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+
+
+this.btn02_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsCancleData.filter("STATUS =='3'");
+};
+
+this.btn02_00_00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsCancleData.filter("");
+};
+
+this.btn02_00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.dsCancleData.filter("STATUS =='4'");
+};
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //트랜젝션 업데이트
+{
+	var strSvcUrl = "edu/SaveCancleData.do"; //데이터 서버에 저장 
+	var inData    = "in_data=dsCancleData:U";
+	var outData   = "";
+	var strArg    = "";
+	this.gfnTransaction("SaveCancleData", strSvcUrl, inData, outData, strArg, "fnCallback", true);
+};
+
+]]></Script>
+    <Objects>
+      <Dataset id="dsOrder">
+        <ColumnInfo>
+          <Column id="ORDER_NO" type="STRING" size="256"/>
+          <Column id="USER_ID" type="STRING" size="256"/>
+          <Column id="TOTAL_AMOUNT" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsOrderDetail">
+        <ColumnInfo>
+          <Column id="ORDER_NO" type="STRING" size="256"/>
+          <Column id="BUYER_NAME" type="STRING" size="256"/>
+          <Column id="BUYER_PHONE" type="STRING" size="256"/>
+          <Column id="PRO_CODE" type="STRING" size="256"/>
+          <Column id="PRO_OPTION" type="STRING" size="256"/>
+          <Column id="OPTION_NUMBER" type="STRING" size="256"/>
+          <Column id="OPTION_PRICE" type="STRING" size="256"/>
+          <Column id="STATUS" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="dsCancleData">
+        <ColumnInfo>
+          <Column id="ORDER_NO" type="STRING" size="256"/>
+          <Column id="BUYER_NAME" type="STRING" size="256"/>
+          <Column id="BUYER_PHONE" type="STRING" size="256"/>
+          <Column id="PRO_CODE" type="STRING" size="256"/>
+          <Column id="PRO_NAME" type="STRING" size="256"/>
+          <Column id="PRO_OPTION" type="STRING" size="256"/>
+          <Column id="OPTION_NAME" type="STRING" size="256"/>
+          <Column id="OPTION_NUMBER" type="STRING" size="256"/>
+          <Column id="OPTION_PRICE" type="STRING" size="256"/>
+          <Column id="STATUS" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="edt01" propid="value" datasetid="dsCancleData" columnid="ORDER_NO"/>
+      <BindItem id="item1" compid="edt01_01" propid="value" datasetid="dsCancleData" columnid="BUYER_NAME"/>
+      <BindItem id="item2" compid="mEdt00" propid="value" datasetid="dsCancleData" columnid="BUYER_PHONE"/>
+      <BindItem id="item3" compid="edt01_00" propid="value" datasetid="dsCancleData" columnid="PRO_NAME"/>
+      <BindItem id="item4" compid="edt01_00_00" propid="value" datasetid="dsCancleData" columnid="OPTION_NAME"/>
+      <BindItem id="item5" compid="edt01_00_01" propid="value" datasetid="dsCancleData" columnid="OPTION_NUMBER"/>
+      <BindItem id="item6" compid="edt01_00_01_00" propid="value" datasetid="dsCancleData" columnid="OPTION_PRICE"/>
+      <BindItem id="item7" compid="Radio00" propid="value" datasetid="dsCancleData" columnid="STATUS"/>
+    </Bind>
+  </Form>
+</FDL>

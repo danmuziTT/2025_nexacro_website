@@ -1,0 +1,380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="frmNotice" width="800" height="776" titletext="frmNotice" onload="frmNotice_onload" background="#efefee" ontimer="frmNotice_ontimer">
+    <Layouts>
+      <Layout height="776" width="800">
+        <Div id="divAccodionForm" taborder="0" left="10" top="10" width="780" height="758" formscrolltype="vertical" background="white">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_Notice">
+        <ColumnInfo>
+          <Column id="AN" type="STRING" size="256"/>
+          <Column id="TITLE" type="STRING" size="256"/>
+          <Column id="Level" type="STRING" size="256"/>
+          <Column id="CHK" type="STRING" size="256"/>
+          <Column id="URL_INFO" type="STRING" size="256"/>
+          <Column id="MAIN_OPEN" type="STRING" size="256"/>
+          <Column id="LINE_COUNT" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="AN">1</Col>
+            <Col id="TITLE">비슷한 시기에 열리는 타 대회와 동일한 아이디어로 중복 접수 가능한가요?</Col>
+            <Col id="Level">1</Col>
+          </Row>
+          <Row>
+            <Col id="TITLE">필자는 얼마전에 JS에서 HTML 요소의 크기를 가져와서 계산해야하는 일이 발생했다. 예전에 어렴풋이 사용한 기억이 있어서, IDE의 코드 자동완성기능을 믿고, 그냥 element.width라고 쳐보니 많은 속성들이 나왔다. 
+
+속성이 여러개가 있다는 것은 분명 차이가 있을것이고 제품에서는 정확한 결과를 내야하기 때문에 이 차이들을 알 필요가 있다. 알아보자.
+
+ 
+
+1.  element.offsetWidth (Height)
+element.offsetWidth는 margin을 제외한, padding값, border값까지 계산한 값을 가져온다. (일반적으로 많이쓰임)
+
+아래의 코드를 보자
+
+<style>*{margin: 0;box-sizing: border-box;}.asdf{width: 100px;height: 100px;margin: 30px;padding: 20px;border: 10px solid #20c997;background-color: #22b8cf;color: #fff;overflow: scroll;}</style><div class="asdf">글씨글씨글씨글씨글씨글씨글씨글씨</div><div class="result"/><script>let div = document.querySelector('.asdf');let result = document.querySelector('.result');result.innerText = div.offsetWidth + 'x' + div.offsetHeight;</script></Col>
+            <Col id="AN">1</Col>
+            <Col id="Level">2</Col>
+            <Col id="LINE_COUNT">10</Col>
+            <Col id="CHK"/>
+          </Row>
+          <Row>
+            <Col id="AN">2</Col>
+            <Col id="TITLE">OpenAPI 서비스 이용 중 에러 메시지가 출력됩니다. 이 메시지가 의미하는 정보는 무엇인가요? 파일첨부</Col>
+            <Col id="Level">1</Col>
+          </Row>
+          <Row>
+            <Col id="AN">2</Col>
+            <Col id="TITLE">가장 많이 발생하는 서비스는 다음과 같습니다.
+
+1. INVALID REQUEST PARAMETER ERROR
+- 필수 입력값을 입력하지 않은 경우 발생하는 에러로 일반적으로 인증키 파라미터(ServiceKey, serviceKey)를 입력하지 않았거나, 대소문자 구분이 틀린 경우 발생합니다.
+
+2. SERVICE KEY IS NOT REGISTERED ERROR
+- 인증키 장애로 잘못된 인증키를 넣어 호출 시 발생합니다.
+예외적으로 서비스 신청(승인), 인증키 발급(재발급 포함)하는 경우 해당 정보가 기관 서버로 동기화되지 않아 발생할 수 있으며, 동기화는 약 1시간 정도 소요될 수 있습니다.
+
+3. UNREGISTERED IP ERROR
+- 서버 방식으로 신청 시 입력 IP와 현재 호출하는 서버의 IP의 외부 공인 IP가 다른 경우 발생합니다.
+
+4. SERVICE ACCESS DENIED ERROR
+- 신청하지 않은 서비스 호출로 해당 서비스를 신청하지 않았거나, 변경신청 등으로 일시 중지될 경우 발생합니다.
+
+5. LIMITED NUMBER OF SERVICE REQUESTS EXCEEDS ERROR
+- 일일사용량(트래픽) 초과되어 발생하는 에러로 하루 사용량 초과 사용 시 발생합니다.
+
+6. DEADLINE HAS EXPIRED ERROR
+- 사용기한이 만료 되었을 경우 발생하는 에러 입니다.
+
+이외에 자주 발생되지 않는 에러는 첨부파일을 통해 확인 가능합니다.
+
+※ 에러 메시지는 제공기관에 따라 다를 수 있는 점 참고 부탁드립니다.</Col>
+            <Col id="Level">2</Col>
+            <Col id="LINE_COUNT">20</Col>
+            <Col id="CHK"/>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.btnMake_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+};
+
+this.btnOpen_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.fn_DivClick(obj);
+}  
+
+this.fn_DivClick = function(obj)
+{
+	var sCode = obj.id.split("_")[1];
+	var objDiv = this.divAccodionForm.form.components["divTile_"+sCode];
+
+	var nHeight = objDiv.getOffsetHeight();
+
+	/*기존 펼쳐진 Div를 닫기 start */
+	this.ds_Notice.filter("Level==1");
+	nCount = this.ds_Notice.rowcount;
+	for(var j=0;j<nCount;j++)
+	{  
+		this.divAccodionForm.form.components["btnOpen_" +this.ds_Notice.getColumn(j,"AN")].set_background("url('theme://images/btn_WF_EduInfoOpen.png') no-repeat center center");
+		var objSubDiv = this.divAccodionForm.form.components["divTile_"+ this.ds_Notice.getColumn(j,"AN")];
+		
+
+//this.divAccodionForm.form.divTile_1.form.stSubTitle_1_0
+
+		objSubDiv.setOffsetHeight(0);
+	}
+	/*기존 펼쳐진 Div를 닫기 end */
+
+	var nTileHeight;
+
+	//Tile Div가 접힌 상태일 경우
+	if(nHeight==0)
+	{
+		
+		this.divAccodionForm.form.components["btnOpen_" +sCode].set_background("url('theme://images/btn_WF_EduInfoClose.png') no-repeat center center");
+		//스크롤바 갱신
+
+
+		var objSubDiv = this.divAccodionForm.form.components["divTile_"+ sCode];
+		var objSubHtml = objSubDiv.form.components["stSubTitle_" + sCode + "_0"];
+		var vHtml = objSubHtml.getProperty("document").getProperty("body");
+		//Not Filter에서 값을 찾아야 함 
+		var sHtml =  this.ds_Notice.getColumnNF(this.ds_Notice.findRowExprNF("AN == " + sCode + "  && Level == 2"),"TITLE");
+		
+		var str_html = "";  
+		str_html += "<html>\n";
+		str_html += "<head>\n";  
+		str_html += "<title>타이틀</title>\n";
+		str_html += "<meta content='text/html; charset=euc-kr' http-equiv=Content-Type>\n";
+		str_html += "<style type='text/css'> p, td, li {font-family:굴림체, arial; font-size:10pt; margin-top:5px;margin-bottom:5px;} body{margin:10px 10px 10px 10px; line-height:1.2; font-family:굴림체, arial; font-size:10pt;}</style>\n";
+		str_html += "</head>\n";
+		str_html += "<body id='content'>\n";
+		str_html += "<div id='content_div'>\n";
+		str_html += sHtml + "\n";  
+		str_html += "</div>\n";   
+		str_html += "</body>\n";
+		str_html += "</html>\n";        
+		
+		vHtml.setProperty( "innerHTML", "");   
+		vHtml.setProperty( "innerHTML", str_html);
+		
+		var AppWeb = objSubHtml.getProperty("document").callMethod("getElementById", "content_div");
+		var objRect = AppWeb.getProperty("clientHeight"); 
+	  
+//trace(nexacro.round(objRect));
+		objSubHtml.set_height(nexacro.round(objRect) + 50);  
+
+		objDiv.form.resetScroll();     
+		
+		//스크롤바 max값이 곧 InnerFrom의 Height와 같음
+		nTileHeight = objDiv.form.vscrollbar.max;
+
+
+
+		//InnerForm의 Height만큼 Div 사이즈 변경
+		objDiv.setOffsetHeight(nTileHeight + 10);
+	}
+	//Tile Div가 펼쳐진 상태일 경우
+	else  
+	{
+
+		this.divAccodionForm.form.components["btnOpen_" +sCode].set_background("url('theme://images/btn_WF_EduInfoOpen.png') no-repeat center center");
+	
+		objDiv.setOffsetHeight(0);
+	}
+	
+
+
+	this.divAccodionForm.setOffsetHeight(0);
+	
+	
+	//resetScroll을 실행시켜 Position Base 설정한 컴포넌트 재배치
+	this.divAccodionForm.form.resetScroll(); 
+	
+	var nHeight = this.divAccodionForm.getOffsetHeight() + this.divAccodionForm.form.vscrollbar.max + 5;
+	this.divAccodionForm.setOffsetHeight(nHeight);
+	this.resetScroll();
+}	
+
+this.fnMakeAccordionForm = function(objDiv, objDs)
+{
+	var objPadding = {
+						"left" : 5,
+						"top" : 5,
+						"right" : 5,
+						"bottom" : 5,
+						"linespace" : 5,
+						"compspace" : 5
+	};
+	   
+	var nLeft = 0;
+	var nTop = objPadding.top;
+	var nCompHeight = 50;//30
+	
+	var nCount;
+	var objComp;
+	
+	var sCode;
+	var sValue;
+
+	objDs.set_enableevent(false);
+	
+	objDs.filter("Level==1");
+	nCount = objDs.rowcount;
+	for(var i=0;i<nCount;i++)
+	{
+
+		sCode = objDs.getColumn(i, "AN");
+		sValue = objDs.getColumn(i, "TITLE");
+		
+		nLeft = objPadding.left; 
+		if(i!=0)  
+		{
+			sCodePrev = objDs.getColumn(i-1, "AN");
+			nTop = "divTile_"+sCodePrev+":"+objPadding.linespace+"px";
+		}
+		
+		
+		//접기/펼치기 버튼 만들기
+		objComp = new Button("btnOpen_"+sCode, nLeft + 700 + objPadding.compspace, nTop, 30, nCompHeight, null, null);
+		objComp.set_background("url('theme://images/btn_WF_EduInfoOpen.png') no-repeat  center center");
+  
+		objDiv.addChild(objComp.name, objComp);
+		objComp.show();
+		objComp.addEventHandler("onclick", this.btnOpen_onclick, this);
+		
+		
+		
+		//Value값 표현할 컴포넌트 만들기
+		//nLeft = nLeft + 30 + objPadding.compspace;
+		nLeft = nLeft;
+		objComp = new Static("stTitle_"+sCode, nLeft, nTop, null, nCompHeight, objPadding.right, null);
+		objComp.set_text(sValue);
+		objComp.set_usedecorate(true)
+		objComp.set_cssclass("sta_WF_UserEduInfo"); 
+		//objComp.set_border("0px none,0px none,1px solid #e5e5e5");
+		objComp.set_border("1px solid  #e5e5e5,0px none,1px solid #e5e5e5");
+		
+		
+		objDiv.addChild(objComp.name, objComp);
+
+		objComp.show();
+		objComp.addEventHandler("onclick", this.btnOpen_onclick, this);
+		
+		//자식 Div 만들기
+		nLeft = objPadding.left;
+		objComp = new Div("divTile_"+sCode, nLeft, objComp.name+":0px", null, 0, objPadding.right, null);
+//		objComp.set_cssclass("div_WF_EduinfoTitle");
+							  
+		var sChk = objDs.getColumn(i, "CHK");  
+		
+		objDiv.addChild(objComp.name, objComp);
+		objComp.show();
+		
+		//아코디언 자식 Div 내용 만들기
+		this.fnMakeAccordionSubForm(sCode, objComp, objDs);
+		
+		nTop = nTop + nCompHeight + objPadding.linespace;
+	}
+	
+	objDs.set_enableevent(true);
+
+	/* 첫번째 행 펼치기 start */
+	//var objFistDiv = this.divAccodionForm.form.components["divTile_" + this.ds_Notice.getColumn(0,"AN")];	
+	//this.fn_DivClick(objFistDiv);
+
+	/* 첫번째 행 펼치기  end */
+	
+}
+
+this.fnMakeAccordionSubForm = function(sCode, objDiv, objDs)
+{
+	var objPadding = {
+						"left" : 5,
+						"top" : 5,
+						"right" : 5,
+						"bottom" : 5,
+						"linespace" : 5,
+						"compspace" : 5
+	};
+	
+	var nLeft = objPadding.left;
+	var nTop = objPadding.top;
+	var nCompHeight = 200;//30->100
+	
+	var nCount;
+	var objComp;
+	
+	var sCode;
+	var sValue;
+	var sChk;
+
+	objDs.filter("Level==2&&AN=='"+sCode+"'");
+	nCount = objDs.rowcount;
+  
+	for(var i=0;i<nCount;i++)
+	{
+		sValue = objDs.getColumn(i, "TITLE");   
+		sChk = objDs.getColumn(i, "CHK");   
+		var sURL = objDs.getColumn(i, "URL_INFO");   
+
+		objComp = new WebBrowser("stSubTitle_"+sCode+"_"+i, nLeft, nTop, 700, nCompHeight, null, null);
+
+		objDiv.addChild(objComp.name, objComp);   
+		objComp.set_border("2px solid darkblue");
+		objComp.show();
+		
+		nTop = nTop + nCompHeight + objPadding.linespace;      
+	}
+
+	objDs.filter("Level==1");
+}    
+ 
+
+
+this.frmNotice_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+
+//	this.gfn_eduformOnLoad(this);
+//	this.fn_search();
+	this.fnMakeAccordionForm(this.divAccodionForm, this.ds_Notice);
+};
+
+this.fn_search = function()
+{
+	var args = "";
+	  
+	this.gfn_transCOMMClear();   
+	// input , output,args,select  
+	
+	  
+	this.gfn_addTransInfo("","output",args,"001,frmNotice,1");	
+	var objEnv = nexacro.getEnvironment(); 
+
+   
+	var strSvcId    = "search";  
+	var strSvcUrl   = "ServiceUrl::EduSqlManager/JspAgent.jsp"; 
+	var inData      = "";     
+	var outData     = "ds_Notice=output";
+	var strArg      = "";       
+	var callBackFnc = "fnCallback";      
+
+	this.gfn_xtransCommon( strSvcId , 	// transaction을 구분하기 위한 svc id값
+								strSvcUrl , 	// trabsaction을 요청할 주소
+								inData , 		// 입력값으로 보낼 dataset id , a=b형태로 실제이름과 입력이름을 매칭
+								outData , 		// 처리결과값으로 받을 dataset id, a=b형태로 실제이름과 입력이름을 매칭
+								strArg, 			// 입력갑스로 보낼 arguments, strFormData="20120607"
+								callBackFnc,
+								true); // 통신방법 정의 [생략가능]
+}								
+
+/************************************************************************************************
+ * CALLBACK 콜백 처리부분(Transaction, Popup)
+ ************************************************************************************************/
+this.fnCallback = function(svcID, errorCode, errorMsg)
+{
+
+	switch(svcID)
+	{    
+		case "search":
+
+			//아코디언 만들기
+			this.fnMakeAccordionForm(this.divAccodionForm, this.ds_Notice);
+			break;
+		  
+	}    
+};
+]]></Script>
+  </Form>
+</FDL>

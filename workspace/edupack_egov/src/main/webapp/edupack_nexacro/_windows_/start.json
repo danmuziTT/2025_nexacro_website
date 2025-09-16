@@ -1,0 +1,129 @@
+﻿{
+    "version" : "21.0.0.1",
+    "runtime" :
+    {
+        "target" :
+        {
+            "os" : "windows"
+        },
+        "framework" :
+        [    
+        "./nexacrolib/framework/Framework.js?nexaversion=21.0.0.1800"
+        ],
+        "component" :
+        [    
+        "./nexacrolib/component/CompBase.js?nexaversion=21.0.0.1800",
+        "./nexacrolib/component/ComComp.js?nexaversion=21.0.0.1800",
+        "./nexacrolib/component/Grid.js?nexaversion=21.0.0.1800",
+        "./nexacrolib/component/ListView.js?nexaversion=21.0.0.1800",
+        "./nexacrolib/component/DeviceAPI.js?nexaversion=21.0.0.1800",
+        "./nexacrolib/component/ExtJs.js?nexaversion=1.0.0.0",
+        "./nexacrolib/component/rMateChartH5.js?nexaversion=1.0.0.0",
+        "./nexacrolib/component/UbiReport4.js?nexaversion=17.0.0.42",
+        "./nexacrolib/component/Splitter.js?nexaversion=0",
+        "./nexacrolib/component/ActionAsset.js?nexaversion=0",
+        "./nexacrolib/component/Push.js?nexaversion=21.0.0.1800",
+        "./nexacrolib/component/History.js?nexaversion=14.0.0.142"
+        ],
+        "environment" :
+        [    
+        {
+        "file":"./environment.xml.js?nexaversion=2020.07.06"
+        }
+        ],
+        "screen" :
+        [    
+        {"id":"screen_desktop","type":"desktop","userzoom":"false","filesecurelevel":"all","networksecurelevel":"all","httpretry":"0","usehttpkeepalive":"true","tracemode":"append","themeid":"theme::edupack_nexacro","initvaluefileid":"initvalue::initComp.xiv"},
+        {"id":"screen_phone","type":"mobile_small","key":"edupack_nexacro_m","filesecurelevel":"all","networksecurelevel":"all","httpretry":"0","usehttpkeepalive":"true","tracemode":"append","themeid":"theme::edupack_nexacro_m","initvaluefileid":"initvalue::initComp.xiv"},
+        {"id":"screen_desktop_sdi","type":"desktop","filesecurelevel":"all","networksecurelevel":"all","httpretry":"0","usehttpkeepalive":"true","tracemode":"new","themeid":"theme::edupack_nexacro","initvaluefileid":"initvalue::initComp.xiv"}
+        ],
+        "xadl" :
+        [
+        {
+        	"screenid":"screen_desktop",
+        	"launch":"./application_edupack.xadl.js",
+        	"quickview":"./application_edupack.xadl.quickview.js",
+        	"form":[
+        				"./Frame/FrameTop.xfdl.js",
+        		"./Frame/FrameLeft.xfdl.js",
+        		"./Frame/FrameLeftMin.xfdl.js",
+        		"./Frame/FrameMdi.xfdl.js",
+        		"./Frame/FrameMain.xfdl.js"
+        	]
+        },
+        {
+        	"screenid":"screen_phone",
+        	"launch":"./application_edupack_phone.xadl.js",
+        	"quickview":"./application_edupack_phone.xadl.quickview.js",
+        	"form":[]
+        },
+        {
+        	"screenid":"screen_desktop_sdi",
+        	"launch":"./application_edupack_sdi.xadl.js",
+        	"quickview":"./application_edupack_sdi.xadl.quickview.js",
+        	"form":[]
+        }
+        ],  
+        "protocol" :
+        {
+            "adaptors" :
+            []
+        },
+        "resource" :
+        {
+            "windows" : {
+                "updateurl" : "./",
+                "timeout" : "30",
+                "retry" : "3",
+                "autoupdate" : "auto",
+                "updatetype" : "update",
+            "windows 10, windows 8 / 8.1, windows 7, windows vista, windows server 2003, windows server 2008, windows server 2012, windows server 2016" : {
+                "updateurl" : "",
+                "enginesetupkey" : "5BD2EB25-8D2D-4137-9FB7-137F2C95D72E",
+                    "resources" :
+                    [{"type" : "Engine", "file" : "EduNexacroN_SetupRuntime_x86.exe", "targetpath" : "./", "version" : "21.0.0.1800"}]
+                },
+            "windows 11 64bit, windows 10 64bit, windows 8 / 8.1 64bit, windows 7 64bit, windows vista 64bit, windows server 2003 64bit, windows server 2008 64bit, windows server 2012 64bit, windows server 2016 64bit" : {
+                "updateurl" : "",
+                "enginesetupkey" : "1FD9443B-45D7-4304-8CF9-290ACF02F74C",
+                    "resources" :
+                    [{"type" : "Engine", "file" : "EduNexacroN_SetupRuntime_x64.exe", "targetpath" : "./", "version" : "21.0.0.1800"}]
+                },
+            "common" : {
+                "updateurl" : "",
+                    "resources" :
+                    [{"type" : "Module", "file" : "nexacrolib.zip", "targetpath" : "./", "version" : "0"},
+                    {"type" : "Resource", "file" : "Resource.zip", "targetpath" : "./", "version" : "0"}]
+                }
+            }
+        },
+		"deploy" :
+        {
+            "windows" : {
+                "updateurl" : "./",
+            "windows 10, windows 8 / 8.1, windows 7, windows vista, windows server 2003, windows server 2008, windows server 2012, windows server 2016" : {
+                "updateurl" : "",
+                "enginesetupkey" : "5BD2EB25-8D2D-4137-9FB7-137F2C95D72E",
+                    "resources" :
+                    [{"type" : "Engine", "file" : "EduNexacroN_SetupRuntime_x86.exe", "targetpath" : "./", "version" : "21.0.0.1800"}]
+                },
+            "windows 11 64bit, windows 10 64bit, windows 8 / 8.1 64bit, windows 7 64bit, windows vista 64bit, windows server 2003 64bit, windows server 2008 64bit, windows server 2012 64bit, windows server 2016 64bit" : {
+                "updateurl" : "",
+                "enginesetupkey" : "1FD9443B-45D7-4304-8CF9-290ACF02F74C",
+                    "resources" :
+                    [{"type" : "Engine", "file" : "EduNexacroN_SetupRuntime_x64.exe", "targetpath" : "./", "version" : "21.0.0.1800"}]
+                },
+            "common" : {
+                "updateurl" : "",
+                    "resources" :
+                    [{"type" : "Module", "file" : "nexacrolib.zip", "targetpath" : "./", "version" : "0"},
+                    {"type" : "Resource", "file" : "Resource.zip", "targetpath" : "./", "version" : "0"}]
+                }
+            }
+        },
+        "userfont" :
+        [
+
+        ]
+    }
+}

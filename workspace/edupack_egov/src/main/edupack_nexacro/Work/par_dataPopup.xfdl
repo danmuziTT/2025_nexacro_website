@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="par_dataPopup" width="400" height="600" titletext="New Form" onload="Form_onload">
+    <Layouts>
+      <Layout height="600" width="400">
+        <Edit id="edt00" taborder="0" left="187" top="43" width="147" height="35"/>
+        <Edit id="edt00_00" taborder="1" left="187" top="104" width="147" height="35"/>
+        <Static id="sta00" taborder="2" text="이름" left="40" top="52" width="120" height="26"/>
+        <Static id="sta00_00" taborder="3" text="최애" left="40" top="104" width="120" height="26"/>
+        <Grid id="grd00" taborder="4" left="24" top="154" width="352" height="366" binddataset="Dataset1"/>
+        <Button id="btn00" taborder="5" text="닫기" left="100" top="534" width="200" height="36" onclick="btn00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[this.Form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	var sParam1 = this.parent.param1;
+	var sParam2 = this.parent.param2;
+	var objParam = this.parent.param3;
+	
+	this.edt00.set_value(sParam1);
+	this.edt00_00.set_value(sParam2);
+	
+	this.ds_child.copyData(objParam); //받은 데이터를 데이터셋에 카피함 
+	this.grd00.set_binddataset("ds_child"); //카피안 데이터셋을 바인딩 할 것 
+	this.grd00.createFormat(); 
+};
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+		var sRtn = this.edt00.value;
+		sRtn += ":" + this.edt00_00.value;
+	
+	this.close(sRtn);
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ds_child"/>
+    </Objects>
+  </Form>
+</FDL>

@@ -1,0 +1,14 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Oct 21 14:08:32 KST 2021
+https\://repo1.maven.org/maven2/.lastUpdated=1634792911058
+http\://mangosteen.tobesoft.co.kr/nexus/repository/maven-public/.lastUpdated=1634792911825
+http\://www.egovframe.go.kr/maven/.lastUpdated=1634792911207
+http\://www.egovframe.go.kr/maven/.error=
+http\://mangosteen.tobesoft.co.kr/nexus/repository/maven-public/.error=
+http\://maven.egovframe.go.kr/maven/.lastUpdated=1634792911089
+http\://maven.egovframe.kr\:8080/maven/.error=
+http\://maven.egovframe.kr\:8080/maven/.lastUpdated=1634792911105
+https\://repo.maven.apache.org/maven2/.lastUpdated=1634792912398
+https\://repo.maven.apache.org/maven2/.error=
+https\://repo1.maven.org/maven2/.error=
+http\://maven.egovframe.go.kr/maven/.error=

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="SampleButton" width="1038" height="650" titletext="Slide &amp; Toggle Button" onload="Form_onload" ontimer="Form_ontimer">
+    <Layouts>
+      <Layout height="650" width="1038">
+        <Static id="sta_01" taborder="0" text="2) 토글 버튼 Toggle Button" left="510" top="232" width="240" height="35" cssclass="sta_WF_TitleType1"/>
+        <Div id="divToggle" taborder="1" text="div00" left="520" top="282" width="76" height="40" url="Cmm::CmmToggle.xfdl" callbackfunc="divToggle_onitemchanged" onText="On" offText="Off"/>
+        <Button id="btnGet" taborder="2" text="get" left="520" top="355" width="100" height="28" onclick="btnGet_onclick"/>
+        <Button id="btnSet" taborder="3" text="set" left="625" top="355" width="100" height="28" onclick="btnSet_onclick"/>
+        <Div id="divSlide" taborder="4" text="div00" left="10" top="272" width="400" height="150" url="Cmm::CmmSlide.xfdl" max="99" lable="년" callbackfunc="divSlide_onvaluechanged" callbackfunc2="divSlide_onvaluechange"/>
+        <Button id="btnGetSilde" taborder="5" text="get" left="17" top="440" width="100" height="28" onclick="btnGetSilde_onclick"/>
+        <Button id="btnSetSilde" taborder="6" text="set" left="122" top="440" width="100" height="28" onclick="btnSetSilde_onclick"/>
+        <Edit id="edtValue" taborder="7" left="227" top="440" width="100" height="28" value="50" text="50" inputtype="digit"/>
+        <Static id="sta01" taborder="8" text="1. Slide Button 사용방법&#13;&#13;&#10;  1) Div를 추가하고 url 속성에 &quot;Cmm::CmmSlide.xfdl&quot; 을 적용한다.&#13;&#13;&#10;  2) Div에 User Property 를 추가한다.&#13;&#13;&#10;    - label: 값의 단위&#13;&#10;    - max: slide max 값&#13;&#10;&#13;&#10;2. Toggle Button&#13;&#13;&#10;  1) div를 추가한url 속성에 &quot;Cmm::CmmToggle.xfdl&quot;  를 적용한다." left="10" top="35" height="190" cssclass="sta_WF_Desc" right="10"/>
+        <Static id="Static00" taborder="9" text="1) 슬라이드 Slide" left="10" top="232" width="188" height="35" cssclass="sta_WF_TitleType1"/>
+        <CheckBox id="chk00" taborder="10" left="516" top="464" width="85" height="40" cssclass="chk_WF_Toggle"/>
+        <Static id="sta02" taborder="11" text="슬라이드 / 토글 버튼" left="10" top="0" width="221" height="35" cssclass="sta_WF_TitleMain"/>
+        <Static id="sta_01_00" taborder="12" text="2-1) 토글 버튼 CheckBox 응용" left="510" top="420" width="240" height="30" cssclass="sta_WF_TitleType1"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[/**
+*  Nexacro Professional Training Couse
+*  @MenuPath    개발가이드 > 컴포넌트 연동 > Slide & Toggle Button
+*  @FileName 	SampleButton.xfdl 
+*  @Creator 	TOBESOFT Education
+*  @CreateDate 	2023/01/03
+*  @Desction    
+************** 소스 수정 이력 ***********************************************
+*  date          		Modifier                Description
+*******************************************************************************
+*  2023/01/03      		 TOBESOFT Education	 	  	최초 생성 
+*******************************************************************************
+*/
+
+
+
+/************************************************************************************************
+ * FORM 변수 선언 영역
+ ************************************************************************************************/
+
+/***********************************************************************************************
+* FORM EVENT 영역(onload)
+/***********************************************************************************************/
+this.Form_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+    this.gfnFormOnLoad(obj);
+};
+
+ /************************************************************************************************
+ * 사용자 FUNCTION 영역
+ ************************************************************************************************/
+this.divToggle_onitemchanged = function(obj, value)
+{
+	trace(obj + " , "+ value);
+};
+
+this.divSlide_onvaluechange = function(obj, value)
+{
+	trace("divSlide_onvaluechange "+ obj + " , "+ value);
+};
+
+this.divSlide_onvaluechanged = function(obj, value)
+{
+	trace("divSlide_onvaluechanged "+ obj + " , "+ value);
+};
+
+ /************************************************************************************************
+ * 각 COMPONENT 별 EVENT 영역
+ ************************************************************************************************/
+
+this.btnGet_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	alert(this.divToggle.form.getValue());
+};
+
+this.btnSet_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.divToggle.form.setValue(!this.divToggle.form.getValue());
+};
+
+this.btnGetSilde_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	alert(this.divSlide.form.getValue());
+};
+
+this.btnSetSilde_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.divSlide.form.setValue(this.edtValue.value);
+};
+]]></Script>
+    <Bind/>
+  </Form>
+</FDL>

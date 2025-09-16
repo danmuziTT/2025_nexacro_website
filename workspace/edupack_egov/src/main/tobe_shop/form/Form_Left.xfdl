@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_Left" width="200" height="570" titletext="좌단 선택탭" onload="Form_Left_onload" scrolltype="none">
+    <Layouts>
+      <Layout height="570" width="200">
+        <Grid id="Grid00" taborder="0" left="0" top="0" binddataset="gdsProCategory" right="0" bottom="0" treeinitstatus="expand,all" treeusebutton="no" treeusecheckbox="false" oncellclick="Grid00_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="199"/>
+              </Columns>
+              <Rows>
+                <Row size="44"/>
+              </Rows>
+              <Band id="body">
+                <Cell text="expr:CATEGORY_NAME + &quot; ( &quot; + CATEGORY_SUM + &quot; ) &quot;" displaytype="treeitemcontrol" treelevel="bind:LEVEL" edittype="tree"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="dsSendOpData"/>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************/
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+this.Form_Left_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo) //판매중인 데이터 나오게 하기
+{
+	//this.gfnFormOnLoad(this);
+	this.objApp = nexacro.getApplication(); 
+	
+	var nHeight = this.getLayoutInfo(this.getCurrentLayoutID(), "height");
+	this.parent.parent.fnMainPageOnLoad2(nHeight);
+};
+
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+
+var moveCode = 0;
+this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo) //좌단 선택시 새로운 div 나오게 해야됨
+{
+	this.moveCode = this.objApp.gdsProCategory.getColumn(e.row, "CATEGORY_ID"); //좌단 선택 시 맞는 카테고리id 를 가져옴
+	this.objApp.mainframe.VFrameSet00.UserFrame.form
+};
+]]></Script>
+  </Form>
+</FDL>

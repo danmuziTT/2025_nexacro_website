@@ -1,0 +1,3 @@
+#Tomcat publish data
+#Thu Feb 27 07:57:43 KST 2025
+org.eclipse.jst.jee.server\:/binary\:C\:\\EduPack\\maven\\org\\springframework\\spring-web\\4.3.25.RELEASE\\spring-web-4.3.25.RELEASE.jar=WEB-INF/lib/spring-web-4.3.25.RELEASE.jar

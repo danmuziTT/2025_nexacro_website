@@ -1,0 +1,129 @@
+(function()
+{
+    return function()
+    {
+        this.on_loadAppVariables = function()
+        {		
+            var obj = null;
+            
+			// global dataobject
+		
+            // global dataset
+            obj = new Dataset("gdsUserInfo", this);
+            obj._setContents("<ColumnInfo><Column id=\"USER_ID\" type=\"STRING\" size=\"256\"/><Column id=\"USER_PW\" type=\"STRING\" size=\"256\"/><Column id=\"USER_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"USER_EMAIL\" type=\"STRING\" size=\"256\"/><Column id=\"USER_PHONE\" type=\"STRING\" size=\"256\"/><Column id=\"ADDR_MAIN\" type=\"STRING\" size=\"256\"/><Column id=\"ADDR_DETAIL\" type=\"STRING\" size=\"256\"/><Column id=\"ADDR_POST\" type=\"STRING\" size=\"256\"/><Column id=\"REG_DT\" type=\"STRING\" size=\"256\"/><Column id=\"ROLE\" type=\"INT\" size=\"256\"/></ColumnInfo>");
+            this._addDataset(obj.name, obj);
+
+
+            obj = new Dataset("gdsProInfo", this);
+            obj._setContents("<ColumnInfo><Column id=\"PRO_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_KIND\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_NAME_EN\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_IMG\" type=\"STRING\" size=\"256\"/><Column id=\"SERVER_IMG\" type=\"STRING\" size=\"256\"/><Column id=\"SALE_PERCENT\" type=\"STRING\" size=\"256\"/><Column id=\"HOW_MUCH\" type=\"STRING\" size=\"256\"/><Column id=\"LIKE_NUMBER\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this._addDataset(obj.name, obj);
+
+
+            obj = new Dataset("gdsProDetailInfo", this);
+            obj._setContents("<ColumnInfo><Column id=\"PRO_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"DETAIL_INFO\" type=\"STRING\" size=\"256\"/><Column id=\"UPLOAD_DATE\" type=\"STRING\" size=\"256\"/><Column id=\"UPDATE_DATE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this._addDataset(obj.name, obj);
+
+
+            obj = new Dataset("gdsProOption", this);
+            obj._setContents("<ColumnInfo><Column id=\"PRO_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_OPTION\" type=\"STRING\" size=\"256\"/><Column id=\"OPTION_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"OPTION_NUMBER\" type=\"STRING\" size=\"256\"/><Column id=\"OPTION_ADD_PRICE\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this._addDataset(obj.name, obj);
+
+
+            obj = new Dataset("gdsUserCart", this);
+            obj._setContents("<ColumnInfo><Column id=\"USER_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_OPTION\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_OP_NUMBER\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"OPTION_NAME\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this._addDataset(obj.name, obj);
+
+
+            obj = new Dataset("gdsUserLike", this);
+            obj._setContents("<ColumnInfo><Column id=\"USER_ID\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_CODE\" type=\"STRING\" size=\"256\"/><Column id=\"PRO_NAME\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this._addDataset(obj.name, obj);
+
+
+            obj = new Dataset("gdsProCategory", this);
+            obj._setContents("<ColumnInfo><Column id=\"CATEGORY_ID\" type=\"STRING\" size=\"256\"/><Column id=\"CATEGORY_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"LEVEL\" type=\"STRING\" size=\"256\"/><Column id=\"CATEGORY_SUM\" type=\"STRING\" size=\"256\"/></ColumnInfo>");
+            this._addDataset(obj.name, obj);
+
+
+            obj = new Dataset("gdsSellerMenu", this);
+            obj._setContents("<ColumnInfo><Column id=\"MENU_ID\" type=\"STRING\" size=\"256\"/><Column id=\"MENU_NAME\" type=\"STRING\" size=\"256\"/><Column id=\"MENU_LEVEL\" type=\"STRING\" size=\"256\"/><Column id=\"FORM_URL\" type=\"STRING\" size=\"256\"/></ColumnInfo><Rows><Row><Col id=\"MENU_ID\">10</Col><Col id=\"MENU_NAME\">물품관리</Col><Col id=\"MENU_LEVEL\">0</Col></Row><Row><Col id=\"MENU_ID\">1010</Col><Col id=\"MENU_NAME\">새로운 물품 올리기</Col><Col id=\"MENU_LEVEL\">1</Col><Col id=\"FORM_URL\">sellerForm::newProduct.xfdl</Col></Row><Row><Col id=\"MENU_ID\">1020</Col><Col id=\"MENU_NAME\">물품관리하기</Col><Col id=\"MENU_LEVEL\">1</Col><Col id=\"FORM_URL\">sellerForm::productManage.xfdl</Col></Row><Row><Col id=\"MENU_ID\">20</Col><Col id=\"MENU_NAME\">판매관리</Col><Col id=\"MENU_LEVEL\">0</Col></Row><Row><Col id=\"MENU_ID\">2010</Col><Col id=\"MENU_NAME\">판매내역관리</Col><Col id=\"MENU_LEVEL\">1</Col><Col id=\"FORM_URL\">sellerForm::sellManage.xfdl</Col></Row><Row><Col id=\"MENU_ID\">2020</Col><Col id=\"MENU_NAME\">취소관리</Col><Col id=\"MENU_LEVEL\">1</Col><Col id=\"FORM_URL\">sellerForm::cancleManage.xfdl</Col></Row><Row><Col id=\"MENU_ID\">2030</Col><Col id=\"MENU_NAME\">교환관리</Col><Col id=\"MENU_LEVEL\">1</Col><Col id=\"FORM_URL\">sellerForm::changeManage.xfdl</Col></Row><Row><Col id=\"MENU_ID\">30</Col><Col id=\"MENU_NAME\">배송관리</Col><Col id=\"MENU_LEVEL\">0</Col><Col id=\"FORM_URL\"/></Row><Row><Col id=\"MENU_ID\">3010</Col><Col id=\"MENU_NAME\">배송현황관리</Col><Col id=\"MENU_LEVEL\">1</Col><Col id=\"FORM_URL\">sellerForm::deliveryManage.xfdl</Col></Row><Row><Col id=\"MENU_ID\">40</Col><Col id=\"MENU_NAME\">판매자</Col><Col id=\"MENU_LEVEL\">0</Col></Row><Row><Col id=\"MENU_ID\">4010</Col><Col id=\"MENU_NAME\">공지사항</Col><Col id=\"MENU_LEVEL\">1</Col><Col id=\"FORM_URL\">sellerForm::alertWrite.xfdl</Col></Row></Rows>");
+            this._addDataset(obj.name, obj);
+
+
+            obj = new Dataset("gdsMessage", this);
+            obj._setContents("<ColumnInfo><Column id=\"MSG_ID\" type=\"STRING\" size=\"256\"/><Column id=\"MSG_TEXT\" type=\"STRING\" size=\"256\"/><Column id=\"MSG_TEXT_EN\" type=\"STRING\" size=\"256\"/><Column id=\"MSG_TYPE\" type=\"STRING\" size=\"2\"/></ColumnInfo><Rows><Row><Col id=\"MSG_ID\">msg.server.error</Col><Col id=\"MSG_TEXT\">서버 오류입니다.\\n관리자에게 문의하세요.</Col><Col id=\"MSG_TEXT_EN\">Server error. Please contact your administrator.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.server.error.msg</Col><Col id=\"MSG_TEXT\">서버에서 다음과 같은 에러메시지를 받았습니다.\\n{0}</Col><Col id=\"MSG_TEXT_EN\">The server received the following error message.s\\n{0}</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.session.timeout</Col><Col id=\"MSG_TEXT\">세션이 종료되었습니다. 다시 로그인해주세요.</Col><Col id=\"MSG_TEXT_EN\">Your session has expired, please login again.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.login.url.error</Col><Col id=\"MSG_TEXT\">정상적인 경로로 접속하시기 바랍니다.</Col><Col id=\"MSG_TEXT_EN\">invalid access! please, login first at www.tobesoft.com</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.login.error</Col><Col id=\"MSG_TEXT\">해당하는 사용자 정보가 없습니다.</Col><Col id=\"MSG_TEXT_EN\">No user found.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.call.nofile</Col><Col id=\"MSG_TEXT\">해당하는 메뉴에 Program File이 등록되지 않았습니다.</Col><Col id=\"MSG_TEXT_EN\">the requested menu does not exist!</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.nomenu</Col><Col id=\"MSG_TEXT\">해당 Menu가 존재하지 않습니다.</Col><Col id=\"MSG_TEXT_EN\">The specified menu doesn&apos;t exist.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">confirm.logout</Col><Col id=\"MSG_TEXT\">로그아웃 하시겠습니까?</Col><Col id=\"MSG_TEXT_EN\">Are you sure you want to log out?</Col><Col id=\"MSG_TYPE\">C</Col></Row><Row><Col id=\"MSG_ID\">confirm.before.movepage</Col><Col id=\"MSG_TEXT\">변경된 데이터가 있습니다. 현재 화면을 닫겠습니까?</Col><Col id=\"MSG_TEXT_EN\">There are unsaved data. Would you like to leave now?</Col><Col id=\"MSG_TYPE\">C</Col></Row><Row><Col id=\"MSG_ID\">confirm.before.search</Col><Col id=\"MSG_TEXT\">검색을 진행하면 변경된 데이터가 사라집니다. \\n계속 진행 하시겠습니까?</Col><Col id=\"MSG_TEXT_EN\">Any unsaved data will be discarded. \\nWould you like to continue?</Col><Col id=\"MSG_TYPE\">C</Col></Row><Row><Col id=\"MSG_ID\">confirm.before.moveropos</Col><Col id=\"MSG_TEXT\">해당 row의 위치를 이동하면 변경된 데이터가 사라집니다. \\n계속 진행 하시겠습니까?</Col><Col id=\"MSG_TEXT_EN\">If you move the selected row, your changes will be discarded. \\nWould you like to continue?</Col><Col id=\"MSG_TYPE\">C</Col></Row><Row><Col id=\"MSG_ID\">confirm.before.delete</Col><Col id=\"MSG_TEXT\">선택된 자료를 삭제 하시겠습니까?</Col><Col id=\"MSG_TEXT_EN\">Are you sure you want to delete?</Col><Col id=\"MSG_TYPE\">C</Col></Row><Row><Col id=\"MSG_ID\">confirm.before.deletesave</Col><Col id=\"MSG_TEXT\">선택된 자료를 삭제 후 저장하시겠습니까?</Col><Col id=\"MSG_TEXT_EN\">Are you sure you want to delete and save?</Col><Col id=\"MSG_TYPE\">C</Col></Row><Row><Col id=\"MSG_ID\">confirm.before.save</Col><Col id=\"MSG_TEXT\">변경된 내역을 저장 하시겠습니까?</Col><Col id=\"MSG_TEXT_EN\">Would you like to save your changes?</Col><Col id=\"MSG_TYPE\">C</Col></Row><Row><Col id=\"MSG_ID\">msg.noselect</Col><Col id=\"MSG_TEXT\">{0} 을(를) 선택해 주십시요.</Col><Col id=\"MSG_TEXT_EN\">Please, select {0}</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.search.nodata</Col><Col id=\"MSG_TEXT\">지정된 조건에 해당하는 항목을 찾을 수 없습니다.</Col><Col id=\"MSG_TEXT_EN\">No data found.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.save.nodata</Col><Col id=\"MSG_TEXT\">저장할 데이터가 없습니다.</Col><Col id=\"MSG_TEXT_EN\">No data to save.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.save.nochange</Col><Col id=\"MSG_TEXT\">변경된 내역이 없습니다.</Col><Col id=\"MSG_TEXT_EN\">No changes found.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.save.success</Col><Col id=\"MSG_TEXT\">저장 되었습니다.</Col><Col id=\"MSG_TEXT_EN\">Successfully saved!</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.update.success</Col><Col id=\"MSG_TEXT\">수정 되었습니다.</Col><Col id=\"MSG_TEXT_EN\">Successfully updated!</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.delete.success</Col><Col id=\"MSG_TEXT\">삭제 되었습니다.</Col><Col id=\"MSG_TEXT_EN\">Successfully deleted!</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.action.success</Col><Col id=\"MSG_TEXT\">처리 되었습니다.</Col><Col id=\"MSG_TEXT_EN\">Successfully processed!</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.action.fail</Col><Col id=\"MSG_TEXT\">프로세스가 실패하였습니다.</Col><Col id=\"MSG_TEXT_EN\">Failed process!</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.updateafter</Col><Col id=\"MSG_TEXT\">변경된 내역을 저장 후 작업하세요.</Col><Col id=\"MSG_TEXT_EN\">Please, save your changes first!</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.delete.child</Col><Col id=\"MSG_TEXT\">하위 자료가 있어 삭제할 수 없습니다.</Col><Col id=\"MSG_TEXT_EN\">the requested deletion could not be performed because dependent data found!</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.grid.noselect</Col><Col id=\"MSG_TEXT\">선택된 항목이 없습니다.</Col><Col id=\"MSG_TEXT_EN\">No item has been selected!</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.before.delete</Col><Col id=\"MSG_TEXT\">정말로 삭제 하시겠습니까?</Col><Col id=\"MSG_TEXT_EN\">Are you sure you want to delete?</Col><Col id=\"MSG_TYPE\">C</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator</Col><Col id=\"MSG_TEXT\">{0}</Col><Col id=\"MSG_TEXT_EN\">{0}</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.required</Col><Col id=\"MSG_TEXT\">{0} 은(는) 필수 입력 항목입니다.</Col><Col id=\"MSG_TEXT_EN\">{0} is a required field.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.length</Col><Col id=\"MSG_TEXT\">{0} 의 입력값은 {1} 자리이어야 합니다.</Col><Col id=\"MSG_TEXT_EN\">The length of {0} must be equal to {1}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.rangelength</Col><Col id=\"MSG_TEXT\">{0} 은(는) {1} 와(과) {2} 사이의 자리이어야 합니다.</Col><Col id=\"MSG_TEXT_EN\">The length of {0} is between {1} and {2}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.maxlength</Col><Col id=\"MSG_TEXT\">{0} 의 입력값의 길이는 {1} 이하이어야 합니다.</Col><Col id=\"MSG_TEXT_EN\">The length of {0} must be less than or equal to {1}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.minlength</Col><Col id=\"MSG_TEXT\">{0} 의 입력값의 길이는 {1} 이상이어야 합니다.</Col><Col id=\"MSG_TEXT_EN\">The length of {0} must be greater than or equal to {1}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.maxlengthB</Col><Col id=\"MSG_TEXT\">{0} 의 입력값의 길이는 {1} 이하이어야 합니다.</Col><Col id=\"MSG_TEXT_EN\">The length of {0} must be less than or equal to {1}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.minlengthB</Col><Col id=\"MSG_TEXT\">{0} 의 입력값의 길이는 {1} 이상이어야 합니다.</Col><Col id=\"MSG_TEXT_EN\">The length of {0} must be greater than or equal to {1}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.digits</Col><Col id=\"MSG_TEXT\">{0} 은(는) 숫자만 입력 가능합니다.</Col><Col id=\"MSG_TEXT_EN\">{0} must be a numeric value.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.min</Col><Col id=\"MSG_TEXT\">{0} 은(는) {1} 이상의 숫자만 입력 가능합니다.</Col><Col id=\"MSG_TEXT_EN\">{0} must be a numeric value greater than or equal to {1}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.max</Col><Col id=\"MSG_TEXT\">{0} 은(는) {1} 이하의 숫자만 입력 가능합니다.</Col><Col id=\"MSG_TEXT_EN\">{0} must be a numeric value less than or equal to {1}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.date</Col><Col id=\"MSG_TEXT\">{0} 은(는) 유효하지 않은 날짜 형식입니다.</Col><Col id=\"MSG_TEXT_EN\">{0} is in invalid date format.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.dateym</Col><Col id=\"MSG_TEXT\">{0} 은(는) 유효하지 않은 년월 형식입니다.</Col><Col id=\"MSG_TEXT_EN\">{0} is in invalid year/month format.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.fromto</Col><Col id=\"MSG_TEXT\">{0} 의 날짜가 {1} 의 날짜보다 작습니다.</Col><Col id=\"MSG_TEXT_EN\">{0} is less than {1}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.comparebig</Col><Col id=\"MSG_TEXT\">{0} 이(가) {1} 보다 작습니다.</Col><Col id=\"MSG_TEXT_EN\">{0} is less than {1}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.comparesmall</Col><Col id=\"MSG_TEXT\">{0} 이(가) {1} 보다 큽니다.</Col><Col id=\"MSG_TEXT_EN\">{0} is greater than {1}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.equalto</Col><Col id=\"MSG_TEXT\">{0} 이(가) {1} 와(과) 일치하지 않습니다.</Col><Col id=\"MSG_TEXT_EN\">{0} is not equal to {1}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.range</Col><Col id=\"MSG_TEXT\">{0} 은(는) {1} 와(과) {2} 사이의 값입니다.</Col><Col id=\"MSG_TEXT_EN\">The value of {0} is between {1} and {2}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.declimit</Col><Col id=\"MSG_TEXT\">{0} 은(는) 소숫점 {1} 자리로 구성되어야 합니다.</Col><Col id=\"MSG_TEXT_EN\">The fractional part of {0} must consiste of {1} digits.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.code</Col><Col id=\"MSG_TEXT\">{0} 은(는) {1} 중 하나의 값이어야 합니다.</Col><Col id=\"MSG_TEXT_EN\">{0} must be the value of {1}</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.ssn</Col><Col id=\"MSG_TEXT\">{0} 은(는) 올바른 주민번호가 아닙니다.</Col><Col id=\"MSG_TEXT_EN\">The entered Social Security Number is invalid.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.email</Col><Col id=\"MSG_TEXT\">e-mail이 잘못된 형태로 입력 되었습니다.</Col><Col id=\"MSG_TEXT_EN\">The entered email address is invalid.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.url</Col><Col id=\"MSG_TEXT\">웹사이트 주소가 잘못 입력 되었습니다.</Col><Col id=\"MSG_TEXT_EN\">The entered website address is invalid.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.phone</Col><Col id=\"MSG_TEXT\">전화번호가 잘못된 형태로 입력 되었습니다.</Col><Col id=\"MSG_TEXT_EN\">The entered phone number is invalid.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.zipcode</Col><Col id=\"MSG_TEXT\">우편번호가 잘못된 형태로 입력 되었습니다.</Col><Col id=\"MSG_TEXT_EN\">The entered ZIP code is invalid.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.multicombo.maxcnt</Col><Col id=\"MSG_TEXT\">{0}개 이상 선택 할 수 없습니다.</Col><Col id=\"MSG_TEXT_EN\">You can&apos;t select more than {0}</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.maxdate</Col><Col id=\"MSG_TEXT\">날짜의 입력 가능 범위를 벗어났습니다.</Col><Col id=\"MSG_TEXT_EN\">Invalid date.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.err.validator.date.great</Col><Col id=\"MSG_TEXT\">종료일이 시작일보다 빠릅니다.</Col><Col id=\"MSG_TEXT_EN\">Invalid date range.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.file.exist</Col><Col id=\"MSG_TEXT\">{0} 은(는) 중복된 파일이 존재합니다.</Col><Col id=\"MSG_TEXT_EN\">{0} duplicate files exist.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.file.filesize</Col><Col id=\"MSG_TEXT\">첨부 파일의 용량은 최고 {0}MB까지 입니다.</Col><Col id=\"MSG_TEXT_EN\">Maximum allowed attachment size is {0} MB.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.file.filetotalsize</Col><Col id=\"MSG_TEXT\">첨부 파일의 전체 용량은 최고 {0}MB까지 입니다.</Col><Col id=\"MSG_TEXT_EN\">Maximum allowed attachment total size is {0} MB.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.file.allowtype</Col><Col id=\"MSG_TEXT\">{0} 은(는) 허용되지 않는 확장자입니다.[{1}]</Col><Col id=\"MSG_TEXT_EN\">{0} is an unacceptable extension.[{1}]</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.file.itemcount</Col><Col id=\"MSG_TEXT\">첨부 파일은 {0}개 이상 등록 할 수 없습니다.</Col><Col id=\"MSG_TEXT_EN\">Attachments can not be registered in more than {0}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.file.uploadfail</Col><Col id=\"MSG_TEXT\">{0}로(으로) 파일업로드가 실패하였습니다.</Col><Col id=\"MSG_TEXT_EN\">the file upload is failed because {0}.</Col><Col id=\"MSG_TYPE\">A</Col></Row><Row><Col id=\"MSG_ID\">msg.exist.code</Col><Col id=\"MSG_TEXT\">입력하는 Code ({0})값이 이미 등록되어 있습니다.</Col><Col id=\"MSG_TEXT_EN\">Code already exsits!</Col><Col id=\"MSG_TYPE\">A</Col></Row></Rows>");
+            this._addDataset(obj.name, obj);
+            
+            // global variable
+            this._addVariable("gvVariable1","App Variable Value1");
+            this._addVariable("gvLogIn","");
+            
+            obj = null;
+        };
+        
+        // property, event, createMainFrame
+        this.on_initApplication = function()
+        {
+            // properties
+            this.set_id("Application_Desktop");
+            this.set_screenid("Desktop_screen");
+            this.set_licenseurl("NexacroN_client_license.xml");
+
+            if (this._is_attach_childframe)
+            	return;
+            
+            // frame
+            var mainframe = this.createMainFrame("mainframe","0","0","1280","720",null,null,this);
+            mainframe.set_showtitlebar("true");
+            mainframe.set_showstatusbar("false");
+            mainframe.set_titletext("kurukuru_shopping");
+            mainframe.on_createBodyFrame = this.mainframe_createBodyFrame;
+            // tray
+
+        };
+        
+        this.loadPreloadList = function()
+        {
+
+        };
+        
+        this.mainframe_createBodyFrame = function()
+        {
+            var obj = new ChildFrame("QuickViewFrame", null, null, null, null, null, null, "", this);
+            
+            obj.set_showtitlebar("false");
+            obj.set_showstatusbar("false");
+            obj.set_border("0px none");
+			
+            this.addChild(obj.name, obj);
+            obj.set_formurl(nexacro._quickview_formurl);
+            this.frame = obj;
+            
+            obj = null;
+        };
+        
+        this.on_initEvent = function()
+        {
+        };
+		// script Compiler
+        this.registerScript("Application_Desktop.xadl", function() {
+
+        this.av_frameWork = "";
+        this.av_frameMdi = "";
+        this.av_TopFrame = "";
+
+        this.Application_onload = function(obj,e)
+        {
+        	this.av_frameWork = this.mainframe.VFrameSet00.HFrameSet00.VFrameSet01.FrameSet00;
+        	this.av_frameMdi = this.mainframe.VFrameSet00.HFrameSet00.VFrameSet01.MDIframe; //왜 이게 안잡힘?
+        	this.av_TopFrame = this.mainframe.VFrameSet00.TopMainFrame;
+        };
+
+        });
+		this.checkLicense("NexacroN_client_license.xml");
+        
+        this.loadPreloadList();
+
+        this.loadIncludeScript("Application_Desktop.xadl");
+    };
+}
+)();

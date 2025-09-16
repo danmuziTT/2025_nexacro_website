@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="Form_Top" width="1280" height="150" titletext="상단 선택탭" onload="Form_Top_onload">
+    <Layouts>
+      <Layout height="150" width="1280">
+        <Div id="Div00" taborder="0" left="0" height="50" formscrollbartype="none" cssclass="div_TF_button" bottom="0" right="0">
+          <Layouts>
+            <Layout>
+              <Button id="btn_Discount" taborder="0" text="세일중 ! " left="0" top="0" width="33.3%" cssclass="top_Button" onclick="Div00_btn_Discount_onclick" bottom="0"/>
+              <Button id="btn_Mypage" taborder="1" text="마이페이지" top="0" width="33.3%" cssclass="top_Button" right="0" onclick="Div00_btn_Mypage_onclick" bottom="0"/>
+              <Button id="btn_Sell" taborder="2" text="SHOP" left="33.44%" top="0" width="33.3%" cssclass="top_Button" onclick="Div00_btn_Sell_onclick" bottom="0"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Static id="sta00" taborder="1" top="0" height="100" background="url('imagerc::logoKu.png') no-repeat center center /contain" onclick="sta00_onclick" left="40.78%" right="40.70%"/>
+        <Button id="btn00_00_00" taborder="3" top="28" height="50" cssclass="TF_miniBtn" background="url('theme::blue/images/like.png') no-repeat center center /contain" right="195" width="50" onclick="btn00_00_00_onclick"/>
+        <Button id="btn00" taborder="2" top="28" height="50" cssclass="TF_miniBtn" background="url('theme::blue/images/cart.png') no-repeat center center /contain" right="btn00_00_00:15" width="50" onclick="btn00_onclick"/>
+        <Div id="Div01" taborder="4" text="Div01" top="28" width="169" height="50" left="btn00_00_00:20">
+          <Layouts>
+            <Layout>
+              <Button id="btn_login" taborder="0" text="로그인" top="0" height="50" cssclass="TF_miniBtn" width="60" onclick="btn_login_onclick" left="10"/>
+              <Button id="btn00_00_00_00_00" taborder="1" text="회원가입" top="0" width="80" height="50" cssclass="TF_miniBtn" onclick="btn00_00_00_00_00_onclick" left="84"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="Div01_00" taborder="5" left="btn00_00_00:0" top="28" width="195" height="50" visible="false" text="">
+          <Layouts>
+            <Layout>
+              <Button id="btn00" taborder="0" text="로그아웃" left="110" top="5" width="78" height="40" cssclass="TF_miniBtn" onclick="Div01_00_btn00_onclick"/>
+              <Static id="sta00" taborder="1" text="sta00" left="11" top="10" width="88" height="31"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Button id="btn01" taborder="6" text="판매자센터" top="29" height="54" visible="false" onclick="btn01_onclick" right="btn00:30" width="140"/>
+        <Button id="btn02" taborder="7" left="9" top="5" width="101" height="91" onclick="btn02_onclick" background="url('theme::blue/images/bell.png') no-repeat center center /contain"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[/**************************************************************************
+* include 영역
+**************************************************************************/
+
+/**************************************************************************
+* FORM 변수 선언 영역 (fv)
+**************************************************************************
+
+/**************************************************************************
+* FORM EVENT 영역(onload, onbeforeclose)
+**************************************************************************/
+this.Form_Top_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.gfnFormOnLoad(this);
+	//화면변환 변수
+	this.objApp = nexacro.getApplication();
+
+	//var nHeight = this.getLayoutInfo(this.getCurrentLayoutID(), "height");
+	//this.parent.parent.fnMainPageOnLoad(nHeight); //오류
+// 	var memRole = this.objApp.gdsUserInfo.getColumn(0, "ROLE");
+// 	if(memRole == 0){
+// 		this.btn01.set_visible(true);
+// 	}
+
+	if(this.objApp.gdsUserInfo.rowcount > 0){
+		this.Div01_00.set_visible(true);
+		this.Div01.set_visible(false);
+		this.Div01_00.form.sta00.set_text(this.objApp.gdsUserInfo.getColumn(0,"USER_NAME") + " 님")
+		this.Div01_00.form.sta00.set_font("bold 15px Verdana");
+		this.btn01.set_visible(true);
+	}
+};
+
+/**************************************************************************
+* CRUD 및 TRANSACTION 서비스 호출 처리
+**************************************************************************/
+
+/**************************************************************************
+* CALLBACK 콜백 처리부분(Transaction, Popup)
+**************************************************************************/
+
+/**************************************************************************
+* 사용자 FUNCTION 영역
+**************************************************************************/
+
+this.send_urlInfo = function(divUrl)
+{
+	var objFrame = this.parent.parent.frames[1];
+	objFrame.form.Div01.set_async(false);
+	objFrame.form.fv_setUrl(divUrl);
+
+};
+
+this.loginSuccess = function(){
+	var CF = new ChildFrame();
+   var strName = "chf";
+   var nLeft = 0;
+   var nTop = 0;
+   var nWidth = 500;
+   var nHeight = 300;
+   var nRight = null;
+   var nBottom = null;
+   var strUrl = "form::logout_popup.xfdl"; // 복사한 경우에는 Generate 필수
+
+    CF.init(strName, nLeft, nTop, nWidth, nHeight, nRight, nBottom, strUrl);
+   CF.set_titlebarheight("40px");
+   CF.set_openalign("center middle");
+   CF.showModal(this.getOwnerFrame(),"", this, ""); 
+   
+}
+/**************************************************************************
+* 각 COMPONENT 별 EVENT 영역
+**************************************************************************/
+
+this.sta00_onclick = function(obj:nexacro.Static,e:nexacro.ClickEventInfo) //메인 로고 클릭 
+{
+	this.send_urlInfo("form::Form_shopMain.xfdl")
+};
+
+this.Div00_btn_Sell_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) 
+{ //판매중
+	this.send_urlInfo("form::Form_viewProducts.xfdl");
+};
+
+this.Div00_btn_Discount_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{ //할인
+	this.send_urlInfo("form::Form_viewProSale.xfdl")
+};
+
+this.Div00_btn_Mypage_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{ //마이페이지
+	var loginValid = this.objApp.gdsUserInfo.getColumn(0, "USER_ID");
+
+	if (!loginValid) {  // undefined, null, 빈 문자열 모두 체크
+		this.send_urlInfo("form::Form_Login.xfdl");
+		return;
+	}
+	this.send_urlInfo("userInfo::User_myPage.xfdl");
+};
+
+this.btn_login_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.send_urlInfo("form::Form_Login.xfdl")
+};
+
+this.btn00_00_00_00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.send_urlInfo("form::Form_register.xfdl")
+};
+
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var loginValid = this.objApp.gdsUserInfo.getColumn(0, "USER_ID");
+
+	if (!loginValid) {  // undefined, null, 빈 문자열 모두 체크
+		this.send_urlInfo("form::Form_Login.xfdl");
+		return;
+	}
+	this.send_urlInfo("userInfo::User_cart.xfdl")
+}; 
+
+this.btn00_00_00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var loginValid = this.objApp.gdsUserInfo.getColumn(0, "USER_ID");
+
+	if (!loginValid) {  // undefined, null, 빈 문자열 모두 체크
+		this.send_urlInfo("form::Form_Login.xfdl");
+		return;
+	}
+	this.send_urlInfo("userInfo::User_likeIt.xfdl")
+};
+
+this.Div01_00_btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo) //로그아웃
+{
+	this.Div01_00.set_visible(false);
+	this.Div01.set_visible(true);
+	this.btn01.set_visible(false);
+	this.objApp.gdsUserInfo.clear();
+	this.objApp.gdsUserLike.clear();
+	this.objApp.gdsUserCart.clear();
+	this.loginSuccess();
+};
+
+this.btn01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.send_urlInfo("form::Form_shopMain.xfdl");
+	this.parent.parent.set_separatesize("50,0,*");
+	this.parent.parent.TopMainFrame.set_formurl("sellerInfo::frame_top.xfdl");
+};
+
+this.btn03_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.objApp.av_TopFrame.form.Div01.set_visible(false);
+};
+
+this.btn02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.send_urlInfo("form::form_alert.xfdl")
+};
+]]></Script>
+  </Form>
+</FDL>

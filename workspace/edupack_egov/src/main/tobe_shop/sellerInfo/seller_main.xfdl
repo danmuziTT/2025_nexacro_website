@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="seller_main" width="1000" height="700" titletext="New Form">
+    <Layouts>
+      <Layout height="700" width="1000">
+        <Static id="sta00" taborder="0" text="판매자 페이지에 오신 것을 환영합니다" left="239" top="298" width="523" height="104" font="30px &quot;Verdana&quot;"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[]]></Script>
+  </Form>
+</FDL>

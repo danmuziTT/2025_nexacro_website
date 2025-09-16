@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project version="2.1">
+  <EnvironmentDefinition url="environment.xml"/>
+  <TypeDefinition url="typedefinition.xml"/>
+  <AppVariables url="appvariables.xml"/>
+  <AppInfos>
+    <AppInfo url="application_edupack.xadl"/>
+    <AppInfo url="application_edupack_phone.xadl"/>
+    <AppInfo url="application_edupack_sdi.xadl"/>
+  </AppInfos>
+</Project>

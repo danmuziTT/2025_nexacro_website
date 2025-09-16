@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edupack.edu.service.mapper.NexaEduMapper">
+   
+<select id = "getEmpList" resultType = "map">
+
+SELECT EMPL_ID, FULL_NAME, DEPT_CD, POS_CD, HIRE_DATE, SALARY, MARRIED, GENDER, MEMO
+FROM tb_emp
+
+</select>
+
+<select id = "getEmpListParam1" parameterType="String" resultType = "map">
+
+SELECT EMPL_ID, FULL_NAME, DEPT_CD, POS_CD, HIRE_DATE, SALARY, MARRIED, GENDER, MEMO
+FROM tb_emp
+	<if test = '_parameter != null and _parameter != "undefined" and _parameter != "" '>
+	WHERE DEPT_CD = #{sDeptCd} <!--  #{}을 통해  값을 매핑받을 수 있음. if 문 안에는 매핑이 안되기 때문에 if문 내에 _parameter를 써줘야 이를 통해 변수를 받을 수 있음   -->
+	</if>
+
+</select>
+
+
+<select id = "getEmpListParam2" parameterType="com.edupack.edu.vo.NexaEduVO" resultType = "map">
+
+SELECT EMPL_ID, FULL_NAME, DEPT_CD, POS_CD, HIRE_DATE, SALARY, MARRIED, GENDER, MEMO
+FROM tb_emp
+	<where>
+	<if test = 'deptCd != null and deptCd != "undefined" and deptCd != "" '>
+	AND DEPT_CD = #{deptCd}
+	</if>
+	<if test = 'FullName != null and FullName != "undefined" and FullName != "" '>
+	AND FULL_NAME LIKE CONCAT('%', #{FullName}, '%')
+	</if>
+	</where>
+	
+</select>
+
+
+<select id = "getEmpListParamDs" parameterType="map" resultType = "map">
+
+SELECT EMPL_ID, FULL_NAME, DEPT_CD, POS_CD, HIRE_DATE, SALARY, MARRIED, GENDER, MEMO
+FROM tb_emp
+	<where>
+	<if test = 'COL_DEPT != null and COL_DEPT != "undefined" and COL_DEPT != "" '>
+	AND DEPT_CD = #{deptCd}
+	</if>
+	<if test = 'COL_NAME != null and COL_NAME != "undefined" and COL_NAME != "" '>
+	AND FULL_NAME LIKE CONCAT('%', #{FullName}, '%')
+	</if>
+	</where>
+</select>
+
+
+<select id = "getDeptList" resultType = "map">
+SELECT DEPT_CD, DEPT_NAME
+FROM tb_dept
+</select>
+
+<select id = "getPosList" resultType = "map">
+SELECT POS_CD, POS_NAME
+FROM tb_pos
+</select>
+
+
+<select id = "chechId" parameterType="String" resultType = "int">
+SELECT COUNT(*) FROM tb_emp WHERE EMPL_ID = #{empId}
+</select>
+
+
+
+<insert id = "insertEmp" parameterType="Map">
+INSERT INTO tb_emp 
+(EMPL_ID, FULL_NAME, DEPT_CD, POS_CD, HIRE_DATE, SALARY, MARRIED, GENDER, MEMO)
+VALUES (#{EMPL_ID}, #{FULL_NAME}, #{DEPT_CD}, #{POS_CD}, #{HIRE_DATE}, #{SALARY}, #{MARRIED}, #{GENDER}, #{MEMO})
+</insert>
+
+<update id = "updateEmp" parameterType="Map">
+UPDATE tb_emp
+	SET
+		EMPL_ID = #{EMPL_ID},
+		FULL_NAME=#{FULL_NAME},
+		DEPT_CD=#{DEPT_CD},
+		POS_CD=#{POS_CD},
+		HIRE_DATE=#{HIRE_DATE},
+		SALARY=#{SALARY},
+		MARRIED=#{MARRIED},
+		GENDER=#{GENDER},
+		MEMO=#{MEMO}
+	WHERE EMPL_ID=#{ORG_EMPL_ID}
+</update>
+
+<delete id = "deleteEmp" parameterType="Map">
+delete FROM tb_emp WHERE EMPL_ID = #{EMPL_ID}
+</delete>
+
+
+<insert id = "insertMember" parameterType="Map">
+INSERT INTO j_member
+	(USER_ID, USER_PW, USER_NAME, USER_BIRTH, USER_GRADE, USER_EMAIL, USER_PHONE, ADDR_MAIN, ADDR_DETAIL, ADDR_POST)
+	VALUES (#{USER_ID}, #{USER_PW}, #{USER_NAME}, #{USER_BIRTH}, #{USER_GRADE}, #{USER_EMAIL}, #{USER_PHONE}, #{ADDR_MAIN}, #{ADDR_DETAIL}, #{ADDR_POST})
+</insert>
+
+
+<select id = "getMemberList" resultType = "map">
+	SELECT USER_ID, USER_PW, USER_NAME, USER_BIRTH, USER_GRADE, USER_EMAIL, USER_PHONE, ADDR_MAIN, ADDR_DETAIL, ADDR_POST
+	FROM j_member
+</select>
+
+
+
+
+<insert id="insertDataU" parameterType="Map">
+INSERT INTO j_member
+	(USER_ID, USER_PW, USER_NAME, USER_BIRTH, USER_GRADE, USER_EMAIL, USER_PHONE, ADDR_MAIN, ADDR_DETAIL, ADDR_POST)
+	VALUES (#{USER_ID}, #{USER_PW}, #{USER_NAME}, #{USER_BIRTH}, #{USER_GRADE}, #{USER_EMAIL}, #{USER_PHONE}, #{ADDR_MAIN}, #{ADDR_DETAIL}, #{ADDR_POST})
+	</insert>
+	
+<update id="updateDataU" parameterType="Map">
+UPDATE j_member
+	SET
+		USER_ID=#{USER_ID},
+		USER_PW=#{USER_PW},
+		USER_NAME=#{USER_NAME},
+		USER_BIRTH=#{USER_BIRTH},
+		USER_GRADE= #{USER_GRADE},
+		USER_EMAIL= #{USER_EMAIL},
+		USER_PHONE= #{USER_PHONE},
+		ADDR_MAIN=#{ADDR_MAIN},
+		ADDR_DETAIL= #{ADDR_DETAIL},
+		ADDR_POST= #{ADDR_POST}
+	WHERE USER_ID=#{ORG_USER_ID}
+</update>
+
+<delete id = "deletDataU" parameterType="Map">
+DELETE FROM j_member WHERE USER_ID=#{USER_ID}
+</delete>
+
+
+
+<select id = "loginMember" parameterType="Map" resultType = "int"> 
+SELECT COUNT(*) 
+FROM s_member 
+    WHERE USER_ID = #{USER_ID} AND USER_PW = #{USER_PW}
+</select>
+
+
+<select id = "loginId" parameterType="Map" resultType = "Map"> 
+ SELECT USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_PHONE, ADDR_MAIN, ADDR_DETAIL, ADDR_POST, REG_DT, ROLE
+ FROM s_member 
+ WHERE USER_ID = #{USER_ID} AND USER_PW = #{USER_PW}
+</select>
+
+<select id = "getIdChk" parameterType="String" resultType = "String"> 
+ SELECT COUNT(*)
+FROM s_member
+WHERE USER_ID = #{USER_ID}
+</select>
+
+<insert id = "saveUser" parameterType="Map">
+INSERT INTO s_member
+	(USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_PHONE, ADDR_MAIN, ADDR_DETAIL, ADDR_POST, REG_DT, ROLE)
+	VALUES (#{USER_ID}, #{USER_PW}, #{USER_NAME}, #{USER_EMAIL}, #{USER_PHONE}, #{ADDR_MAIN}, #{ADDR_DETAIL}, #{ADDR_POST}, CURDATE(), #{ROLE})
+</insert>
+
+<select id = "getShopData" resultType = "map">
+SELECT PRO_CODE, PRO_NAME, PRO_KIND, PRO_NAME_EN, PRO_IMG, SERVER_IMG, SALE_PERCENT, HOW_MUCH, LIKE_NUMBER
+	FROM s_pro_sell
+</select>
+
+<select id = "getShopDataDetail" resultType = "map">
+SELECT PRO_CODE, DETAIL_INFO, UPLOAD_DATE, UPDATE_DATE
+	FROM s_pro_detail
+</select>
+
+<select id = "getShopDataOption" resultType = "map">
+SELECT PRO_CODE, PRO_OPTION, OPTION_NAME, OPTION_NUMBER, OPTION_ADD_PRICE
+	FROM s_pro_option
+</select>
+
+
+<update id= "getShopDataCategorysum">
+UPDATE s_pro_category B
+    SET B.CATEGORY_SUM = (
+        SELECT COUNT(*)
+        FROM s_pro_sell A
+        WHERE A.PRO_KIND = B.CATEGORY_ID AND B.LEVEL = 1
+    )
+</update>
+
+<update id= "getShopDataCategoryAllSum">
+UPDATE s_pro_category B 
+SET B.CATEGORY_SUM = (
+    SELECT COUNT(*) 
+    FROM s_pro_sell
+)
+WHERE B.CATEGORY_ID = 0
+</update>
+
+
+<select id = "getShopDataCategory" resultType = "map">
+SELECT CATEGORY_ID, CATEGORY_NAME, LEVEL, CATEGORY_SUM
+    FROM s_pro_category
+</select>
+
+	
+<update id="updateLikeNum" parameterType="Map">
+UPDATE s_pro_sell
+	SET
+		LIKE_NUMBER=#{LIKE_NUMBER}
+	WHERE
+		PRO_CODE=#{PRO_CODE}
+</update>
+
+<select id = "userInfoCart" parameterType="String" resultType = "map">
+SELECT USER_ID, PRO_CODE, PRO_NAME, PRO_OPTION, OPTION_NAME, PRO_OP_NUMBER
+	FROM s_cart
+		WHERE USER_ID = #{userId}
+</select>
+
+<select id = "userInfoLike" parameterType="String" resultType = "map">
+SELECT USER_ID, PRO_CODE, PRO_NAME
+	FROM s_likeit
+		WHERE USER_ID = #{userId}
+</select>
+
+<insert id="likeAdd" parameterType="Map">
+INSERT INTO s_likeit (USER_ID, PRO_CODE, PRO_NAME)
+    SELECT #{USER_ID}, #{PRO_CODE}, #{PRO_NAME}
+    FROM dual
+    WHERE NOT EXISTS (
+        SELECT 1 FROM s_likeit WHERE USER_ID = #{USER_ID} AND PRO_CODE = #{PRO_CODE}
+    )
+</insert>
+
+
+<delete id = "likeRemove" parameterType="Map">
+    DELETE FROM s_likeit 
+    WHERE PRO_CODE = #{PRO_CODE} AND USER_ID = #{USER_ID}
+</delete>
+
+<update id = "updateUserData" parameterType="map">
+	UPDATE s_member
+	SET
+		USER_PW=#{USER_PW},
+		USER_NAME=#{USER_NAME},
+		USER_EMAIL=#{USER_EMAIL},
+		USER_PHONE=#{USER_PHONE},
+		ADDR_MAIN=#{ADDR_MAIN},
+		ADDR_DETAIL=#{ADDR_DETAIL},
+		ADDR_POST=#{ADDR_POST}
+	WHERE USER_ID=#{USER_ID}
+</update>
+<select id = "updateUser" parameterType="String" resultType = "map">
+	SELECT USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_PHONE, ADDR_MAIN, ADDR_DETAIL, ADDR_POST, REG_DT, ROLE
+	FROM s_member
+	WHERE USER_ID=#{USER_ID}
+</select>
+
+
+
+<!-- <select id = "getBuyData" resultType = "map">
+SELECT ORDER_NO, USER_ID, TOTAL_AMOUNT
+FROM s_order
+WHERE `STATUS` IN (0, 1, 2) 
+</select>  -->
+
+<select id = "getBuyData" resultType = "map"> <!-- 수정함 -->
+SELECT A.ORDER_NO, A.USER_ID, A.TOTAL_AMOUNT
+FROM s_order A
+JOIN s_order_detail B ON A.ORDER_NO = B.ORDER_NO
+WHERE B.STATUS IN (0, 1, 2) 
+</select> 
+
+
+
+<!--  <select id="getBuyDetail" resultType="map">
+    SELECT d.ORDER_NO, d.PRO_CODE, d.PRO_OPTION, d.OPTION_NUMBER, d.OPTION_PRICE
+    FROM s_order_detail d
+    JOIN s_order o ON d.ORDER_NO = o.ORDER_NO
+    WHERE o.STATUS IN (0, 1, 2)
+</select>-->
+
+<select id="getBuyDetail" resultType="map"> <!-- 수정함 -->
+    SELECT ORDER_NO, PRO_CODE, PRO_OPTION, OPTION_NUMBER, OPTION_PRICE, `STATUS`
+    FROM s_order_detail 
+    WHERE STATUS IN (0, 1, 2)
+</select>
+
+
+<select id="getPayData" resultType="map">
+    SELECT pd.ORDER_NO, pd.PAY_AMOUNT, pd.HOW_TO_PAY, pd.PAY_STATUS, pd.PAY_TIME
+    FROM s_pay_detail pd
+    JOIN s_order_detail o ON pd.ORDER_NO = o.ORDER_NO
+    WHERE o.STATUS IN (0, 1, 2)
+</select>
+
+
+
+<!-- <select id = "getSellDetail" resultType = "map">
+SELECT A.ORDER_NO, BUYER_NAME, RECEIVE_NAME, RECEIVE_ADDR, RECEIVE_PHONE
+FROM s_order_detail A
+JOIN s_order B ON A.ORDER_NO = B.ORDER_NO
+WHERE A.STATUS = 1
+</select> !-->
+
+<select id = "getSellDetail" resultType = "map"> <!-- 변경함 -->
+SELECT ORDER_NO, BUYER_NAME, RECEIVE_NAME, RECEIVE_ADDR, RECEIVE_PHONE
+FROM s_order_detail
+WHERE STATUS = 1
+</select>
+
+<!--  <select id = "getDeliveryData" resultType = "map">
+SELECT ORDER_NO, DELIVERY_COMPANY, DELIVERY_NUMBER, DELIVERY_STATUS, EXPEXT_DATE
+	FROM s_delivery_info 
+</select> -->
+
+<select id = "getDeliveryData" resultType = "map"> <!-- 변경함 -->
+SELECT d.ORDER_NO, d.DELIVERY_COMPANY, d.DELIVERY_NUMBER, d.DELIVERY_STATUS, d.EXPEXT_DATE
+FROM s_delivery_info d
+JOIN s_order_detail o ON d.ORDER_NO = o.ORDER_NO
+WHERE o.STATUS = 1;
+</select>
+
+<insert id = "saveNewData" parameterType = "map">
+INSERT INTO s_pro_sell
+	(PRO_CODE, PRO_NAME, PRO_KIND, PRO_NAME_EN, PRO_IMG, SERVER_IMG, SALE_PERCENT, HOW_MUCH, LIKE_NUMBER)
+	VALUES (#{PRO_CODE}, #{PRO_NAME}, #{PRO_KIND}, #{PRO_NAME_EN}, #{PRO_IMG}, #{SERVER_IMG}, #{SALE_PERCENT}, #{HOW_MUCH}, #{LIKE_NUMBER})
+</insert>
+
+<insert id = "saveNewOption" parameterType = "map">
+INSERT INTO s_pro_option
+	(PRO_CODE, PRO_OPTION, OPTION_NAME, OPTION_NUMBER, OPTION_ADD_PRICE)
+	VALUES (#{PRO_CODE}, #{PRO_OPTION}, #{OPTION_NAME}, #{OPTION_NUMBER}, #{OPTION_ADD_PRICE})
+</insert>
+
+<insert id = "saveNewDetail" parameterType = "map">
+INSERT INTO s_pro_detail
+	(PRO_CODE, DETAIL_INFO, UPLOAD_DATE, UPDATE_DATE)
+	VALUES (#{PRO_CODE}, #{DETAIL_INFO}, NOW(), NOW())
+</insert>
+
+
+<update id = "saveEdtData" parameterType = "map">
+UPDATE s_pro_sell
+	SET
+		PRO_NAME= #{PRO_NAME},
+		PRO_KIND= #{PRO_KIND},
+		PRO_NAME_EN= #{PRO_NAME_EN},
+		PRO_IMG= #{PRO_IMG},
+		SERVER_IMG= #{SERVER_IMG},
+		SALE_PERCENT= #{SALE_PERCENT},
+		HOW_MUCH= #{HOW_MUCH},
+		LIKE_NUMBER= #{LIKE_NUMBER}	
+	WHERE PRO_CODE= #{PRO_CODE}
+</update>
+
+<update id = "saveEdtOption" parameterType = "map">
+UPDATE s_pro_option
+	SET
+		OPTION_NAME = <![CDATA[#{OPTION_NAME}]]>,
+		OPTION_NUMBER= #{OPTION_NUMBER},
+		OPTION_ADD_PRICE= #{OPTION_ADD_PRICE}
+	WHERE PRO_CODE= #{PRO_CODE} AND PRO_OPTION= #{PRO_OPTION}
+</update>    
+
+<insert id = "saveInsertOption" parameterType = "map">
+INSERT INTO s_pro_option
+	(PRO_CODE, PRO_OPTION, OPTION_NAME, OPTION_NUMBER, OPTION_ADD_PRICE)
+	VALUES (#{PRO_CODE}, #{PRO_OPTION}, #{OPTION_NAME}, #{OPTION_NUMBER}, #{OPTION_ADD_PRICE})
+</insert>
+
+<delete id = "saveDeleteOption" parameterType="Map">
+DELETE FROM s_pro_option
+</delete>
+
+<update id = "saveEdtDetail" parameterType = "map">
+UPDATE s_pro_detail
+	SET
+		DETAIL_INFO=#{DETAIL_INFO},
+		UPDATE_DATE=NOW()
+	WHERE PRO_CODE = #{PRO_CODE}
+</update>
+
+
+<update id = "edtCartNum" parameterType = "map">
+UPDATE s_cart
+	SET
+		PRO_OP_NUMBER=#{PRO_OP_NUMBER}
+	WHERE USER_ID=#{USER_ID} AND PRO_CODE=#{PRO_CODE} AND PRO_OPTION=#{PRO_OPTION}
+</update>
+	
+<delete id = "deleteCart" parameterType = "map">
+DELETE FROM s_cart WHERE USER_ID=#{USER_ID} AND PRO_CODE=#{PRO_CODE} AND PRO_OPTION=#{PRO_OPTION}
+</delete>
+
+<insert id = "addCartInfo" parameterType = "map">
+INSERT INTO s_cart
+	(USER_ID, PRO_CODE, PRO_NAME, PRO_OPTION, OPTION_NAME, PRO_OP_NUMBER)
+	VALUES (#{USER_ID}, #{PRO_CODE}, #{PRO_NAME}, #{PRO_OPTION}, #{OPTION_NAME}, #{PRO_OP_NUMBER})
+</insert>
+
+
+<select id="checkIfOrderNoExists" resultType="boolean">
+    SELECT COUNT(*) 
+    FROM s_delivery_info
+    WHERE ORDER_NO = #{ORDER_NO}
+</select>
+
+<update id="updateDeliveryData" parameterType="Map">
+UPDATE s_delivery_info
+	SET
+		DELIVERY_COMPANY=#{DELIVERY_COMPANY},
+		DELIVERY_NUMBER=#{DELIVERY_NUMBER},
+		DELIVERY_STATUS='#{DELIVERY_STATUS},
+		EXPEXT_DATE=#{EXPEXT_DATE}
+	WHERE ORDER_NO=#{ORDER_NO}
+</update>
+
+<insert id = "insertDeliveryData" parameterType = "map">
+INSERT INTO s_delivery_info
+	(ORDER_NO, DELIVERY_COMPANY, DELIVERY_NUMBER, DELIVERY_STATUS, EXPEXT_DATE)
+	VALUES (#{ORDER_NO}, #{DELIVERY_COMPANY}, #{DELIVERY_NUMBER}, #{DELIVERY_STATUS}, #{EXPEXT_DATE})
+</insert>
+
+<select id = "getOrderNo" resultType = "int"> 
+	SELECT COUNT(*) FROM s_order
+</select>
+
+
+<insert id = "getUserOrder" parameterType = "map">
+INSERT INTO s_order
+	(ORDER_NO, USER_ID, TOTAL_AMOUNT)
+	VALUES (#{ORDER_NO}, #{USER_ID}, #{TOTAL_AMOUNT})
+</insert>
+<insert id = "getUserPay" parameterType = "map">
+INSERT INTO s_pay_detail
+	(ORDER_NO, PAY_AMOUNT, HOW_TO_PAY, PAY_STATUS, PAY_TIME)
+	VALUES (#{ORDER_NO}, #{TOTAL_AMOUNT}, #{HOW_TO_PAY}, #{PAY_STATUS}, NOW())
+</insert>
+<insert id = "getUserOrderDetail" parameterType = "map">
+INSERT INTO s_order_detail
+	(ORDER_NO, BUYER_NAME, BUYER_PHONE, RECEIVE_NAME, RECEIVE_ADDR, RECEIVE_PHONE, DELIVERY_REQUEST, PRO_CODE, PRO_OPTION, OPTION_NUMBER, OPTION_PRICE, `STATUS`)
+	VALUES (#{ORDER_NO}, #{BUYER_NAME}, #{BUYER_PHONE}, #{RECEIVE_NAME}, #{RECEIVE_ADDR}, #{RECEIVE_PHONE}, #{DELIVERY_REQUEST}, #{PRO_CODE}, #{PRO_OPTION}, #{OPTION_NUMBER}, #{OPTION_PRICE}, #{STATUS})
+</insert>
+
+<update id="updateOptionNumber" parameterType="map">
+    UPDATE s_pro_option
+    SET OPTION_NUMBER = OPTION_NUMBER - #{OPTION_NUMBER}
+    WHERE PRO_CODE = #{PRO_CODE} 
+      AND PRO_OPTION = #{PRO_OPTION}
+</update>
+
+<select id = "useUserOrder" resultType = "map">
+SELECT ORDER_NO, USER_ID, TOTAL_AMOUNT
+	FROM s_order
+</select>
+<select id = "useUserOrderDetail" resultType = "map">
+SELECT ORDER_NO, BUYER_NAME, BUYER_PHONE, PRO_CODE, PRO_OPTION, OPTION_NUMBER, OPTION_PRICE,  `STATUS`
+	FROM s_order_detail
+</select>
+
+<update id="SaveCancleData" parameterType="map"> <!-- 수정함 -->
+UPDATE s_order_detail
+	SET
+		`STATUS`=#{STATUS}
+	WHERE ORDER_NO=#{ORDER_NO}
+</update>
+<update id="updateProOpNumber" parameterType="map">
+    UPDATE s_pro_option
+    SET
+        OPTION_NUMBER = GREATEST(OPTION_NUMBER - #{OPTION_NUMBER}, 0)
+    WHERE PRO_CODE = #{PRO_CODE} AND PRO_OPTION = #{PRO_OPTION}
+</update>
+
+<select id="getExistingStatus" resultType="String" parameterType="String">
+    SELECT `STATUS`
+    FROM s_order_detail
+    WHERE ORDER_NO = #{orderNo}
+</select>
+
+<update id = "savePayStatus" parameterType = "map">
+UPDATE s_pay_detail
+	SET
+		PAY_STATUS= #{PAY_STATUS}
+	WHERE ORDER_NO=#{ORDER_NO}
+</update>
+
+<update id = "saveBuyStatus" parameterType = "map"> <!-- 수정함 -->
+UPDATE s_order_detail
+	SET
+		`STATUS`=#{STATUS}
+	WHERE ORDER_NO=#{ORDER_NO}
+</update>
+
+<select id="getAlertData" resultType="map" parameterType="String">
+SELECT TITLE, ALERT_NO, DETAIL, WRITER, DATE
+	FROM s_alert
+    WHERE WRITER=#{user_id}
+</select>
+
+
+<insert id="insertAlert" parameterType="map">
+    INSERT INTO s_alert (TITLE, DETAIL, WRITER, DATE, ALERT_NO)
+    VALUES (#{TITLE}, #{DETAIL}, #{WRITER}, #{DATE}, #{ALERT_NO})
+</insert>
+<update id="updateAlert" parameterType="map">
+    UPDATE s_alert
+    SET DETAIL = #{DETAIL}, WRITER = #{WRITER}, DATE = #{DATE}, TITLE = #{TITLE}
+    WHERE ALERT_NO = #{ALERT_NO}
+</update>
+<delete id="deleteAlert" parameterType="map">
+    DELETE FROM s_alert WHERE ALERT_NO = #{ALERT_NO}
+</delete>
+<select id="getAlertKey" resultType="int">
+    SELECT COALESCE(MAX(ALERT_NO), 0) FROM s_alert
+</select>
+
+<select id="getAlertDataSite" resultType="map">
+	SELECT ALERT_NO, TITLE, DETAIL, WRITER, DATE
+	FROM s_alert
+</select>
+
+
+<select id = "getUserMyOrder" parameterType="String" resultType = "map"> <!-- 수정함 -->
+SELECT ORDER_NO, USER_ID, TOTAL_AMOUNT
+	FROM s_order
+	WHERE USER_ID=#{user_id}
+</select>
+<select id = "getUserOrderMyDetail" parameterType="String" resultType = "map">
+SELECT od.ORDER_NO, od.PRO_CODE, od.PRO_OPTION, od.OPTION_NUMBER, od.OPTION_PRICE, od.STATUS
+	FROM s_order_detail od
+	JOIN s_order o ON od.ORDER_NO = o.ORDER_NO
+	WHERE o.USER_ID = #{user_id}
+</select>
+
+<update id="changeBuyStatus" parameterType="map"> <!-- 디테일로 수정함 -->
+    UPDATE s_order_detail
+	SET
+		`STATUS`=#{STATUS}
+	WHERE ORDER_NO=#{ORDER_NO} AND PRO_CODE = #{PRO_CODE} AND PRO_OPTION = #{PRO_OPTION}
+</update>
+
+<select id = "idFound" parameterType="map" resultType = "int">
+SELECT COUNT(*) FROM s_member WHERE USER_EMAIL = #{USER_EMAIL} AND USER_PHONE = #{USER_PHONE}
+</select>
+<select id = "idFoundResult" parameterType="map" resultType = "int">
+SELECT USER_ID FROM s_member WHERE USER_EMAIL = #{USER_EMAIL} AND USER_PHONE = #{USER_PHONE}
+</select>
+
+</mapper>    	
